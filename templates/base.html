@@ -24,6 +24,11 @@
     <footer>
         <p>&copy; 2025 Adam Campbell</p>
     </footer>
-    <script type="module" src="{% static 'js/scripts.js' %}"></script>
+    <!-- This script holds any generic JS that should apply to every page -->
+    <script src="{% static 'js/scripts.js' %}"></script>
+    {% block extra_scripts %}
+        <!-- Individual page scripts go in here -->
+    {% endblock %}
+    
 </body>
 </html>
