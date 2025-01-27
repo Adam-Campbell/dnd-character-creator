@@ -1,4 +1,4 @@
-import { fetchStaticData, getEmptyCharacter } from "./utils.js";
+import { fetchStaticData, getEmptyCharacter, getCookie } from "./utils.js";
 
 const abilityIndexMap = {
     "strength": 0,
@@ -277,10 +277,69 @@ document.addEventListener("alpine:init", () => {
         /**
          * When the user has finished creating their character, POST the character to the server.
          */
-        handleSubmit() {
+        async handleSubmit() {
             console.log("submitting")
             const character = JSON.parse(JSON.stringify(this.character));
+            const csrfToken = getCookie('csrftoken');
+            console.log(csrfToken);
             console.log(character)
+            const testCharacter = {
+                race: "095914ea-d0a5-41dd-a003-6b5d4558a3ad",
+                class: "44f84547-8935-4ab4-bd29-fb60d0000d04",
+                classSkillChoices: ["57b45a74-aacb-4ea7-9d5d-8219b8f15851", "fc38c64c-bc06-4fd1-b38e-3912d517635d"],
+                classCantripChoices: [],
+                classSpellChoices: [],
+                abilityPoints: [
+                    { id: "0caab33e-f424-4a44-94cd-0c6951e5bdfe", value: '15' },
+                    { id: "fd107c7f-4536-4b36-bf43-e49d92a3c4c2", value: '13' },
+                    { id: "b9b14f85-78db-49ea-b07b-b8bdd7a40046", value: '14' },
+                    { id: "44fbcb3c-d548-4a3c-aa85-4c55e05aabed", value: '8' },
+                    { id: "468b3218-340b-4263-9450-dc72e6750f16", value: '12' },
+                    { id: "b15c2aa9-87e7-408d-89a7-3bbd64d981a9", value: '10' },
+                ],
+                name: "Bob",
+                age: 42,
+                gender: "Male",
+                alignment: "Chaotic Good",
+                background: "A long and storied history, full of adventure and intrigue.",
+                traits: ["Fearsome", "Brave", "Loyal"],
+                ideals: ["Freedom", "Justice"],
+                bonds: ["Family", "Friends"],
+                flaws: ["Overconfident", "Impulsive"],
+                height: "6 ft 7 in",
+                build: "Auroch-like",
+                skinTone: "Tanned",
+                hairColor: "Dark brown",
+                hairStyle: "Worn loose",
+                hairLength: "Long",
+                hairType: "Wavy",
+                facialHairStyle: "Full beard",
+                facialHairLength: "Long",
+                eyeColor: "Hazel",
+                eyeShape: "Almond",
+                distinguishingFeatures: ["Heavily scarred face", "Missing left ear"],
+                clothingStyle: "Minimalist",
+                clothingColors: ["Black", "White"],
+                clothingAccessories: [],
+            };
+            console.log(JSON.stringify(testCharacter));
+            try {
+                const response = await fetch('/characters/new/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify(this.character)
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to POST character');
+                }
+                const data = await response.json();
+                console.log('Success', data);
+            } catch (error) {
+                console.error('Error POSTing character:', error);
+            }
         }
     }));
 })

@@ -5,4 +5,7 @@
 {% block content %}
     <h1>Characters</h1>
     <p>All of the publicly viewable characters will appear here</p>
+    {% for character in characters %}
+        <p>{{ character }}</p>
+    {% endfor %}
 {% endblock %}
