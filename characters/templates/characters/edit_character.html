@@ -45,13 +45,13 @@
                             <div data-text="`Size: ${chosenRace.size}`"></div>
                             <div data-text="chosenRace.darkvision ? 'This race has darkvision' : 'This race does not have darkvision'"></div>
                             <template data-for="abilityBonus in chosenRace.abilityBonuses.filter(abilityBonus => abilityBonus.bonus !== 0)">
-                                <span data-text="`+${abilityBonus.bonus} to ${abilityBonus.name}`"></span>
+                                <span data-text="`+${abilityBonus.bonus} to ${abilityBonus.ability.name}`"></span>
                             </template>
                             <template data-if="chosenRace.weaponProficiencies.length > 0">
                                 <div>
                                     <div>Weapon Proficiencies:</div>
-                                    <template data-for="proficiency in chosenRace.weaponProficiencies">
-                                        <span data-text="proficiency.name"></span>
+                                    <template data-for="weapon in chosenRace.weaponProficiencies">
+                                        <span data-text="weapon.name"></span>
                                     </template>
                                 </div>
                             </template>

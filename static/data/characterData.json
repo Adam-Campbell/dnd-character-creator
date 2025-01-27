@@ -9,27 +9,27 @@
             "darkvision": true,
             "abilityBonuses": [
                 {
-                    "id": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
+                    "ability": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
                     "bonus": 0 
                 },
                 {
-                    "id": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
+                    "ability": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
                     "bonus": 0 
                 },
                 {
-                    "id": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
+                    "ability": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
                     "bonus": 2 
                 },
                 {
-                    "id": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
+                    "ability": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
                     "bonus": 0 
                 },
                 {
-                    "id": "468b3218-340b-4263-9450-dc72e6750f16",
+                    "ability": "468b3218-340b-4263-9450-dc72e6750f16",
                     "bonus": 1 
                 },
                 {
-                    "id": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
+                    "ability": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
                     "bonus": 0 
                 }
             ],
@@ -64,27 +64,27 @@
             "darkvision": true,
             "abilityBonuses": [
                 {
-                    "id": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
+                    "ability": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
                     "bonus": 0 
                 },
                 {
-                    "id": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
+                    "ability": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
                     "bonus": 2 
                 },
                 {
-                    "id": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
+                    "ability": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
                     "bonus": 0 
                 },
                 {
-                    "id": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
+                    "ability": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
                     "bonus": 1 
                 },
                 {
-                    "id": "468b3218-340b-4263-9450-dc72e6750f16",
+                    "ability": "468b3218-340b-4263-9450-dc72e6750f16",
                     "bonus": 0 
                 },
                 {
-                    "id": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
+                    "ability": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
                     "bonus": 0 
                 }
             ],
@@ -119,27 +119,27 @@
             "darkvision": false,
             "abilityBonuses": [
                 {
-                    "id": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
+                    "ability": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
                     "bonus": 0 
                 },
                 {
-                    "id": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
+                    "ability": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
                     "bonus": 2 
                 },
                 {
-                    "id": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
+                    "ability": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
                     "bonus": 0 
                 },
                 {
-                    "id": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
+                    "ability": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
                     "bonus": 0 
                 },
                 {
-                    "id": "468b3218-340b-4263-9450-dc72e6750f16",
+                    "ability": "468b3218-340b-4263-9450-dc72e6750f16",
                     "bonus": 0 
                 },
                 {
-                    "id": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
+                    "ability": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
                     "bonus": 1 
                 }
             ],
@@ -173,27 +173,27 @@
             "darkvision": false,
             "abilityBonuses": [
                 {
-                    "id": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
+                    "ability": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
                     "bonus": 1 
                 },
                 {
-                    "id": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
+                    "ability": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
                     "bonus": 1 
                 },
                 {
-                    "id": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
+                    "ability": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
                     "bonus": 1 
                 },
                 {
-                    "id": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
+                    "ability": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
                     "bonus": 1 
                 },
                 {
-                    "id": "468b3218-340b-4263-9450-dc72e6750f16",
+                    "ability": "468b3218-340b-4263-9450-dc72e6750f16",
                     "bonus": 1 
                 },
                 {
-                    "id": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
+                    "ability": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
                     "bonus": 1 
                 }
             ],
@@ -210,27 +210,27 @@
             "darkvision": true,
             "abilityBonuses": [
                 {
-                    "id": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
+                    "ability": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
                     "bonus": 1 
                 },
                 {
-                    "id": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
+                    "ability": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
                     "bonus": 1 
                 },
                 {
-                    "id": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
+                    "ability": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
                     "bonus": 1 
                 },
                 {
-                    "id": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
+                    "ability": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
                     "bonus": 1 
                 },
                 {
-                    "id": "468b3218-340b-4263-9450-dc72e6750f16",
+                    "ability": "468b3218-340b-4263-9450-dc72e6750f16",
                     "bonus": 1 
                 },
                 {
-                    "id": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
+                    "ability": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
                     "bonus": 2 
                 }
             ],
@@ -252,27 +252,27 @@
             "darkvision": true,
             "abilityBonuses": [
                 {
-                    "id": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
+                    "ability": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
                     "bonus": 0 
                 },
                 {
-                    "id": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
+                    "ability": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
                     "bonus": 0 
                 },
                 {
-                    "id": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
+                    "ability": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
                     "bonus": 0
                 },
                 {
-                    "id": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
+                    "ability": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
                     "bonus": 1 
                 },
                 {
-                    "id": "468b3218-340b-4263-9450-dc72e6750f16",
+                    "ability": "468b3218-340b-4263-9450-dc72e6750f16",
                     "bonus": 0 
                 },
                 {
-                    "id": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
+                    "ability": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
                     "bonus": 2 
                 }
             ],
@@ -338,19 +338,19 @@
             },
             "equipment": [
                 {
-                    "id": "6dc22098-2109-4736-ac46-3e7834f3e4f6",
+                    "item": "6dc22098-2109-4736-ac46-3e7834f3e4f6",
                     "quantity": 1
                 },
                 {
-                    "id":  "982b9a2a-0cec-4a3d-81a4-c3fcd1100435",
+                    "item":  "982b9a2a-0cec-4a3d-81a4-c3fcd1100435",
                     "quantity": 2
                 },
                 {
-                    "id": "578304a0-bae5-479c-9f79-7046b8fb3c58",
+                    "item": "578304a0-bae5-479c-9f79-7046b8fb3c58",
                     "quantity": 1
                 },
                 {
-                    "id": "66119965-f10b-4884-bfcf-a6181335f716",
+                    "item": "66119965-f10b-4884-bfcf-a6181335f716",
                     "quantity": 4
                 }
             ],
@@ -367,27 +367,27 @@
             },
             "abilities": [
                 {
-                    "id": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
+                    "ability": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
                     "value": 15
                 },
                 {
-                    "id": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
+                    "ability": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
                     "value": 13
                 },
                 {
-                    "id": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
+                    "ability": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
                     "value": 14
                 },
                 {
-                    "id": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
+                    "ability": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
                     "value": 8
                 },
                 {
-                    "id": "468b3218-340b-4263-9450-dc72e6750f16",
+                    "ability": "468b3218-340b-4263-9450-dc72e6750f16",
                     "value": 12
                 },
                 {
-                    "id": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
+                    "ability": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
                     "value": 10
                 }
             ],
@@ -456,23 +456,23 @@
             },
             "equipment": [
                 {
-                    "id": "d36c2f28-c6ec-40d9-8ab5-07bf44ab0dbb",
+                    "item": "d36c2f28-c6ec-40d9-8ab5-07bf44ab0dbb",
                     "quantity": 1
                 },
                 {
-                    "id": "d5bd0a43-7dfe-493e-9741-653f792caa7e",
+                    "item": "d5bd0a43-7dfe-493e-9741-653f792caa7e",
                     "quantity": 1
                 },
                 {
-                    "id": "a000e492-4418-416d-849b-09d64c200eaa",
+                    "item": "a000e492-4418-416d-849b-09d64c200eaa",
                     "quantity": 1
                 },
                 {
-                    "id": "cf5fb278-0a70-4c5c-9079-b144eccf88f6",
+                    "item": "cf5fb278-0a70-4c5c-9079-b144eccf88f6",
                     "quantity": 1
                 },
                 {
-                    "id": "b19e1ad4-b0d1-47c0-9641-72d51d1ce907",
+                    "item": "b19e1ad4-b0d1-47c0-9641-72d51d1ce907",
                     "quantity": 1
                 }
             ],
@@ -514,27 +514,27 @@
             },
             "abilities": [
                 {
-                    "id": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
+                    "ability": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
                     "value": 8
                 },
                 {
-                    "id": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
+                    "ability": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
                     "value": 14
                 },
                 {
-                    "id": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
+                    "ability": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
                     "value": 13
                 },
                 {
-                    "id": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
+                    "ability": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
                     "value": 12
                 },
                 {
-                    "id": "468b3218-340b-4263-9450-dc72e6750f16",
+                    "ability": "468b3218-340b-4263-9450-dc72e6750f16",
                     "value": 10
                 },
                 {
-                    "id": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
+                    "ability": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
                     "value": 15
                 }
             ],
@@ -585,19 +585,19 @@
             },
             "equipment": [
                 {
-                    "id": "1e8ffe24-edf0-446a-9ae9-8ed0befa7c32",
+                    "item": "1e8ffe24-edf0-446a-9ae9-8ed0befa7c32",
                     "quantity": 1
                 },
                 {
-                    "id": "9b541bd7-1f40-4cd3-9b14-6498681920d7",
+                    "item": "9b541bd7-1f40-4cd3-9b14-6498681920d7",
                     "quantity": 1
                 },
                 {
-                    "id": "c1f86cf1-b62e-4fea-84b7-1c5900118b5e",
+                    "item": "c1f86cf1-b62e-4fea-84b7-1c5900118b5e",
                     "quantity": 1
                 },
                 {
-                    "id": "46abebad-ecc3-42e2-90f8-078b73a2d8df",
+                    "item": "46abebad-ecc3-42e2-90f8-078b73a2d8df",
                     "quantity": 1
                 }
             ],
@@ -635,27 +635,27 @@
             },
             "abilities": [
                 {
-                    "id": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
+                    "ability": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
                     "value": 13
                 },
                 {
-                    "id": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
+                    "ability": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
                     "value": 10
                 },
                 {
-                    "id": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
+                    "ability": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
                     "value": 14
                 },
                 {
-                    "id": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
+                    "ability": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
                     "value": 8
                 },
                 {
-                    "id": "468b3218-340b-4263-9450-dc72e6750f16",
+                    "ability": "468b3218-340b-4263-9450-dc72e6750f16",
                     "value": 15
                 },
                 {
-                    "id": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
+                    "ability": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
                     "value": 12
                 }
             ],
@@ -721,23 +721,23 @@
             },
             "equipment": [
                 {
-                    "id": "7aadb6ca-a9f7-4319-920a-db7891f37d65",
+                    "item": "7aadb6ca-a9f7-4319-920a-db7891f37d65",
                     "quantity": 1
                 },
                 {
-                    "id": "b873347c-3ec6-4dbc-b185-2607132972ff",
+                    "item": "b873347c-3ec6-4dbc-b185-2607132972ff",
                     "quantity": 1
                 },
                 {
-                    "id": "46abebad-ecc3-42e2-90f8-078b73a2d8df",
+                    "item": "46abebad-ecc3-42e2-90f8-078b73a2d8df",
                     "quantity": 1
                 },
                 {
-                    "id": "982b9a2a-0cec-4a3d-81a4-c3fcd1100435",
+                    "item": "982b9a2a-0cec-4a3d-81a4-c3fcd1100435",
                     "quantity": 2
                 },
                 {
-                    "id": "603528ae-af92-4f4e-b570-fa3cd96aa2d9",
+                    "item": "603528ae-af92-4f4e-b570-fa3cd96aa2d9",
                     "quantity": 1
                 }
             ],
@@ -754,27 +754,27 @@
             },
             "abilities": [
                 {
-                    "id": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
+                    "ability": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
                     "value": 15
                 },
                 {
-                    "id": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
+                    "ability": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
                     "value": 13
                 },
                 {
-                    "id": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
+                    "ability": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
                     "value": 14
                 },
                 {
-                    "id": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
+                    "ability": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
                     "value": 10
                 },
                 {
-                    "id": "468b3218-340b-4263-9450-dc72e6750f16",
+                    "ability": "468b3218-340b-4263-9450-dc72e6750f16",
                     "value": 12
                 },
                 {
-                    "id": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
+                    "ability": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
                     "value": 8
                 }
             ],
@@ -832,23 +832,23 @@
             },
             "equipment": [
                 {
-                    "id": "d36c2f28-c6ec-40d9-8ab5-07bf44ab0dbb",
+                    "item": "d36c2f28-c6ec-40d9-8ab5-07bf44ab0dbb",
                     "quantity": 1
                 },
                 {
-                    "id": "2047a9b1-2c0d-4b3b-808e-ebf6dd367c27",
+                    "item": "2047a9b1-2c0d-4b3b-808e-ebf6dd367c27",
                     "quantity": 1
                 },
                 {
-                    "id": "a7e46a36-8e03-4bf1-bb01-7239b7eecb0d",
+                    "item": "a7e46a36-8e03-4bf1-bb01-7239b7eecb0d",
                     "quantity": 1
                 },
                 {
-                    "id": "b19e1ad4-b0d1-47c0-9641-72d51d1ce907",
+                    "item": "b19e1ad4-b0d1-47c0-9641-72d51d1ce907",
                     "quantity": 1
                 },
                 {
-                    "id": "cf5fb278-0a70-4c5c-9079-b144eccf88f6",
+                    "item": "cf5fb278-0a70-4c5c-9079-b144eccf88f6",
                     "quantity": 2
                 }
             ],
@@ -865,27 +865,27 @@
             },
             "abilities": [
                 {
-                    "id": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
+                    "ability": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
                     "value": 8
                 },
                 {
-                    "id": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
+                    "ability": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
                     "value": 15
                 },
                 {
-                    "id": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
+                    "ability": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
                     "value": 13
                 },
                 {
-                    "id": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
+                    "ability": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
                     "value": 14
                 },
                 {
-                    "id": "468b3218-340b-4263-9450-dc72e6750f16",
+                    "ability": "468b3218-340b-4263-9450-dc72e6750f16",
                     "value": 10
                 },
                 {
-                    "id": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
+                    "ability": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
                     "value": 12
                 }
             ],
@@ -931,15 +931,15 @@
             },
             "equipment": [
                 {
-                    "id": "24f750b2-1b5d-4b4b-b47a-de380732f3b2",
+                    "item": "24f750b2-1b5d-4b4b-b47a-de380732f3b2",
                     "quantity": 1
                 },
                 {
-                    "id": "d7d6b248-c769-4c3f-933e-56ce4256a306",
+                    "item": "d7d6b248-c769-4c3f-933e-56ce4256a306",
                     "quantity": 1
                 },
                 {
-                    "id": "9d5290a9-1110-48b8-9e10-644cb3b00e2e",
+                    "item": "9d5290a9-1110-48b8-9e10-644cb3b00e2e",
                     "quantity": 1
                 }
             ],
@@ -989,27 +989,27 @@
             },
             "abilities": [
                 {
-                    "id": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
+                    "ability": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
                     "value": 8
                 },
                 {
-                    "id": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
+                    "ability": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
                     "value": 13
                 },
                 {
-                    "id": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
+                    "ability": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
                     "value": 14
                 },
                 {
-                    "id": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
+                    "ability": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
                     "value": 15
                 },
                 {
-                    "id": "468b3218-340b-4263-9450-dc72e6750f16",
+                    "ability": "468b3218-340b-4263-9450-dc72e6750f16",
                     "value": 12
                 },
                 {
-                    "id": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
+                    "ability": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9",
                     "value": 10
                 }
             ],
@@ -1026,7 +1026,7 @@
             ]
         }
     ],
-    "cantrips": [
+    "spells": [
         { 
             "name": "Acid Splash", 
             "id": "d8ee8332-421a-441f-86a3-5ae00de502c7", 
@@ -1366,9 +1366,7 @@
                 "materialDescription": ""
             },
             "school": "enchantment"
-        }  
-    ],
-    "spells": [
+        },
         { 
             "name": "Bane", 
             "id": "ad6c7f3a-6770-497d-91bd-ae164f7cca4b", 
@@ -1998,7 +1996,7 @@
             "description": "Persuasion is your knack for influencing others through diplomacy and charm." 
         }
     ],
-    "weapons": [
+    "items": [
         { 
             "name": "Handaxe",
             "id": "982b9a2a-0cec-4a3d-81a4-c3fcd1100435",
@@ -2206,9 +2204,7 @@
             "wield": "twoHanded",
             "weightCategory": "heavy",
             "thrown": false
-        }
-    ],
-    "armor": [
+        },
         { 
             "name": "Leather Armour",
             "id": "b19e1ad4-b0d1-47c0-9641-72d51d1ce907",
@@ -2248,9 +2244,7 @@
             "type": "shield",
             "minStrength": 0,
             "stealthDisadvantage": false
-        }
-    ],
-    "items": [
+        },
         {
             "name": "Explorer's Pack",
             "id": "578304a0-bae5-479c-9f79-7046b8fb3c58",

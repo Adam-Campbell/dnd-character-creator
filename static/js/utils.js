@@ -46,21 +46,69 @@ export function getEmptyCharacter() {
     };
 }
 
-/**
- * Combines the different items collections into a single items collection,
- * deletes the original collections.
- * Mutates the data object rather than creating a new one.
- * @param {*} data 
- */
-function combineItems(data) {
-    data.items = [
-        ...data.weapons,
-        ...data.armor,
-        ...data.items
-    ];
-    delete data.weapons;
-    delete data.armor;
+const namingConventionMap = {
+    id: 'id',
+    race: 'race',
+    name: 'name',
+    age: 'age',
+    gender: 'gender',
+    alignment: 'alignment',
+    background: 'background',
+    traits: 'traits',
+    ideals: 'ideals',
+    bonds: 'bonds',
+    flaws: 'flaws',
+    height: 'height',
+    build: 'build',
+    class: 'character_class',
+    character_class: 'class',
+    classSkillChoices: 'character_class_skill_choices',
+    character_class_skill_choices: 'classSkillChoices',
+    classCantripChoices: 'character_class_cantrip_choices',
+    character_class_cantrip_choices: 'classCantripChoices',
+    classSpellChoices: 'character_class_spell_choices',
+    character_class_spell_choices: 'classSpellChoices',
+    abilityPoints: 'ability_points',
+    ability_points: 'abilityPoints',
+    skinTone: 'skin_tone',
+    skin_tone: 'skinTone',
+    hairColor: 'hair_color',
+    hair_color: 'hairColor',
+    hairStyle: 'hair_style',
+    hair_style: 'hairStyle',
+    hairLength: 'hair_length',
+    hair_length: 'hairLength',
+    hairType: 'hair_type',
+    hair_type: 'hairType',
+    facialHairStyle: 'facial_hair_style',
+    facial_hair_style: 'facialHairStyle',
+    facialHairLength: 'facial_hair_length',
+    facial_hair_length: 'facialHairLength',
+    eyeColor: 'eye_color',
+    eye_color: 'eyeColor',
+    eyeShape: 'eye_shape',
+    eye_shape: 'eyeShape',
+    distinguishingFeatures: 'distinguishing_features',
+    distinguishing_features: 'distinguishingFeatures',
+    clothingStyle: 'clothing_style',
+    clothing_style: 'clothingStyle',
+    clothingColors: 'clothing_colors',
+    clothing_colors: 'clothingColors',
+    clothingAccessories: 'clothing_accessories',
+    clothing_accessories: 'clothingAccessories',
 }
+
+export function switchObjectNamingConventions(obj) {
+    const newObj = {};
+    for (const key in obj) {
+        if (Object.hasOwnProperty.call(obj, key) && namingConventionMap[key]) {
+            const newKey = namingConventionMap[key];
+            newObj[newKey] = obj[key];
+        }
+    }
+    return newObj;
+}
+
 
 /**
  * Denormalises a single class object, replacing id references with actual entities.
@@ -71,18 +119,18 @@ function combineItems(data) {
 function denormaliseClass(cls, data) {
     // Equipment needs to have its shape changed
     cls.equipment = cls.equipment.map(e => {
-        const item = data.items.find(i => i.id === e.id);
+        const item = data.items.find(i => i.id === e.item);
         return {
             item: item,
             quantity: e.quantity
         }
     });
     // Abilities need to have their shape changed
-    cls.abilities = cls.abilities.map(abilityValuePair => {
-        const ability = data.abilities.find(i => i.id === abilityValuePair.id);
+    cls.abilities = cls.abilities.map(a => {
+        const ability = data.abilities.find(i => i.id === a.ability);
         return {
-            ...ability,
-            value: abilityValuePair.value
+            ability: ability,
+            value: a.value
         }
     });
     cls.primaryAbility = data.abilities.find(a => a.id === cls.primaryAbility);
@@ -94,7 +142,7 @@ function denormaliseClass(cls, data) {
     // Spellcasting can be replaced as-is, but only if the class is a caster class.
     if (cls.spellcasting.ability !== null) {
         cls.spellcasting.ability = data.abilities.find(a => a.id === cls.spellcasting.ability);
-        cls.spellcasting.cantrips.from = cls.spellcasting.cantrips.from.map(id => data.cantrips.find(c => c.id === id));
+        cls.spellcasting.cantrips.from = cls.spellcasting.cantrips.from.map(id => data.spells.find(c => c.id === id));
         cls.spellcasting.spells.from = cls.spellcasting.spells.from.map(id => data.spells.find(s => s.id === id));
     }
 }
@@ -108,9 +156,9 @@ function denormaliseClass(cls, data) {
 function denormaliseRace(race, data) {
     // We need to change the shape of ability bonuses
     race.abilityBonuses = race.abilityBonuses.map(abilityBonus => {
-        const ability = data.abilities.find(a => a.id === abilityBonus.id);
+        const ability = data.abilities.find(a => a.id === abilityBonus.ability);
         return {
-            ...ability,
+            ability: ability,
             bonus: abilityBonus.bonus
         }
     });
@@ -125,7 +173,7 @@ function denormaliseRace(race, data) {
  * @returns 
  */
 export function denormaliseData(data) {
-    combineItems(data);
+    //combineItems(data);
     data.classes.forEach(cls => denormaliseClass(cls, data));
     data.races.forEach(race => denormaliseRace(race, data));
     // return the data object just for flexibility
