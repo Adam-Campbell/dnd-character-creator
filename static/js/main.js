@@ -281,8 +281,9 @@ document.addEventListener("alpine:init", () => {
         /**
          * When the user has finished creating their character, POST the character to the server.
          */
-        async handleSubmit() {
-            console.log("submitting")
+        async handleSubmit(e) {
+            console.log("handleSubmit called")
+            e.preventDefault();
             const character = JSON.parse(JSON.stringify(this.character));
             const csrfToken = getCookie('csrftoken');
             const python_ready_character = switchObjectNamingConventions(this.character);

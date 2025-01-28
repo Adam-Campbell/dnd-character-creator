@@ -4,22 +4,22 @@
 {% block title %}Create A Character | DnD Character Creator{% endblock %}
 
 {% block content %}
-<div data-data="characterGenerator">
+<form action="" method="post" id="character-creator-form" data-data="characterGenerator">
     <template data-if="isLoading">
         <div>Loading...</div>
     </template>
     <template data-if="!isLoading">
         <div>
             <div>
-                <button data-on:click="() => setPage('race')">Race</button>
-                <button data-on:click="() => setPage('class')">Class</button>
-                <button data-on:click="() => setPage('abilityPoints')">Ability Points</button>
+                <button type="button" data-on:click="() => setPage('race')">Race</button>
+                <button type="button" data-on:click="() => setPage('class')">Class</button>
+                <button type="button" data-on:click="() => setPage('abilityPoints')">Ability Points</button>
                 <template data-if="isCaster">
-                    <button data-on:click="() => setPage('spells')">Spells</button>
+                    <button type="button" data-on:click="() => setPage('spells')">Spells</button>
                 </template>
-                <button data-on:click="() => setPage('background')">Background</button>
-                <button data-on:click="() => setPage('appearance')">Appearance</button>
-                <button data-on:click="() => setPage('summary')">Summary</button>
+                <button type="button" data-on:click="() => setPage('background')">Background</button>
+                <button type="button" data-on:click="() => setPage('appearance')">Appearance</button>
+                <button type="button" data-on:click="() => setPage('summary')">Summary</button>
             </div>
 
             <!-- Markup for race selection -->
@@ -630,11 +630,11 @@
 
             <!-- Markup for summary -->
             <template data-if="currentPage === 'summary'">
-                <button data-on:click="handleSubmit">Save</button>
+                <button type="submit" data-on:click="handleSubmit">Save</button>
             </template>
         </div>
     </template>
-</div>
+</form>
 {% endblock %}
 
 {% block extra_scripts %}
