@@ -5,7 +5,7 @@ from .models import Character
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.core.serializers import serialize
-from .data_utils import normalise_character_data, validate_character_data
+from .data_utils import get_static_data, validate_character_data
 
 
 # Create your views here.
@@ -26,6 +26,8 @@ def create_character(request):
     if request.method == 'POST':
         print("POST request received")
         character_data = json.loads(request.body)
+        if not validate_character_data(character_data):
+            return JsonResponse({ 'message': 'Invalid character data' }, status=400)
         new_character = Character.objects.create(
             user=request.user,
             race=character_data['race'],
@@ -69,8 +71,10 @@ def create_character(request):
 
 
 def character_detail(request, id):
-    context = { 'id': id }
-    return render(request, 'characters/character_detail.html', context)
+    #context = { 'id': id }
+    #return render(request, 'characters/character_detail.html', context)
+    character_data_json = get_static_data()
+    return JsonResponse(character_data_json)
 
 
 
@@ -79,8 +83,10 @@ def edit_character(request, id):
     context = { 'id': id }
     if request.method == 'POST':
         character_data = json.loads(request.body)
+        # Validate the character data
+        if not validate_character_data(character_data):
+            return JsonResponse({ 'message': 'Invalid character data' }, status=400)
         character = Character.objects.get(id=character_data['id'])
-        #print(character)
         for (key, value) in character_data.items():
             if key == 'id':
                 continue
