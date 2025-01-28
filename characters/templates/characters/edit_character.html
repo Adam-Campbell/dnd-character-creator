@@ -17,15 +17,15 @@
     <template data-if="!isLoading">
         <div>
             <div>
-                <button data-on:click="() => setPage('race')">Race</button>
-                <button data-on:click="() => setPage('class')">Class</button>
-                <button data-on:click="() => setPage('abilityPoints')">Ability Points</button>
+                <button type="button" data-on:click="() => setPage('race')">Race</button>
+                <button type="button" data-on:click="() => setPage('class')">Class</button>
+                <button type="button" data-on:click="() => setPage('abilityPoints')">Ability Points</button>
                 <template data-if="isCaster">
-                    <button data-on:click="() => setPage('spells')">Spells</button>
+                    <button type="button" data-on:click="() => setPage('spells')">Spells</button>
                 </template>
-                <button data-on:click="() => setPage('background')">Background</button>
-                <button data-on:click="() => setPage('appearance')">Appearance</button>
-                <button data-on:click="() => setPage('summary')">Summary</button>
+                <button type="button" data-on:click="() => setPage('background')">Background</button>
+                <button type="button" data-on:click="() => setPage('appearance')">Appearance</button>
+                <button type="button" data-on:click="() => setPage('summary')">Summary</button>
             </div>
 
             <!-- Markup for race selection -->
@@ -152,8 +152,8 @@
                 <div>
                     <p>Here is where we explain about the standard array</p>
                     <p data-text="`Your primary ability is ${chosenClass.primaryAbility.name}`"></p>
-                    <button data-on:click="resetAbilityPoints">Reset ability points</button>
-                    <button data-on:click="setAbilityPointsToChosenClassDefaults">Use class defaults</button>
+                    <button type="button" data-on:click="resetAbilityPoints">Reset ability points</button>
+                    <button type="button" data-on:click="setAbilityPointsToChosenClassDefaults">Use class defaults</button>
                     <div>
                         <div>
                             <h3>Strength</h3>
@@ -302,7 +302,7 @@
                                 <template data-for="cantripId in character.classCantripChoices">
                                     <li>
                                         <span data-text="getCantripData(cantripId).name"></span>
-                                        <button data-on:click="removeCantrip(cantripId)">Remove</button>
+                                        <button type="button" data-on:click="removeCantrip(cantripId)">Remove</button>
                                     </li>
                                 </template>
                             </ul>
@@ -313,7 +313,7 @@
                                 <template data-for="spellId in character.classSpellChoices">
                                     <li>
                                         <span data-text="getSpellData(spellId).name"></span>
-                                        <button data-on:click="removeSpell(spellId)">Remove</button>
+                                        <button type="button" data-on:click="removeSpell(spellId)">Remove</button>
                                     </li>
                                 </template>
                             </ul>
@@ -332,20 +332,21 @@
                                         <p data-text="`Casting time: ${cantrip.castingTime}`"></p>
                                         <p data-text="`Duration: ${cantrip.duration}`"></p>
                                         <p data-text="cantrip.concentration ? 'Requires concentration' : 'Does not require concentration' "></p>
-                                        <button data-on:click="() => open = false">See less</button>
+                                        <button type="button" data-on:click="() => open = false">See less</button>
                                     </div>
                                 </template>
                                 <template data-if="!open">
                                     <div>
                                         <p data-html="formatLineBreaks(truncateText(cantrip.description, 200))"></p>
-                                        <button data-on:click="() => open = true">See more</button>
+                                        <button type="button" data-on:click="() => open = true">See more</button>
                                     </div>
                                 </template>
                                 <template data-if="character.classCantripChoices.includes(cantrip.id)">
-                                    <button data-on:click="() => removeCantrip(cantrip.id)">Remove Cantrip</button>
+                                    <button type="button" data-on:click="() => removeCantrip(cantrip.id)">Remove Cantrip</button>
                                 </template>
                                 <template data-if="!character.classCantripChoices.includes(cantrip.id)">
-                                    <button 
+                                    <button
+                                        type="button" 
                                         data-bind:disabled="character.classCantripChoices.length >= chosenClass.spellcasting.cantrips.choose" 
                                         data-on:click="() => addCantrip(cantrip.id)">
                                         Add Cantrip
@@ -367,20 +368,21 @@
                                         <p data-text="`Casting time: ${spell.castingTime}`"></p>
                                         <p data-text="`Duration: ${spell.duration}`"></p>
                                         <p data-text="spell.concentration ? 'Requires concentration' : 'Does not require concentration' "></p>
-                                        <button data-on:click="() => open = false">See less</button>
+                                        <button type="button" data-on:click="() => open = false">See less</button>
                                     </div>
                                 </template>
                                 <template data-if="!open">
                                     <div>
                                         <p data-html="formatLineBreaks(truncateText(spell.description, 200))"></p>
-                                        <button data-on:click="() => open = true">See more</button>
+                                        <button type="button" data-on:click="() => open = true">See more</button>
                                     </div>
                                 </template>
                                 <template data-if="character.classSpellChoices.includes(spell.id)">
-                                    <button data-on:click="() => removeSpell(spell.id)">Remove Spell</button>
+                                    <button type="button" data-on:click="() => removeSpell(spell.id)">Remove Spell</button>
                                 </template>
                                 <template data-if="!character.classSpellChoices.includes(spell.id)">
-                                    <button 
+                                    <button
+                                        type="button" 
                                         data-bind:disabled="character.classSpellChoices.length >= chosenClass.spellcasting.spells.choose" 
                                         data-on:click="() => addSpell(spell.id)">
                                         Add Spell
@@ -425,13 +427,13 @@
                                 id="character-traits" type="text" data-model="temp"
                                 data-on:keydown.enter="() => { character.traits.push(temp); clear() }"
                             />
-                            <button data-on:click="() => { character.traits.push(temp); clear() }">Add</button>
+                            <button type="button" data-on:click="() => { character.traits.push(temp); clear() }">Add</button>
                         </div>
                         <ul>
                             <template data-for="(trait, index) in character.traits">
                                 <li data-bind:key="trait">
                                     <span data-text="trait"></span>
-                                    <button data-on:click="() => character.traits.splice(index, 1)">Remove</button>
+                                    <button type="button" data-on:click="() => character.traits.splice(index, 1)">Remove</button>
                                 </li>
                             </template>
                         </ul>
@@ -445,13 +447,13 @@
                                 id="character-ideals" type="text" data-model="temp" 
                                 data-on:keydown.enter="() => { character.ideals.push(temp); clear() }"    
                             />
-                            <button data-on:click="() => { character.ideals.push(temp); clear() }">Add</button>
+                            <button type="button" data-on:click="() => { character.ideals.push(temp); clear() }">Add</button>
                         </div>
                         <ul>
                             <template data-for="(ideal, index) in character.ideals">
                                 <li data-bind:key="ideal">
                                     <span data-text="ideal"></span>
-                                    <button data-on:click="() => character.ideals.splice(index, 1)">Remove</button>
+                                    <button type="button" data-on:click="() => character.ideals.splice(index, 1)">Remove</button>
                                 </li>
                             </template>
                         </ul>
@@ -465,13 +467,13 @@
                                 id="character-bonds" type="text" data-model="temp" 
                                 data-on:keydown.enter="() => { character.bonds.push(temp); clear() }"
                             />
-                            <button data-on:click="() => { character.bonds.push(temp); clear() }">Add</button>
+                            <button type="button" data-on:click="() => { character.bonds.push(temp); clear() }">Add</button>
                         </div>
                         <ul>
                             <template data-for="(bond, index) in character.bonds">
                                 <li data-bind:key="bond">
                                     <span data-text="bond"></span>
-                                    <button data-on:click="() => character.bonds.splice(index, 1)">Remove</button>
+                                    <button type="button" data-on:click="() => character.bonds.splice(index, 1)">Remove</button>
                                 </li>
                             </template>
                         </ul>
@@ -485,13 +487,13 @@
                                 id="character-flaws" type="text" data-model="temp" 
                                 data-on:keydown.enter="() => { character.flaws.push(temp); clear() }"    
                             />
-                            <button data-on:click="() => { character.flaws.push(temp); clear() }">Add</button>
+                            <button type="button" data-on:click="() => { character.flaws.push(temp); clear() }">Add</button>
                         </div>
                         <ul>
                             <template data-for="(flaw, index) in character.flaws">
                                 <li data-bind:key="flaw">
                                     <span data-text="flaw"></span>
-                                    <button data-on:click="() => character.flaws.splice(index, 1)">Remove</button>
+                                    <button type="button" data-on:click="() => character.flaws.splice(index, 1)">Remove</button>
                                 </li>
                             </template>
                         </ul>
@@ -575,13 +577,13 @@
                                 id="character-distinguishing-features" type="text" data-model="temp" 
                                 data-on:keydown.enter="() => { character.distinguishingFeatures.push(temp); clear() }"    
                             />
-                            <button data-on:click="() => { character.distinguishingFeatures.push(temp); clear() }">Add</button>
+                            <button type="button" data-on:click="() => { character.distinguishingFeatures.push(temp); clear() }">Add</button>
                         </div>
                         <ul>
                             <template data-for="(feature, index) in character.distinguishingFeatures">
                                 <li data-bind:key="feature">
                                     <span data-text="feature"></span>
-                                    <button data-on:click="() => character.distinguishingFeatures.splice(index, 1)">Remove</button>
+                                    <button type="button" data-on:click="() => character.distinguishingFeatures.splice(index, 1)">Remove</button>
                                 </li>
                             </template>
                         </ul>
@@ -599,13 +601,13 @@
                                 id="character-clothing-colors" type="text" data-model="temp" 
                                 data-on:keydown.enter="() => { character.clothingColors.push(temp); clear() }"    
                             />
-                            <button data-on:click="() => { character.clothingColors.push(temp); clear() }">Add</button>
+                            <button type="button" data-on:click="() => { character.clothingColors.push(temp); clear() }">Add</button>
                         </div>
                         <ul>
                             <template data-for="(clothingColor, index) in character.clothingColors">
                                 <li data-bind:key="clothingColor">
                                     <span data-text="clothingColor"></span>
-                                    <button data-on:click="() => character.clothingColors.splice(index, 1)">Remove</button>
+                                    <button type="button" data-on:click="() => character.clothingColors.splice(index, 1)">Remove</button>
                                 </li>
                             </template>
                         </ul>
@@ -619,13 +621,13 @@
                                 id="character-clothing-accessories" type="text" data-model="temp" 
                                 data-on:keydown.enter="() => { character.clothingAccessories.push(temp); clear() }"    
                             />
-                            <button data-on:click="() => { character.clothingAccessories.push(temp); clear() }">Add</button>
+                            <button type="button" data-on:click="() => { character.clothingAccessories.push(temp); clear() }">Add</button>
                         </div>
                         <ul>
                             <template data-for="(accessory, index) in character.clothingAccessories">
                                 <li data-bind:key="accessory">
                                     <span data-text="accessory"></span>
-                                    <button data-on:click="() => character.clothingAccessories.splice(index, 1)">Remove</button>
+                                    <button type="button" data-on:click="() => character.clothingAccessories.splice(index, 1)">Remove</button>
                                 </li>
                             </template>
                         </ul>
@@ -636,11 +638,11 @@
 
             <!-- Markup for summary -->
             <template data-if="currentPage === 'summary'">
-                <button data-on:click="handleSubmit">Save</button>
+                <button type="submit" data-on:click="handleSubmit">Save</button>
             </template>
         </div>
     </template>
-</div>
+</form>
 {% endblock %}
 
 {% block extra_scripts %}

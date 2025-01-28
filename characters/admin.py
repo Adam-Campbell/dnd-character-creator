@@ -5,6 +5,6 @@ from .models import Character
 
 @admin.register(Character)
 class CharacterAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'race', 'character_class', 'user')
+    list_display = ('id', 'name', 'race', 'character_class')
     search_fields = ('name', 'race', 'character_class')
-    filter_horizontal = ('liked_by',)
+    #filter_horizontal = ('liked_by',)
