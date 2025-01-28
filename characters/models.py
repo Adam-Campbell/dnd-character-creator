@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 import uuid
 import json
 
+
 # Create your models here.
 class Character(models.Model):
     id=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -54,8 +55,6 @@ class Character(models.Model):
             else:
                 instance_dict[field.name] = value
         return json.dumps(instance_dict)
-    
-    
 
     def __str__(self):
         return self.name

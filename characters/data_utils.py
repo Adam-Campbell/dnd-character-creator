@@ -1,8 +1,10 @@
 import json
+import threading
 from django.contrib.staticfiles import finders
-
+from copy import deepcopy
 
 static_data = None
+static_data_lock = threading.Lock()
 
 def get_item_by_property(item_list, property_name, property_value):
     """
@@ -54,16 +56,22 @@ def denormalise_class(class_data, data):
 
 def get_static_data():
     """Get the static character creator data from the JSON file, denormalise it, and return it."""
+    global static_data
     if static_data is not None:
-        return static_data
-    file_path = finders.find('data/characterData.json')
-    with open(file_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-        for i in range(len(data['races'])):
-            data['races'][i] = denormalise_race(data['races'][i], data)
-        for i in range(len(data['classes'])):
-            data['classes'][i] = denormalise_class(data['classes'][i], data)
-        return data
+        return deepcopy(static_data)
+    
+    with static_data_lock:
+        if static_data is None:
+            file_path = finders.find('data/characterData.json')
+            with open(file_path, 'r', encoding='utf-8') as f:
+                
+                data = json.load(f)
+                for i in range(len(data['races'])):
+                    data['races'][i] = denormalise_race(data['races'][i], data)
+                for i in range(len(data['classes'])):
+                    data['classes'][i] = denormalise_class(data['classes'][i], data)
+                static_data = data
+    return deepcopy(static_data)
 
 def validate_character_data(character_data):
     """Validate the character data."""

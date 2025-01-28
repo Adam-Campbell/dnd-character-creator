@@ -5,12 +5,8 @@ from .models import Character
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.core.serializers import serialize
-from .data_utils import get_static_data, validate_character_data
+from .data_utils import get_static_data, validate_character_data, get_item_by_id
 
-
-# Create your views here.
-#def character_list(request):
-#    return render(request, 'characters/character_list.html')
 
 class CharacterList(generic.ListView):
     model = Character
@@ -71,10 +67,48 @@ def create_character(request):
 
 
 def character_detail(request, id):
-    #context = { 'id': id }
-    #return render(request, 'characters/character_detail.html', context)
-    character_data_json = get_static_data()
-    return JsonResponse(character_data_json)
+    context = { 'id': id }
+    # Get character object from database
+    character = Character.objects.get(id=id)
+    # Get static data and add the relevant class and race data to the character object
+    static_data = get_static_data()
+    character.class_data = get_item_by_id(static_data['classes'], str(character.character_class))
+    character.race_data = get_item_by_id(static_data['races'], str(character.race))
+    # Format skill and spell choices
+    character.character_class_skill_choices = [
+        get_item_by_id(static_data['skills'], skill_id) for skill_id in character.character_class_skill_choices]
+    character.character_class_cantrip_choices = [
+        get_item_by_id(static_data['spells'], cantrip_id) for cantrip_id in character.character_class_cantrip_choices]
+    character.character_class_spell_choices = [
+        get_item_by_id(static_data['spells'], spell_id) for spell_id in character.character_class_spell_choices]
+    # Format ability points
+    temp_abilities = []
+    for abilityValue in character.ability_points:
+        ability_id = abilityValue['id']
+        base_value = abilityValue['value']
+        ability = get_item_by_id(static_data['abilities'], ability_id)
+        racial_bonus = 0
+        for b in character.race_data['abilityBonuses']:
+            if b['ability']['id'] == ability['id']:
+                racial_bonus = b['bonus']
+                break
+        derived_value = base_value + racial_bonus
+        modifier = (derived_value - 10) // 2
+        temp_abilities.append({
+            'ability': ability,
+            'base_value': base_value,
+            'racial_bonus': racial_bonus,
+            'derived_value': derived_value,
+            'modifier': modifier
+        })
+    character.ability_points = temp_abilities
+
+    # We were so concerned with whether or not we could, we didn't stop to think if we should
+    weapon_proficiencies = list({ weapon['id']: weapon for weapon in character.race_data['weaponProficiencies']+character.class_data['proficiencies']['weapons']}.values())
+    character.class_data['proficiencies']['weapons'] = weapon_proficiencies
+    
+    context['character'] = character
+    return render(request, 'characters/character_detail.html', context)
 
 
 
