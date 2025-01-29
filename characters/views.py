@@ -12,9 +12,20 @@ class CharacterList(generic.ListView):
     model = Character
     template_name = 'characters/character_list.html'
     context_object_name = 'characters'
+    paginate_by = 10  # Number of characters per page
 
     def get_queryset(self):
         return Character.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        characters = context['characters']
+        # Enrich each character with additional properties
+        static_data = get_static_data()
+        for character in characters:
+            character.class_data = get_item_by_id(static_data['classes'], str(character.character_class))
+            character.race_data = get_item_by_id(static_data['races'], str(character.race))
+        return context
 
 
 @login_required
