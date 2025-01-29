@@ -15,7 +15,15 @@ class CharacterList(generic.ListView):
     paginate_by = 10  # Number of characters per page
 
     def get_queryset(self):
-        return Character.objects.all()
+        #return Character.objects.all()
+        queryset = Character.objects.all()
+        character_class = self.request.GET.get('character_class')
+        race = self.request.GET.get('race')
+        if character_class:
+            queryset = queryset.filter(character_class=character_class)
+        if race:
+            queryset = queryset.filter(race=race)
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

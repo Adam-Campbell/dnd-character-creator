@@ -3,8 +3,33 @@
 {% block title %}Characters | DnD Character Creator{% endblock %}
 
 {% block content %}
-    <h1>Characters</h1>
-    <p>All of the publicly viewable characters will appear here</p>
+    <div class="filter-panel">
+        <form method="get">
+            <label for="character_class">Class:</label>
+            <select id="character_class" name="character_class">
+                <option value="">All</option>
+                <option value="44f84547-8935-4ab4-bd29-fb60d0000d04" {% if request.GET.character_class == "44f84547-8935-4ab4-bd29-fb60d0000d04" %}selected{% endif %}>Barbarian</option>
+                <option value="ea6fbdc2-82c7-44d7-b065-bd70e136ccc7" {% if request.GET.character_class == "ea6fbdc2-82c7-44d7-b065-bd70e136ccc7" %}selected{% endif %}>Bard</option>
+                <option value="17d2bd00-57b7-4756-b14e-43bf1f102585" {% if request.GET.character_class == "17d2bd00-57b7-4756-b14e-43bf1f102585" %}selected{% endif %}>Cleric</option>
+                <option value="e72b02b5-a7d0-4b1b-860f-7c965ea5e18c" {% if request.GET.character_class == "e72b02b5-a7d0-4b1b-860f-7c965ea5e18c" %}selected{% endif %}>Fighter</option>
+                <option value="32ea43f0-8f6f-4ce4-829c-f58955a758d1" {% if request.GET.character_class == "32ea43f0-8f6f-4ce4-829c-f58955a758d1" %}selected{% endif %}>Rogue</option>
+                <option value="ef560074-395d-4e42-b5ac-5ad9d3342271" {% if request.GET.character_class == "ef560074-395d-4e42-b5ac-5ad9d3342271" %}selected{% endif %}>Wizard</option>
+            </select>
+            
+            <label for="race">Race:</label>
+            <select id="race" name="race">
+                <option value="">All</option>
+                <option value="095914ea-d0a5-41dd-a003-6b5d4558a3ad" {% if request.GET.race == "095914ea-d0a5-41dd-a003-6b5d4558a3ad" %}selected{% endif %}>Dwarf</option>
+                <option value="576c1e3a-8464-4c1a-bbe7-3dde6813bbd3" {% if request.GET.race == "576c1e3a-8464-4c1a-bbe7-3dde6813bbd3" %}selected{% endif %}>Elf</option>
+                <option value="bf3b0c49-80cc-4258-85a0-3974f656469a" {% if request.GET.race == "bf3b0c49-80cc-4258-85a0-3974f656469a" %}selected{% endif %}>Halfling</option>
+                <option value="4725316c-cfc5-44a2-a69f-563088dec352" {% if request.GET.race == "4725316c-cfc5-44a2-a69f-563088dec352" %}selected{% endif %}>Human</option>
+                <option value="ec1f0336-fb41-4ac8-b1f3-2a574ddb1bd5" {% if request.GET.race == "ec1f0336-fb41-4ac8-b1f3-2a574ddb1bd5" %}selected{% endif %}>Half-Elf</option>
+                <option value="8b5c75dd-3d4f-41b4-a7c2-ec516f02256e" {% if request.GET.race == "8b5c75dd-3d4f-41b4-a7c2-ec516f02256e" %}selected{% endif %}>Tiefling</option>
+            </select>
+            <button type="submit">Filter</button>
+        </form>
+    </div>
+
     <div>
     {% for character in characters %}
         <div>
