@@ -12,7 +12,7 @@ class CharacterList(generic.ListView):
     model = Character
     template_name = 'characters/character_list.html'
     context_object_name = 'characters'
-    paginate_by = 10  # Number of characters per page
+    paginate_by = 12  # Number of characters per page
 
     def get_queryset(self):
         #return Character.objects.all()

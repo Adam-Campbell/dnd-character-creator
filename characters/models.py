@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import uuid
 import json
-
+from django.templatetags.static import static
 
 # Create your models here.
 class Character(models.Model):
@@ -38,6 +38,7 @@ class Character(models.Model):
     clothing_style = models.CharField(max_length=200)
     clothing_colors = models.JSONField(default=list, blank=True)
     clothing_accessories = models.JSONField(default=list, blank=True)
+    image_url = models.CharField(max_length=200, default=static('images/fantasy-placeholder.webp'))
     liked_by = models.ManyToManyField(User, related_name='liked_characters')
 
     def to_json(self):

@@ -7,15 +7,24 @@ body {
     padding: 0;
 }
 
-.image-placeholder {
-    width: 250px;
-    height: 250px;
-    background: rgb(150, 150, 150);
-}
+
+
+/********************************
+  Character sheet custom styles
+********************************/
+
+
 
 .ability-card-number {
     font-size: 6rem;
 }
+
+
+
+
+/***********************
+  Navbar custom styles
+***********************/
 
 .nav-button {
     width: 100%;
@@ -37,3 +46,41 @@ body {
 .main-logo {
     font-size: 2rem;
 }
+
+
+/********************************
+  Characters list custom styles
+********************************/
+
+.character-card-image-holder {
+    background-size: cover;
+    background-position: center;
+}
+
+@media (max-width: 370px) {
+    .character-card-column {
+        width: 100%;
+    }
+}
+
+
+
+
+/***************************
+  Auth pages custom styles
+***************************/
+
+.d20-background {
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+        url(../images/d20-background.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+
+
+
+
