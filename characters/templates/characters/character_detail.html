@@ -5,7 +5,7 @@
 {% block title %}View Character | DnD Character Creator{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container pt-4">
     <div class="row">
         
         <div class="col-12 d-flex flex-column flex-md-row align-items-center" id="xcharacter-intro">
@@ -14,9 +14,9 @@
                 <h1>{{ character.name }}</h1>
                 <p>{{ character.race_data.name }} {{ character.class_data.name }} | {{ character.age }} years old  |  {{ character.gender }}</p>
                 <div>
-                    <span class="badge text-bg-dark">Size: {{ character.race_data.size }}</span>
-                    <span class="badge text-bg-dark">Speed: {{ character.race_data.speed }} ft</span>
-                    <span class="badge text-bg-dark">Hit Die: 1d{{ character.class_data.hitDie }}</span>
+                    <span class="badge bg-dark">Size: {{ character.race_data.size }}</span>
+                    <span class="badge bg-dark">Speed: {{ character.race_data.speed }} ft</span>
+                    <span class="badge bg-dark">Hit Die: 1d{{ character.class_data.hitDie }}</span>
                 </div>
             </div>
         </div>
@@ -191,7 +191,7 @@
             <h4 class="mb-4">Equipment</h4>
             <ul class="list-group">
                 {% for equipment in character.class_data.equipment %}
-                    <li class="d-flex justify-content-between list-group-item">{{ equipment.item.name }}  <span class="badge text-bg-info"> × {{ equipment.quantity }}</span></li>
+                    <li class="d-flex justify-content-between list-group-item">{{ equipment.item.name }}  <span class="badge text-bg-light"> × {{ equipment.quantity }}</span></li>
                 {% endfor %}
             </ul>
         </div>
