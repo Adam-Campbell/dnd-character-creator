@@ -256,10 +256,10 @@
             <h4 class="mb-4">Ability Points</h4>
             <div class="row">
                 {% for ability in character.ability_points %}
-                <div class="d-flex mb-4 col-12 col-md-6 col-lg-4 col-xl-2">
+                <div class="d-flex mb-4 col-12 col-md-6 col-lg-4">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex align-items-center flex-xl-column justify-content-between justify-content-md-around">
+                            <div class="d-flex align-items-center justify-content-between justify-content-md-around">
                                 <p class="display-1 ability-card-number">{{ ability.derived_value }}</p>
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item d-flex justify-content-between align-items-center">Base Score: <span class="ms-1 badge bg-light text-dark">{{ ability.base_value }}</span></li>
