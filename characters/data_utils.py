@@ -6,6 +6,9 @@ from copy import deepcopy
 static_data = None
 static_data_lock = threading.Lock()
 
+def format_line_breaks(text):
+    return text.replace('\r\n', '<br/>').replace('\r', '<br/>').replace('\n', '<br/>')
+
 def get_item_by_property(item_list, property_name, property_value):
     """
     Get an item from a list such that item[property_name] == property_value.
@@ -44,10 +47,18 @@ def denormalise_class(class_data, data):
         for item in denormalised_class['equipment']]
     if denormalised_class['spellcasting']['ability'] is not None:
         denormalised_class['spellcasting']['ability'] = get_item_by_id(data['abilities'], denormalised_class['spellcasting']['ability'])
+       
         denormalised_class['spellcasting']['cantrips']['from'] = [
-            get_item_by_id(data['spells'], cantrip_id) for cantrip_id in denormalised_class['spellcasting']['cantrips']['from']]
+            {**cantrip, 'description': format_line_breaks(cantrip['description'])}
+            for cantrip_id in denormalised_class['spellcasting']['cantrips']['from']
+            for cantrip in [get_item_by_id(data['spells'], cantrip_id)]
+        ]
+
         denormalised_class['spellcasting']['spells']['from'] = [
-            get_item_by_id(data['spells'], spell_id) for spell_id in denormalised_class['spellcasting']['spells']['from']]
+            {**spell, 'description': format_line_breaks(spell['description'])}
+            for spell_id in denormalised_class['spellcasting']['spells']['from']
+            for spell in [get_item_by_id(data['spells'], spell_id)]
+        ]
     denormalised_class['abilities'] = [
         { 'ability': get_item_by_id(data['abilities'], ability['ability']), 'value': ability['value']} 
         for ability in denormalised_class['abilities']]

@@ -5,7 +5,7 @@ from .models import Character
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.core.serializers import serialize
-from .data_utils import get_static_data, validate_character_data, get_item_by_id
+from .data_utils import get_static_data, validate_character_data, get_item_by_id, format_line_breaks
 
 
 class CharacterList(generic.ListView):
@@ -100,6 +100,10 @@ def character_detail(request, id):
         get_item_by_id(static_data['spells'], cantrip_id) for cantrip_id in character.character_class_cantrip_choices]
     character.character_class_spell_choices = [
         get_item_by_id(static_data['spells'], spell_id) for spell_id in character.character_class_spell_choices]
+    for cantrip in character.character_class_cantrip_choices:
+        cantrip['description'] = format_line_breaks(cantrip['description'])
+    for spell in character.character_class_spell_choices:
+        spell['description'] = format_line_breaks(spell['description'])
     # Format ability points
     temp_abilities = []
     for abilityValue in character.ability_points:

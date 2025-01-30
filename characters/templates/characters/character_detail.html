@@ -1,180 +1,284 @@
 {% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
 
 {% block title %}View Character | DnD Character Creator{% endblock %}
 
 {% block content %}
-    <h1>Character Sheet</h1>
-    <div class="intro">
-        <p>Name: {{ character.name }}</p>
-        <p>Class: {{ character.class_data.name }}</p>
-        <p>Race: {{ character.race_data.name }}</p>
-        <p>Age: {{ character.age }}</p>
-        <p>Gender: {{ character.gender }}</p>
-        <p>Size: {{ character.race_data.size }}</p>
-        <p>Speed: {{ character.race_data.speed }} ft</p>
-        <p>Hit Die: 1d{{ character.class_data.hitDie }}</p>
-    </div>
-    <div class="character-background">
-        <h4>Background</h4>
-        <p>Alignment: {{ character.alignment }}</p>
-        <p>Background: {{ character.background }}</p>
-        {% if character.traits %}
-            <p>Traits:</p>
-            {% for trait in character.traits %}
-                <p>{{ trait }}</p>
-            {% endfor %}
-        {% endif %}
-        {% if character.ideals %}
-            <p>Ideals:</p>
-            {% for ideal in character.ideals %}
-                <p>{{ ideal }}</p>
-            {% endfor %}
-        {% endif %}
-        {% if character.bonds %}
-            <p>Bonds:</p>
-            {% for bond in character.bonds %}
-                <p>{{ bond }}</p>
-            {% endfor %}
-        {% endif %}
-        {% if character.flaws %}
-            <p>Flaws:</p>
-            {% for flaw in character.flaws %}
-                <p>{{ flaw }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-
-    <div class="character-appearance">
-        <h4>Appearance</h4>
-        <p>Height: {{ character.height }}</p>
-        <p>Build: {{ character.build }}</p>
-        <p>Skin Tone: {{ character.skin_tone }}</p>
-        <p>Eye Color: {{ character.eye_color }}</p>
-        <p>Eye Shape: {{ character.eye_shape }}</p>
-        {% if character.distinguishing_features %}
-            <p>Distinguishing Features:</p>
-            {% for feature in character.distinguishing_features %}
-                <p>{{ feature }}</p>
-            {% endfor %}
-        {% endif %}
-        <div>
-            <h5>Hair</h5>
-            <p>Color: {{ character.hair_color }}</p>
-            <p>Style: {{ character.hair_style }}</p>
-            <p>Length: {{ character.hair_length }}</p>
-            <p>Type: {{ character.hair_type }}</p>
-            <p>Facial Hair Style: {{ character.facial_hair_style }}</p>
-            <p>Facial Hair Length: {{ character.facial_hair_length }}</p>
-        </div>
-        <div>
-            <h5>Clothing</h5>
-            <p>Style: {{ character.clothing_style }}</p>
-            {% if character.clothing_colors %}
-                <p>Colors:</p>
-                {% for color in character.clothing_colors %}
-                    <p>{{ color }}</p>
-                {% endfor %}
-            {% endif %}
-            {% if character.clothing_accessories %}
-                <p>Accessories:</p>
-                {% for accessory in character.clothing_accessories %}
-                    <p>{{ accessory }}</p>
-                {% endfor %}
-            {% endif %}
-        </div>
+<div class="container">
+    <div class="row">
         
-    </div>
-
-    <div class="proficiencies">
-        <h4>Proficiencies</h4>
-        {% if character.class_data.proficiencies.armor %}
-            <p>Armor:</p>
-            {% for armor in character.class_data.proficiencies.armor %}
-                <p>{{ armor.name }}</p>
-            {% endfor %}
-        {% endif %}
-        {% if character.class_data.proficiencies.weapons %}
-            <p>Weapons:</p>
-            {% for weapon in character.class_data.proficiencies.weapons %}
-                <p>{{ weapon.name }}</p>
-            {% endfor %}
-        {% endif %}
-        {% if character.class_data.proficiencies.savingThrows %}
-            <p>Saving Throws:</p>
-            {% for saving_throw in character.class_data.proficiencies.savingThrows %}
-                <p>{{ saving_throw.name }}</p>
-            {% endfor %}
-        {% endif %}
-        {% if character.character_class_skill_choices %}
-            <p>Skills:</p>
-            {% for skill in character.character_class_skill_choices %}
-                <p>{{ skill.name }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-
-    <div>
-        <h4>Equipment</h4>
-        {% for equipment in character.class_data.equipment %}
-            <p>{{ equipment.item.name }} × {{ equipment.quantity }}</p>
-        {% endfor %}
-    </div>
-
-    {% if character.race_data.additionalProperties or character.class_data.additionalProperties or character.race_data.darkvision %}
-        <div class="additional-properties">
-            <h4>Additional Properties</h4>
-            {% for property in character.race_data.additionalProperties %}
+        <div class="col-12 d-flex flex-column flex-md-row align-items-center" id="xcharacter-intro">
+            <img src="{% static 'images/fantasy-placeholder.webp' %}" alt="Character placeholder image" class="img-fluid">
+            <div class="ms-md-4 d-flex flex-column align-items-center align-items-md-start">
+                <h1>{{ character.name }}</h1>
+                <p>{{ character.race_data.name }} {{ character.class_data.name }} | {{ character.age }} years old  |  {{ character.gender }}</p>
                 <div>
-                    <p>{{ property.name }}</p>
-                    <p>{{ property.description }}</p>
+                    <span class="badge text-bg-dark">Size: {{ character.race_data.size }}</span>
+                    <span class="badge text-bg-dark">Speed: {{ character.race_data.speed }} ft</span>
+                    <span class="badge text-bg-dark">Hit Die: 1d{{ character.class_data.hitDie }}</span>
                 </div>
-            {% endfor %}
-            {% for property in character.class_data.additionalProperties %}
-                <div>
-                    <p>{{ property.name }}</p>
-                    <p>{{ property.description }}</p>
-                </div>
-            {% endfor %}
-            {% if character.race_data.darkvision %}
-                <div>
-                    <p>Darkvision</p>
-                    <p>You can see in darkened areas up to a distance of 60 ft.</p>
-                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 pt-5" id="character-background">
+            <h4 class="mb-4">Background</h4>
+            <span class="badge text-bg-dark">{{ character.alignment }} Alignment</span>
+            <p>{{ character.background }}</p>
+            {% if character.traits or character.ideals or character.bonds or character.flaws %}
+                <ul class="list-group mt-4">
+                    {% if character.traits %}
+                        <li class="list-group-item">
+                            <p class="h5">Traits</p>
+                            <ul class="list-group list-group-flush">
+                                {% for trait in character.traits %}
+                                    <li class="list-group-item px-1">{{ trait }}</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if character.ideals %}
+                        <li class="list-group-item">
+                            <p class="h5">Ideals</p>
+                            <ul class="list-group list-group-flush">
+                                {% for ideal in character.ideals %}
+                                    <li class="list-group-item px-1">{{ ideal }}</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if character.bonds %}
+                        <li class="list-group-item">
+                            <p class="h5">Bonds</p>
+                            <ul class="list-group list-group-flush">
+                                {% for bond in character.bonds %}
+                                    <li class="list-group-item px-1">{{ bond }}</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if character.flaws %}
+                        <li class="list-group-item">
+                            <p class="h5">Flaws</p>
+                            <ul class="list-group list-group-flush">
+                                {% for flaw in character.flaws %}
+                                    <li class="list-group-item px-1">{{ flaw }}</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
             {% endif %}
         </div>
-    {% endif %}
 
-    {% if character.character_class_cantrip_choices or character.character_class_spell_choices %}
-    <div class="spellcasting">
-        <h4>Spellcasting</h4>
-        {% if character.character_class_cantrip_choices %}
-            <p>Cantrips:</p>
-            {% for cantrip in character.character_class_cantrip_choices %}
-                <p>{{ cantrip.name }}</p>
-                <p>{{ cantrip.description }}</p>
-            {% endfor %}
-        {% endif %}
-        {% if character.character_class_spell_choices %}
-            <p>Spells:</p>
-            {% for spell in character.character_class_spell_choices %}
-                <p>{{ spell.name }}</p>
-                <p>{{ spell.description }}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
-    {% endif %}
+        <div class="col-12 col-md-6 pt-5" id="character-appearance">
+            <h4 class="mb-4">Appearance</h4>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Height</th>
+                        <td>{{ character.height }}</td>
+                    </tr>
+                    <tr>
+                        <th>Build</th>
+                        <td>{{ character.build }}</td>
+                    </tr>
+                    <tr>
+                        <th>Skin Tone</th>
+                        <td>{{ character.skin_tone }}</td>
+                    </tr>
+                    <tr>
+                        <th>Eye Color</th>
+                        <td>{{ character.eye_color }}</td>
+                    </tr>
+                    <tr>
+                        <th>Eye Shape</th>
+                        <td>{{ character.eye_shape }}</td>
+                    </tr>
+                    {% for feature in character.distinguishing_features %}
+                        <tr>
+                            <th>Distinguishing Features</th>
+                            <td>{{ feature }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <th>Hair Color</th>
+                        <td>{{ character.hair_color }}</td>
+                    </tr>
+                    <tr>
+                        <th>Hair Style</th>
+                        <td>{{ character.hair_style }}</td>
+                    </tr>
+                    <tr>
+                        <th>Hair Length</th>
+                        <td>{{ character.hair_length }}</td>
+                    </tr>
+                    <tr>
+                        <th>Hair Type</th>
+                        <td>{{ character.hair_type }}</td>
+                    </tr>
+                    {% if character.facial_hair_style != "None" %}
+                        <tr>
+                            <th>Facial Hair Style</th>
+                            <td>{{ character.facial_hair_style }}</td>
+                        </tr>
+                        <tr>
+                            <th>Facial Hair Length</th>
+                            <td>{{ character.facial_hair_length }}</td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <th>Clothing Style</th>
+                        <td>{{ character.clothing_style }}</td>
+                    </tr>
+                    {% for color in character.clothing_colors %}
+                    <tr>
+                        <th>Clothing Colors</th>
+                        <td>{{ color }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% for accessory in character.clothing_accessories %}
+                    <tr>
+                        <th>Accessories</th>
+                        <td>{{ accessory }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-    <div class="ability-points">
-        {% for ability in character.ability_points %}
-            <div>
-                <h2>{{ ability.ability.name }}</h2>
-                <p>{{ ability.ability.description }}</p>
-                <p>Base Score: {{ ability.base_value }}</p>
-                <p>Racial Bonus: {{ ability.racial_bonus }}</p>
-                <p>Total Score: {{ ability.derived_value }}</p>
-                <p>Modifier: {{ ability.modifier }}</p>
+        <div class="col-12 col-lg-9 pt-5" id="character-proficiencies">
+            <h4 class="mb-4">Proficiencies</h4>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Armor proficiencies</th>
+                        <td>
+                            {% for armor in character.class_data.proficiencies.armor %}
+                                <span class="badge text-bg-dark">{{ armor.name }}</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Weapon proficiencies</th>
+                        <td>
+                            {% for weapon in character.class_data.proficiencies.weapons %}
+                                <span class="badge text-bg-dark">{{ weapon.name }}</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Saving throw proficiencies</th>
+                        <td>
+                            {% for saving_throw in character.class_data.proficiencies.savingThrows %}
+                                <span class="badge text-bg-dark">{{ saving_throw.name }}</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Skill proficiencies</th>
+                        <td>
+                            {% for skill in character.character_class_skill_choices %}
+                                <span class="badge text-bg-dark">{{ skill.name }}</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-12 col-lg-3 pt-5" id="character-equipment">
+            <h4 class="mb-4">Equipment</h4>
+            <ul class="list-group">
+                {% for equipment in character.class_data.equipment %}
+                    <li class="d-flex justify-content-between list-group-item">{{ equipment.item.name }}  <span class="badge text-bg-info"> × {{ equipment.quantity }}</span></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if character.race_data.additionalProperties or character.class_data.additionalProperties or character.race_data.darkvision %}
+            <div class="col-12 pt-5" id="character-additional-properties">
+                <h4 class="mb-4">Additional Properties</h4>
+                <ul class="list-group">
+                    {% for property in character.race_data.additionalProperties %}
+                        <li class="list-group-item">
+                            <p class="h5">{{ property.name }}</p> 
+                            <p>{{ property.description }}</p>
+                        </li>
+                    {% endfor %}
+                    {% for property in character.class_data.additionalProperties %}
+                        <li class="list-group-item">
+                            <p class="h5">{{ property.name }}</p> 
+                            <p>{{ property.description }}</p>
+                        </li>
+                    {% endfor %}
+                    {% if character.race_data.darkvision %}
+                        <li class="list-group-item">
+                            <p class="h5">Darkvision</p> 
+                            <p>You can see in darkened areas up to a distance of 60 ft.</p>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
-        {% endfor %}
+        {% endif %}
+
+        {% if character.character_class_cantrip_choices or character.character_class_spell_choices %}
+        <div class="col-12 pt-5" id="character-spellcasting">
+            <h4 class="mb-4">Spellcasting</h4>
+            <div class="row">
+            {% for cantrip in character.character_class_cantrip_choices %}
+                <div class="mb-4 d-flex col-12 col-md-4 col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ cantrip.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Cantrip</h6>
+                            <p class="card-text">{{ cantrip.description | safe | truncatewords:100 }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% for spell in character.character_class_spell_choices %}
+                <div class="mb-4 d-flex col-12 col-md-4 col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ spell.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Level {{ spell.level }} spell</h6>
+                            <p class="card-text">{{ spell.description | safe | truncatewords:100 }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="col-12 pt-5" id="character-ability-points">
+            <h4 class="mb-4">Ability Points</h4>
+            <div class="row">
+                {% for ability in character.ability_points %}
+                <div class="d-flex mb-4 col-12 col-md-6 col-lg-4 col-xl-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center flex-xl-column justify-content-between justify-content-md-around">
+                                <p class="display-1 ability-card-number">{{ ability.derived_value }}</p>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">Base Score: <span class="ms-1 badge bg-light text-dark">{{ ability.base_value }}</span></li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">Racial Bonus: <span class="ms-1 badge {{ ability.racial_bonus|value_class }}">{{ ability.racial_bonus }}</span></li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">Modifier: <span class="ms-1 badge {{ ability.modifier|value_class }}">{{ ability.modifier }}</span></li>
+                                </ul>     
+                            </div>
+                            <h5 class="card-title">{{ ability.ability.name }}</h5>
+                            <p class="card-text">{{ ability.ability.description }}</p>
+                        </div>    
+                    </div>
+                </div>
+                {% endfor %}
+
+                
+
+            </div>
+        </div>
+
     </div>
-    
+</div>
 {% endblock %}
