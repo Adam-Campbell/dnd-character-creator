@@ -151,6 +151,7 @@
             <h4 class="mb-4">Proficiencies</h4>
             <table class="table table-striped">
                 <tbody>
+                    {% if character.class_data.proficiencies.armor %}
                     <tr>
                         <th>Armor proficiencies</th>
                         <td>
@@ -159,6 +160,8 @@
                             {% endfor %}
                         </td>
                     </tr>
+                    {% endif %}
+                    {% if character.class_data.proficiencies.weapons %}
                     <tr>
                         <th>Weapon proficiencies</th>
                         <td>
@@ -167,6 +170,8 @@
                             {% endfor %}
                         </td>
                     </tr>
+                    {% endif %}
+                    {% if character.class_data.proficiencies.savingThrows %}
                     <tr>
                         <th>Saving throw proficiencies</th>
                         <td>
@@ -175,6 +180,7 @@
                             {% endfor %}
                         </td>
                     </tr>
+                    {% endif %}
                     <tr>
                         <th>Skill proficiencies</th>
                         <td>
