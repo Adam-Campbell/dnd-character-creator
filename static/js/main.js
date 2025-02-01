@@ -15,6 +15,18 @@ const abilityIndexMap = {
     5: "charisma"
 }
 
+const abilityUUIDMap = {
+    "strength": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
+    "dexterity": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
+    "constitution": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
+    "intelligence": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
+    "wisdom": "468b3218-340b-4263-9450-dc72e6750f16",
+    "charisma": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9"
+}
+
+
+
+
 document.addEventListener("alpine:init", () => {
     console.log("alpine has initialised");
     Alpine.prefix("data-")
@@ -73,29 +85,35 @@ document.addEventListener("alpine:init", () => {
          * @param {*} abilityName 
          * @returns 
          */
-        getAbilityBaseScore(abilityName) {
-            const idx = abilityIndexMap[abilityName];
-            return this.character.abilityPoints[idx].value;
+        getAbilityBaseScore(abilityUUID) {
+            //const idx = abilityIndexMap[abilityName];
+            const ability = this.character.abilityPoints.find(a => a.id === abilityUUID);
+            return ability.value;
+            //return this.character.abilityPoints[idx].value;
         },
         /**
          * Get the racial ability bonus for the given ability.
          * @param {*} abilityName 
          * @returns 
          */
-        getRacialAbilityBonus(abilityName) {
-            const idx = abilityIndexMap[abilityName];
-            const bonus = this.chosenRace.abilityBonuses[idx];;
+        getRacialAbilityBonus(abilityUUID) {
+            //const idx = abilityIndexMap[abilityName];
+            const bonus = this.chosenRace.abilityBonuses.find(a => a.ability.id === abilityUUID);
             return bonus.bonus;
+            //const bonus = this.chosenRace.abilityBonuses[idx];;
+            //return bonus.bonus;
         },
         /**
          * Get the ability score for the given ability, with racial bonuses applied.
          * @param {*} abilityName 
          * @returns 
          */
-        getAdjustedAbilityScore(abilityName) {
-            const idx = abilityIndexMap[abilityName];
-            const baseScore = this.character.abilityPoints[idx].value;
-            const racialBonus = this.getRacialAbilityBonus(abilityName);
+        getAdjustedAbilityScore(abilityUUID) {
+            //const idx = abilityIndexMap[abilityName];
+            //const baseScore = this.character.abilityPoints[idx].value;
+            //const racialBonus = this.getRacialAbilityBonus(abilityName);
+            const baseScore = this.getAbilityBaseScore(abilityUUID);
+            const racialBonus = this.getRacialAbilityBonus(abilityUUID);
             if (baseScore === "--") {
                 return "--";
             } else {
@@ -107,8 +125,8 @@ document.addEventListener("alpine:init", () => {
          * @param {*} abilityName 
          * @returns 
          */
-        getAbilityModifier(abilityName) {
-            const score = this.getAdjustedAbilityScore(abilityName);
+        getAbilityModifier(abilityUUID) {
+            const score = this.getAdjustedAbilityScore(abilityUUID);
             if (score === "--") {
                 return 0;
             }

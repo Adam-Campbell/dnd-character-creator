@@ -124,3 +124,23 @@ main {
     }
 }
 
+
+.editor-ability-card-number {
+    font-size: 6rem;
+}
+
+@media (min-width: 768px) {
+    .editor-ability-select-description {
+        display: none;
+    }
+}
+
+/*
+  Need to alter styles of accordion items that correspond to entities that are currently selected in the model,
+  but altering the class of the accordion item dynamically becomes cumbersome because bootstrap also adds and removes
+  classes. Instead, we add a custom attribute to the accordion item and target that.
+*/
+.accordion-button[data-custom-selected-item="true"] {
+    background: rgb(182, 182, 182);
+    font-weight: bold;
+}
