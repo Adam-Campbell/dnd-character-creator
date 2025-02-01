@@ -308,7 +308,7 @@
                                         <div data-bind:id="'cantrip-collapse' + index" class="accordion-collapse collapse"
                                             data-bind:data-bs-parent="'#cantrip-details'">
                                             <div class="accordion-body">
-                                                <p data-text="formatLineBreaks(cantrip.description)"></p>
+                                                <p data-html="formatLineBreaks(cantrip.description)"></p>
                                                 <div>
                                                     <span class="badge text-bg-dark" data-text="`Range: ${cantrip.range}`"></span>
                                                     <span class="badge text-bg-dark" data-text="`Casting time: ${cantrip.castingTime}`"></span>
@@ -354,7 +354,7 @@
                                         <div data-bind:id="'spell-collapse' + index" class="accordion-collapse collapse"
                                             data-bind:data-bs-parent="'#spell-details'">
                                             <div class="accordion-body">
-                                                <p data-text="formatLineBreaks(spell.description)"></p>
+                                                <p data-html="formatLineBreaks(spell.description)"></p>
                                                 <div>
                                                     <span class="badge text-bg-dark" data-text="`Range: ${spell.range}`"></span>
                                                     <span class="badge text-bg-dark" data-text="`Casting time: ${spell.castingTime}`"></span>
@@ -388,126 +388,152 @@
 
                 <!-- Markup for background selection -->
                 <template data-if="currentPage === 'background'">
-                    <div>
-                        <label for="character-name">Name:</label>
-                        <input id="character-name" type="text" data-model="character.name" placeholder="Enter name" />
-                        <label for="character-age">Age:</label>
-                        <input id="character-age" type="number" min="0" data-model="character.age" />
-                        <label for="character-gender">Gender</label>
-                        <input id="character-gender" type="text" data-model="character.gender"
-                            placeholder="Choose gender" />
-                        <label for="character-alignment">Alignment</label>
-                        <select id="character-alignment" data-model="character.alignment">
-                            <option value="Lawful Good"
-                                data-bind:selected="character.alignment === 'Lawful Good' ? true : false">Lawful Good
-                            </option>
-                            <option value="Neutral Good"
-                                data-bind:selected="character.alignment === 'Neutral Good' ? true : false">Neutral Good
-                            </option>
-                            <option value="Chaotic Good"
-                                data-bind:selected="character.alignment === 'Chaotic Good' ? true : false">Chaotic Good
-                            </option>
-                            <option value="Lawful Neutral"
-                                data-bind:selected="character.alignment === 'Lawful Neutral' ? true : false">Lawful
-                                Neutral</option>
-                            <option value="True Neutral"
-                                data-bind:selected="character.alignment === 'True Neutral' ? true : false">True Neutral
-                            </option>
-                            <option value="Chaotic Neutral"
-                                data-bind:selected="character.alignment === 'Chaotic Neutral' ? true : false">Chaotic
-                                Neutral</option>
-                            <option value="Lawful Evil"
-                                data-bind:selected="character.alignment === 'Lawful Evil' ? true : false">Lawful Evil
-                            </option>
-                            <option value="Neutral Evil"
-                                data-bind:selected="character.alignment === 'Neutral Evil' ? true : false">Neutral Evil
-                            </option>
-                            <option value="Chaotic Evil"
-                                data-bind:selected="character.alignment === 'Chaotic Evil' ? true : false">Chaotic Evil
-                            </option>
-                        </select>
-                        <label for="character-background">Background</label>
-                        <textarea id="character-background" data-model="character.background"
-                            placeholder="Enter background"></textarea>
-
+                    <div class="row my-4">
+                        <h1>Background</h1>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-name">Name:</label>
+                            <input class="form-control" id="character-name" type="text" data-model="character.name" placeholder="Enter name" />
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-age">Age:</label>
+                            <input class="form-control" id="character-age" type="number" min="0" data-model="character.age" />
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-gender">Gender</label>
+                            <input class="form-control" id="character-gender" type="text" data-model="character.gender" placeholder="Choose gender" />
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-alignment">Alignment</label>
+                            <select class="form-select" id="character-alignment" data-model="character.alignment">
+                                <option value="Lawful Good"
+                                    data-bind:selected="character.alignment === 'Lawful Good' ? true : false">Lawful Good
+                                </option>
+                                <option value="Neutral Good"
+                                    data-bind:selected="character.alignment === 'Neutral Good' ? true : false">Neutral Good
+                                </option>
+                                <option value="Chaotic Good"
+                                    data-bind:selected="character.alignment === 'Chaotic Good' ? true : false">Chaotic Good
+                                </option>
+                                <option value="Lawful Neutral"
+                                    data-bind:selected="character.alignment === 'Lawful Neutral' ? true : false">Lawful
+                                    Neutral</option>
+                                <option value="True Neutral"
+                                    data-bind:selected="character.alignment === 'True Neutral' ? true : false">True Neutral
+                                </option>
+                                <option value="Chaotic Neutral"
+                                    data-bind:selected="character.alignment === 'Chaotic Neutral' ? true : false">Chaotic
+                                    Neutral</option>
+                                <option value="Lawful Evil"
+                                    data-bind:selected="character.alignment === 'Lawful Evil' ? true : false">Lawful Evil
+                                </option>
+                                <option value="Neutral Evil"
+                                    data-bind:selected="character.alignment === 'Neutral Evil' ? true : false">Neutral Evil
+                                </option>
+                                <option value="Chaotic Evil"
+                                    data-bind:selected="character.alignment === 'Chaotic Evil' ? true : false">Chaotic Evil
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-lg-8 col-xl-12 mb-4 ">
+                            <label class="form-label me-2" for="character-background">Background</label>
+                            <textarea class="form-control" id="character-background" data-model="character.background"
+                                placeholder="Enter background" rows="4"></textarea>
+                        </div>
                         <!-- Traits -->
-                        <div data-data="{ temp: '', clear() { this.temp = '' } }">
-                            <div>
-                                <label for="character-traits">Traits</label>
-                                <input id="character-traits" type="text" data-model="temp"
-                                    data-on:keydown.enter="() => { character.traits.push(temp); clear() }" />
-                                <button type="button"
-                                    data-on:click="() => { character.traits.push(temp); clear() }">Add</button>
+                        <div class="col-12 col-md-6 mb-4" data-data="{ temp: '', clear() { this.temp = '' } }">
+                            <div class="card">
+                                <div class="card-body">
+                                    <label class="form-label" for="character-traits">Traits</label>
+                                    <div class="input-group mb-3">
+                                        <input class="form-control" id="character-traits" type="text" data-model="temp"
+                                            data-on:keydown.enter="() => { character.traits.push(temp); clear() }" />
+                                        <button class="btn btn-outline-primary" type="button"
+                                            data-on:click="() => { character.traits.push(temp); clear() }">Add</button>
+                                    </div>
+                                    <template data-if="character.traits.length > 0">
+                                        <ul class="list-group list-group-flush">
+                                            <template data-for="(trait, index) in character.traits">
+                                                <li data-bind:key="trait" class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <span data-text="trait"></span>
+                                                    <button class="btn btn-danger" type="button"
+                                                        data-on:click="() => character.traits.splice(index, 1)">Remove</button>
+                                                </li>
+                                            </template>
+                                    </template>
+                                </div>
                             </div>
-                            <ul>
-                                <template data-for="(trait, index) in character.traits">
-                                    <li data-bind:key="trait">
-                                        <span data-text="trait"></span>
-                                        <button type="button"
-                                            data-on:click="() => character.traits.splice(index, 1)">Remove</button>
-                                    </li>
-                                </template>
-                            </ul>
                         </div>
-
                         <!-- Ideals -->
-                        <div data-data="{ temp: '', clear() { this.temp = '' } }">
-                            <div>
-                                <label for="character-ideals">Ideals</label>
-                                <input id="character-ideals" type="text" data-model="temp"
-                                    data-on:keydown.enter="() => { character.ideals.push(temp); clear() }" />
-                                <button type="button"
-                                    data-on:click="() => { character.ideals.push(temp); clear() }">Add</button>
+                        <div class="col-12 col-md-6 mb-4" data-data="{ temp: '', clear() { this.temp = '' } }">
+                            <div class="card">
+                                <div class="card-body">
+                                    <label class="form-label" for="character-ideals">Ideals</label>
+                                    <div class="input-group mb-3">
+                                        <input class="form-control" id="character-ideals" type="text" data-model="temp"
+                                            data-on:keydown.enter="() => { character.ideals.push(temp); clear() }" />
+                                        <button class="btn btn-outline-primary" type="button"
+                                            data-on:click="() => { character.ideals.push(temp); clear() }">Add</button>
+                                    </div>
+                                    <template data-if="character.ideals.length > 0">
+                                        <ul class="list-group list-group-flush">
+                                            <template data-for="(ideal, index) in character.ideals">
+                                                <li data-bind:key="ideal" class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <span data-text="ideal"></span>
+                                                    <button class="btn btn-danger" type="button"
+                                                        data-on:click="() => character.ideals.splice(index, 1)">Remove</button>
+                                                </li>
+                                            </template>
+                                    </template>
+                                </div>
                             </div>
-                            <ul>
-                                <template data-for="(ideal, index) in character.ideals">
-                                    <li data-bind:key="ideal">
-                                        <span data-text="ideal"></span>
-                                        <button type="button"
-                                            data-on:click="() => character.ideals.splice(index, 1)">Remove</button>
-                                    </li>
-                                </template>
-                            </ul>
                         </div>
-
                         <!-- Bonds -->
-                        <div data-data="{ temp: '', clear() { this.temp = '' } }">
-                            <div>
-                                <label for="character-bonds">Bonds</label>
-                                <input id="character-bonds" type="text" data-model="temp"
-                                    data-on:keydown.enter="() => { character.bonds.push(temp); clear() }" />
-                                <button type="button"
-                                    data-on:click="() => { character.bonds.push(temp); clear() }">Add</button>
+                        <div class="col-12 col-md-6 mb-4" data-data="{ temp: '', clear() { this.temp = '' } }">
+                            <div class="card">
+                                <div class="card-body">
+                                    <label class="form-label" for="character-bonds">Bonds</label>
+                                    <div class="input-group mb-3">
+                                        <input class="form-control" id="character-bonds" type="text" data-model="temp"
+                                            data-on:keydown.enter="() => { character.bonds.push(temp); clear() }" />
+                                        <button class="btn btn-outline-primary" type="button"
+                                            data-on:click="() => { character.bonds.push(temp); clear() }">Add</button>
+                                    </div>
+                                    <template data-if="character.bonds.length > 0">
+                                        <ul class="list-group list-group-flush">
+                                            <template data-for="(bond, index) in character.bonds">
+                                                <li data-bind:key="bond" class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <span data-text="bond"></span>
+                                                    <button class="btn btn-danger" type="button"
+                                                        data-on:click="() => character.bonds.splice(index, 1)">Remove</button>
+                                                </li>
+                                            </template>
+                                    </template>
+                                </div>
                             </div>
-                            <ul>
-                                <template data-for="(bond, index) in character.bonds">
-                                    <li data-bind:key="bond">
-                                        <span data-text="bond"></span>
-                                        <button type="button"
-                                            data-on:click="() => character.bonds.splice(index, 1)">Remove</button>
-                                    </li>
-                                </template>
-                            </ul>
                         </div>
-
                         <!-- Flaws -->
-                        <div data-data="{ temp: '', clear() { this.temp = '' } }">
-                            <div>
-                                <label for="character-flaws">Flaws</label>
-                                <input id="character-flaws" type="text" data-model="temp"
-                                    data-on:keydown.enter="() => { character.flaws.push(temp); clear() }" />
-                                <button type="button"
-                                    data-on:click="() => { character.flaws.push(temp); clear() }">Add</button>
+                        <div class="col-12 col-md-6 mb-4" data-data="{ temp: '', clear() { this.temp = '' } }">
+                            <div class="card">
+                                <div class="card-body">
+                                    <label class="form-label" for="character-flaws">Flaws</label>
+                                    <div class="input-group mb-3">
+                                        <input class="form-control" id="character-flaws" type="text" data-model="temp"
+                                            data-on:keydown.enter="() => { character.flaws.push(temp); clear() }" />
+                                        <button class="btn btn-outline-primary" type="button"
+                                            data-on:click="() => { character.flaws.push(temp); clear() }">Add</button>
+                                    </div>
+                                    <template data-if="character.flaws.length > 0">
+                                        <ul class="list-group list-group-flush">
+                                            <template data-for="(flaw, index) in character.flaws">
+                                                <li data-bind:key="flaw" class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <span data-text="flaw"></span>
+                                                    <button class="btn btn-danger" type="button"
+                                                        data-on:click="() => character.flaws.splice(index, 1)">Remove</button>
+                                                </li>
+                                            </template>
+                                    </template>
+                                </div>
                             </div>
-                            <ul>
-                                <template data-for="(flaw, index) in character.flaws">
-                                    <li data-bind:key="flaw">
-                                        <span data-text="flaw"></span>
-                                        <button type="button"
-                                            data-on:click="() => character.flaws.splice(index, 1)">Remove</button>
-                                    </li>
-                                </template>
-                            </ul>
                         </div>
 
                     </div>
