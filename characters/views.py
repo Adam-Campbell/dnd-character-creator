@@ -39,46 +39,56 @@ class CharacterList(generic.ListView):
 @login_required
 def create_character(request):
     if request.method == 'POST':
-        print("POST request received")
-        character_data = json.loads(request.body)
-        if not validate_character_data(character_data):
-            return JsonResponse({ 'message': 'Invalid character data' }, status=400)
-        new_character = Character.objects.create(
-            user=request.user,
-            race=character_data['race'],
-            character_class=character_data['character_class'],
-            character_class_skill_choices=character_data['character_class_skill_choices'],
-            character_class_cantrip_choices=character_data['character_class_cantrip_choices'],
-            character_class_spell_choices=character_data['character_class_spell_choices'],
-            ability_points=character_data['ability_points'],
-            name=character_data['name'],
-            age=character_data['age'],
-            gender=character_data['gender'],
-            alignment=character_data['alignment'],
-            background=character_data['background'],
-            traits=character_data['traits'],
-            ideals=character_data['ideals'],
-            bonds=character_data['bonds'],
-            flaws=character_data['flaws'],
-            height=character_data['height'],
-            build=character_data['build'],
-            skin_tone=character_data['skin_tone'],
-            hair_color=character_data['hair_color'],
-            hair_style=character_data['hair_style'],
-            hair_length=character_data['hair_length'],
-            hair_type=character_data['hair_type'],
-            facial_hair_style=character_data['facial_hair_style'],
-            facial_hair_length=character_data['facial_hair_length'],
-            eye_color=character_data['eye_color'],
-            eye_shape=character_data['eye_shape'],
-            distinguishing_features=character_data['distinguishing_features'],
-            clothing_style=character_data['clothing_style'],
-            clothing_colors=character_data['clothing_colors'],
-            clothing_accessories=character_data['clothing_accessories']
-        )
-        new_character.save()
-        print("Character created")
-        return JsonResponse({ 'message': 'POST request handled' })
+        try:
+            print("POST request received")
+            character_data = json.loads(request.body)
+            #if not validate_character_data(character_data):
+            #    return JsonResponse({ 'message': 'Invalid character data' }, status=400)
+            new_character = Character.objects.create(
+                user=request.user,
+                race=character_data['race'],
+                character_class=character_data['character_class'],
+                character_class_skill_choices=character_data['character_class_skill_choices'],
+                character_class_cantrip_choices=character_data['character_class_cantrip_choices'],
+                character_class_spell_choices=character_data['character_class_spell_choices'],
+                ability_points=character_data['ability_points'],
+                name=character_data['name'],
+                age=character_data['age'],
+                gender=character_data['gender'],
+                alignment=character_data['alignment'],
+                background=character_data['background'],
+                traits=character_data['traits'],
+                ideals=character_data['ideals'],
+                bonds=character_data['bonds'],
+                flaws=character_data['flaws'],
+                height=character_data['height'],
+                build=character_data['build'],
+                skin_tone=character_data['skin_tone'],
+                hair_color=character_data['hair_color'],
+                hair_style=character_data['hair_style'],
+                hair_length=character_data['hair_length'],
+                hair_type=character_data['hair_type'],
+                facial_hair_style=character_data['facial_hair_style'],
+                facial_hair_length=character_data['facial_hair_length'],
+                eye_color=character_data['eye_color'],
+                eye_shape=character_data['eye_shape'],
+                distinguishing_features=character_data['distinguishing_features'],
+                clothing_style=character_data['clothing_style'],
+                clothing_colors=character_data['clothing_colors'],
+                clothing_accessories=character_data['clothing_accessories']
+            )
+            new_character.save()
+            print("Character created")
+            return JsonResponse({ 'message': 'POST request handled' })
+        
+        except json.JSONDecodeError:
+            # If JSON data malformed, return a 400 error
+            return JsonResponse({'message': 'Invalid JSON data'}, status=400)
+        except KeyError as e:
+            # If a required key is missing, return a 400 error
+            return JsonResponse({'message': f'Missing key: {e}'}, status=400)
+        except Exception as e:
+            return JsonResponse({'message': f'An error occurred: {e}'}, status=500)
     # End of POST request handling
     return render(request, 'characters/create_character.html')
 

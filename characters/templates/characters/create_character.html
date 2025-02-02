@@ -30,7 +30,7 @@
                     <button
                         data-bind:class="currentPage === 'appearance' ? 'btn btn-primary' : 'btn btn-outline-primary'"
                         type="button" data-on:click="() => setPage('appearance')">Appearance</button>
-                    <button data-bind:class="currentPage === 'summary' ? 'btn btn-primary' : 'btn btn-outline-primary'"
+                    <button data-bind:disabled="!isComplete" data-bind:class="currentPage === 'summary' ? 'btn btn-primary' : 'btn btn-outline-primary'"
                         type="button" data-on:click="() => setPage('summary')">Summary</button>
                 </div>
                 <div class="dropdown editor-mobile-nav  align-self-end">
@@ -55,7 +55,7 @@
                                 type="button" data-on:click="() => setPage('background')">Background</button></li>
                         <li><button data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'appearance' }"
                                 type="button" data-on:click="() => setPage('appearance')">Appearance</button></li>
-                        <li><button data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'summary' }"
+                        <li><button data-bind:disabled="!isComplete" data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'summary' }"
                                 type="button" data-on:click="() => setPage('summary')">Summary</button></li>
                 </div>
 
@@ -391,11 +391,11 @@
                     <div class="row my-4">
                         <h1>Background</h1>
                         <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-                            <label class="form-label me-2" for="character-name">Name:</label>
+                            <label class="form-label me-2" for="character-name">Name</label>
                             <input class="form-control" id="character-name" type="text" data-model="character.name" placeholder="Enter name" />
                         </div>
                         <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-                            <label class="form-label me-2" for="character-age">Age:</label>
+                            <label class="form-label me-2" for="character-age">Age</label>
                             <input class="form-control" id="character-age" type="number" min="0" data-model="character.age" />
                         </div>
                         <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
@@ -455,8 +455,10 @@
                                             <template data-for="(trait, index) in character.traits">
                                                 <li data-bind:key="trait" class="list-group-item d-flex justify-content-between align-items-center">
                                                     <span data-text="trait"></span>
-                                                    <button class="btn btn-danger" type="button"
-                                                        data-on:click="() => character.traits.splice(index, 1)">Remove</button>
+                                                    <button class="btn btn-danger" type="button" aria-label="Delete trait"
+                                                        data-on:click="() => character.traits.splice(index, 1)">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </button>
                                                 </li>
                                             </template>
                                     </template>
@@ -479,8 +481,10 @@
                                             <template data-for="(ideal, index) in character.ideals">
                                                 <li data-bind:key="ideal" class="list-group-item d-flex justify-content-between align-items-center">
                                                     <span data-text="ideal"></span>
-                                                    <button class="btn btn-danger" type="button"
-                                                        data-on:click="() => character.ideals.splice(index, 1)">Remove</button>
+                                                    <button class="btn btn-danger" type="button" aria-label="Delete ideal"
+                                                        data-on:click="() => character.ideals.splice(index, 1)">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </button>
                                                 </li>
                                             </template>
                                     </template>
@@ -503,8 +507,10 @@
                                             <template data-for="(bond, index) in character.bonds">
                                                 <li data-bind:key="bond" class="list-group-item d-flex justify-content-between align-items-center">
                                                     <span data-text="bond"></span>
-                                                    <button class="btn btn-danger" type="button"
-                                                        data-on:click="() => character.bonds.splice(index, 1)">Remove</button>
+                                                    <button class="btn btn-danger" type="button" aria-label="Delete bond"
+                                                        data-on:click="() => character.bonds.splice(index, 1)">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </button>
                                                 </li>
                                             </template>
                                     </template>
@@ -527,8 +533,10 @@
                                             <template data-for="(flaw, index) in character.flaws">
                                                 <li data-bind:key="flaw" class="list-group-item d-flex justify-content-between align-items-center">
                                                     <span data-text="flaw"></span>
-                                                    <button class="btn btn-danger" type="button"
-                                                        data-on:click="() => character.flaws.splice(index, 1)">Remove</button>
+                                                    <button class="btn btn-danger" type="button" aria-label="Delete flaw"
+                                                        data-on:click="() => character.flaws.splice(index, 1)">
+                                                        <i class="fa-solid fa-trash-can"></i>
+                                                    </button>
                                                 </li>
                                             </template>
                                     </template>
@@ -541,147 +549,125 @@
 
                 <!-- Markup for appearance selection -->
                 <template data-if="currentPage === 'appearance'">
-                    <div>
-                        <!-- Height -->
-                        <label for="character-height">Height:</label>
-                        <input id="character-height" type="text" data-model="character.height" />
-                        <!-- Build -->
-                        <label for="character-build">Build:</label>
-                        <input id="character-build" type="text" data-model="character.build" />
-                        <!-- Skin tone -->
-                        <label for="character-skin-tone">Skin Tone:</label>
-                        <input id="character-skin-tone" type="text" data-model="character.skinTone" />
-                        <!-- Hair color -->
-                        <label for="character-hair-color">Hair Color:</label>
-                        <input id="character-hair-color" type="text" data-model="character.hairColor" />
-                        <!-- Hair style -->
-                        <label for="character-hair-style">Hair Style:</label>
-                        <input id="character-hair-style" type="text" data-model="character.hairStyle" />
-                        <!-- Hair length dropdown -->
-                        <label for="character-hair-length">Hair Length:</label>
-                        <select data-data="{ options: ['Bald', 'Cropped', 'Short', 'Medium', 'Long', 'Rapunzel'] }"
-                            data-model="character.hairLength" id="character-hair-length">
-                            <template data-for="option in options">
-                                <option data-bind:value="option"
-                                    data-bind:selected="character.hairLength === option ? true : false"
-                                    data-text="option"></option>
-                            </template>
-                        </select>
-                        <!-- Hair type dropdown -->
-                        <label for="character-hair-type">Hair Type:</label>
-                        <select data-data="{ options: ['Straight', 'Wavy', 'Curly', 'Snakes'] }"
-                            data-model="character.hairType" id="character-hair-type">
-                            <template data-for="option in options">
-                                <option data-bind:value="option"
-                                    data-bind:selected="character.hairType === option ? true : false"
-                                    data-text="option"></option>
-                            </template>
-                        </select>
-                        <!-- Facial hair style dropdown -->
-                        <label for="character-facial-hair-style">Facial Hair Style:</label>
-                        <select
-                            data-data="{ options: ['None', 'Stubble', 'Full Beard', 'Goatee', 'Mustache', 'Sideburns', 'Soul Patch', 'Mutton Chops'] }"
-                            data-model="character.facialHairStyle" id="character-facial-hair-style">
-                            <template data-for="option in options">
-                                <option data-bind:value="option"
-                                    data-bind:selected="character.facialHairStyle === option ? true : false"
-                                    data-text="option"></option>
-                            </template>
-                        </select>
-                        <!-- Facial hair length dropdown -->
-                        <label for="character-facial-hair-length">Facial Hair Length:</label>
-                        <select data-data="{ options: ['Short', 'Medium', 'Long'] }"
-                            data-model="character.facialHairLength" id="character-facial-hair-length">
-                            <template data-for="option in options">
-                                <option data-bind:value="option"
-                                    data-bind:selected="character.facialHairLength === option ? true : false"
-                                    data-text="option"></option>
-                            </template>
-                        </select>
-                        <!-- Eye Color -->
-                        <label for="character-eye-color">Eye Color:</label>
-                        <input id="character-eye-color" type="text" data-model="character.eyeColor" />
-                        <!-- Eye shape dropdown -->
-                        <label for="character-eye-shape">Eye Shape:</label>
-                        <select data-data="{ options: ['Almond', 'Round', 'Narrow', 'Wide'] }"
-                            data-model="character.eyeShape" id="character-eye-shape">
-                            <template data-for="option in options">
-                                <option data-bind:value="option"
-                                    data-bind:selected="character.eyeShape === option ? true : false"
-                                    data-text="option"></option>
-                            </template>
-                        </select>
-
-                        <!-- Distinguishing features -->
-                        <div data-data="{ temp: '', clear() { this.temp = '' } }">
-                            <div>
-                                <label for="character-distinguishing-features">Distinguishing Features:</label>
-                                <input id="character-distinguishing-features" type="text" data-model="temp"
-                                    data-on:keydown.enter="() => { character.distinguishingFeatures.push(temp); clear() }" />
-                                <button type="button"
-                                    data-on:click="() => { character.distinguishingFeatures.push(temp); clear() }">Add</button>
-                            </div>
-                            <ul>
-                                <template data-for="(feature, index) in character.distinguishingFeatures">
-                                    <li data-bind:key="feature">
-                                        <span data-text="feature"></span>
-                                        <button type="button"
-                                            data-on:click="() => character.distinguishingFeatures.splice(index, 1)">Remove</button>
-                                    </li>
-                                </template>
-                            </ul>
+                    <div class="row my-4">
+                        <h1>Appearance</h1>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-height">Height</label>
+                            <input class="form-control" id="character-height" type="text" data-model="character.height" placeholder="Enter height" />
                         </div>
-
-                        <!-- Clothing style -->
-                        <label for="character-clothing-style">Clothing Style:</label>
-                        <input id="character-clothing-style" type="text" data-model="character.clothingStyle" />
-
-                        <!-- Clothing colors -->
-                        <div data-data="{ temp: '', clear() { this.temp = '' } }">
-                            <div>
-                                <label for="character-clothing-colors">Clothing Colors:</label>
-                                <input id="character-clothing-colors" type="text" data-model="temp"
-                                    data-on:keydown.enter="() => { character.clothingColors.push(temp); clear() }" />
-                                <button type="button"
-                                    data-on:click="() => { character.clothingColors.push(temp); clear() }">Add</button>
-                            </div>
-                            <ul>
-                                <template data-for="(clothingColor, index) in character.clothingColors">
-                                    <li data-bind:key="clothingColor">
-                                        <span data-text="clothingColor"></span>
-                                        <button type="button"
-                                            data-on:click="() => character.clothingColors.splice(index, 1)">Remove</button>
-                                    </li>
-                                </template>
-                            </ul>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-build">Build</label>
+                            <input class="form-control" id="character-build" type="text" data-model="character.build" placeholder="Enter build" />
                         </div>
-
-                        <!-- Clothing accessories -->
-                        <div data-data="{ temp: '', clear() { this.temp = '' } }">
-                            <div>
-                                <label for="character-clothing-accessories">Clothing Accessories:</label>
-                                <input id="character-clothing-accessories" type="text" data-model="temp"
-                                    data-on:keydown.enter="() => { character.clothingAccessories.push(temp); clear() }" />
-                                <button type="button"
-                                    data-on:click="() => { character.clothingAccessories.push(temp); clear() }">Add</button>
-                            </div>
-                            <ul>
-                                <template data-for="(accessory, index) in character.clothingAccessories">
-                                    <li data-bind:key="accessory">
-                                        <span data-text="accessory"></span>
-                                        <button type="button"
-                                            data-on:click="() => character.clothingAccessories.splice(index, 1)">Remove</button>
-                                    </li>
-                                </template>
-                            </ul>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-skin-tone">Skin Tone</label>
+                            <input class="form-control" id="character-skin-tone" type="text" data-model="character.skinTone" placeholder="Enter skin tone" />
                         </div>
-
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-eye-color">Eye Color</label>
+                            <input class="form-control" id="character-eye-color" type="text" data-model="character.eyeColor" placeholder="Enter eye color" />
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-eye-shape">Eye shape</label>
+                            <select class="form-select" data-data="{ options: ['Almond', 'Round', 'Hooded', 'Monolid', 'Upturned', 'Downturned'] }"
+                                    data-model="character.eyeShape" id="character-eye-shape">
+                                    <template data-for="option in options">
+                                        <option data-bind:value="option"
+                                            data-bind:selected="Boolean(character.eyeShape === option)"
+                                            data-text="option"></option>
+                                    </template>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-distinguishing-features">Distinguishing Features</label>
+                            <input class="form-control" id="character-distinguishing-features" type="text" data-model="character.distinguishingFeatures" placeholder="Enter distinguishing features" />
+                        </div>
+                        <h2 class="h4">Hair</h2>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-hair-color">Hair Color</label>
+                            <input class="form-control" id="character-hair-color" type="text" data-model="character.hairColor" placeholder="Enter hair color" />
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-hair-style">Hair Style</label>
+                            <input class="form-control" id="character-hair-style" type="text" data-model="character.hairStyle" placeholder="Enter hair style" />
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-hair-length">Hair Length</label>
+                            <select class="form-select" data-data="{ options: ['Bald', 'Cropped', 'Short', 'Medium', 'Long'] }"
+                                    data-model="character.hairLength" id="character-hair-length">
+                                    <template data-for="option in options">
+                                        <option data-bind:value="option"
+                                            data-bind:selected="Boolean(character.hairLength === option)"
+                                            data-text="option"></option>
+                                    </template>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-hair-type">Hair Type</label>
+                            <select class="form-select" data-data="{ options: ['Straight', 'Wavy', 'Curly', 'Coily'] }"
+                                    data-model="character.hairLength" id="character-hair-type">
+                                    <template data-for="option in options">
+                                        <option data-bind:value="option"
+                                            data-bind:selected="Boolean(character.hairType === option)"
+                                            data-text="option"></option>
+                                    </template>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-facial-hair-style">Facial Hair Style</label>
+                            <select class="form-select" data-model="character.facialHairStyle" 
+                                    id="character-facial-hair-style" data-on:change="adjustFacialHairLength"
+                                    data-data="{ options: ['None', 'Stubble', 'Full Beard', 'Goatee', 'Moustache', 'Sideburns', 'Soul Patch', 'Mutton Chops'] }">
+                                    <template data-for="option in options">
+                                        <option data-bind:value="option"
+                                            data-bind:selected="Boolean(character.hairType === option)"
+                                            data-text="option"></option>
+                                    </template>
+                            </select>
+                        </div>
+                        <template data-if="character.facialHairStyle !== 'None' && character.facialHairStyle !== 'Stubble'">  
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                                <label class="form-label me-2" for="character-facial-hair-length">Facial Hair Length</label>
+                                <select class="form-select" data-data="{ options: ['Short', 'Medium', 'Long'] }"
+                                        data-model="character.facialHairLength" id="character-facial-hair-length">
+                                        <template data-for="option in options">
+                                            <option data-bind:value="option"
+                                                data-bind:selected="Boolean(character.hairType === option)"
+                                                data-text="option"></option>
+                                        </template>
+                                </select>
+                            </div>
+                        </template>
+                        <h3 class="h4">Clothing</h3>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-clothing-style">Clothing Style</label>
+                            <input class="form-control" id="character-clothing-style" type="text" data-model="character.clothingStyle" placeholder="Enter clothing style" />
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-clothing-colors">Clothing Colors</label>
+                            <input class="form-control" id="character-clothing-colors" type="text" data-model="character.clothingColors" placeholder="Enter clothing colors" />
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <label class="form-label me-2" for="character-clothing-accessories">Clothing Accessories</label>
+                            <input class="form-control" id="character-clothing-accessories" type="text" data-model="character.clothingAccessories" placeholder="Enter clothing accessories" />
+                        </div>
                     </div>
                 </template>
 
                 <!-- Markup for summary -->
                 <template data-if="currentPage === 'summary'">
-                    <button type="submit" data-on:click="handleSubmit">Save</button>
+                    <div class="d-flex justify-content-center">
+                        <div class="card editor-summary-card mt-4">
+                            <div class="card-body d-flex flex-column align-items-start">
+                                <h1 class="card-title" data-text="character.name"></h1>
+                                <p class="card-subtitle text-body-secondary mb-2" data-text="`${chosenRace.name} ${chosenClass.name}`"></p>
+                                <span class="badge text-bg-dark" data-text="character.alignment"></span>
+                                <p class="card-text mt-3" data-text="character.background"></p>
+                                <button class="btn btn-outline-primary" type="button" data-on:click="handleSubmit">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </template>
             </div>
         </template>

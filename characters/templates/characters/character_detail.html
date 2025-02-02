@@ -95,12 +95,12 @@
                         <th>Eye Shape</th>
                         <td>{{ character.eye_shape }}</td>
                     </tr>
-                    {% for feature in character.distinguishing_features %}
+                    {% if character.distinguishingFeatures != "" %}
                         <tr>
                             <th>Distinguishing Features</th>
-                            <td>{{ feature }}</td>
+                            <td>{{ character.distinguishing }}</td>
                         </tr>
-                    {% endfor %}
+                    {% endif %}
                     <tr>
                         <th>Hair Color</th>
                         <td>{{ character.hair_color }}</td>
@@ -122,6 +122,8 @@
                             <th>Facial Hair Style</th>
                             <td>{{ character.facial_hair_style }}</td>
                         </tr>
+                    {% endif %}
+                    {% if character.facial_hair_length != "" %}
                         <tr>
                             <th>Facial Hair Length</th>
                             <td>{{ character.facial_hair_length }}</td>
@@ -131,18 +133,16 @@
                         <th>Clothing Style</th>
                         <td>{{ character.clothing_style }}</td>
                     </tr>
-                    {% for color in character.clothing_colors %}
                     <tr>
                         <th>Clothing Colors</th>
                         <td>{{ color }}</td>
                     </tr>
-                    {% endfor %}
-                    {% for accessory in character.clothing_accessories %}
-                    <tr>
-                        <th>Accessories</th>
-                        <td>{{ accessory }}</td>
-                    </tr>
-                    {% endfor %}
+                    {% if character.clothing_accessories != "" %}
+                        <tr>
+                            <th>Accessories</th>
+                            <td>{{ character.clothing_accessories }}</td>
+                        </tr>
+                    {% endif %}
                 </tbody>
             </table>
         </div>
