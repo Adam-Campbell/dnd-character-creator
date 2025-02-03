@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseForbidden, HttpR
 import json
 from .models import Character
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
 from django.views import generic
 from django.core.serializers import serialize
 from .data_utils import get_static_data, validate_character_data, get_item_by_id, format_line_breaks
@@ -103,6 +104,7 @@ def character_detail(request, id):
     #character = Character.objects.get(id=id)
     character = get_object_or_404(Character, id=id)
     user_has_liked = character.liked_by.filter(id=request.user.id).exists()
+    user_is_owner = character.user == request.user
     # Get static data and add the relevant class and race data to the character object
     static_data = get_static_data()
     character.class_data = get_item_by_id(static_data['classes'], str(character.character_class))
@@ -148,6 +150,7 @@ def character_detail(request, id):
     return render(request, 'characters/character_detail.html', {
         'character': character,
         'user_has_liked': user_has_liked,
+        'user_is_owner': user_is_owner,
         'id': id
     })
 
@@ -162,6 +165,15 @@ def toggle_like(request, character_id):
         request.user.liked_characters.add(character)
     return redirect('characters:character_detail', id=character_id)
 
+
+@login_required
+@require_http_methods(['DELETE'])
+def delete_character(request, character_id):
+    character = get_object_or_404(Character, id=character_id)
+    if character.user != request.user:
+        return HttpResponseForbidden("You do not have permission to delete this character")
+    character.delete()
+    return HttpResponse(status=204)
 
 
 @login_required
