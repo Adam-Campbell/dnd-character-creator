@@ -95,10 +95,10 @@
                         <th>Eye Shape</th>
                         <td>{{ character.eye_shape }}</td>
                     </tr>
-                    {% if character.distinguishingFeatures != "" %}
+                    {% if character.distinguishing_features != "" %}
                         <tr>
                             <th>Distinguishing Features</th>
-                            <td>{{ character.distinguishing }}</td>
+                            <td>{{ character.distinguishing_features }}</td>
                         </tr>
                     {% endif %}
                     <tr>
@@ -135,7 +135,7 @@
                     </tr>
                     <tr>
                         <th>Clothing Colors</th>
-                        <td>{{ color }}</td>
+                        <td>{{ character.clothing_colors }}</td>
                     </tr>
                     {% if character.clothing_accessories != "" %}
                         <tr>
