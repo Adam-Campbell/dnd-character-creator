@@ -42,6 +42,12 @@ main {
     font-size: 6rem;
 }
 
+.character-sheet-user-image {
+    width: 40px;
+    height: auto;
+    border-radius: 50%;
+}
+
 
 
 
@@ -80,7 +86,17 @@ main {
     background-position: center;
 }
 
-@media (max-width: 370px) {
+.character-card-creator-image {
+    width: 20px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.character-card-small-text {
+    font-size: 0.85rem;
+}
+
+@media (max-width: 380px) {
     .character-card-column {
         width: 100%;
     }

@@ -18,6 +18,23 @@
                     <span class="badge bg-dark">Speed: {{ character.race_data.speed }} ft</span>
                     <span class="badge bg-dark">Hit Die: 1d{{ character.class_data.hitDie }}</span>
                 </div>
+                <div class="mt-2 d-flex align-items-center">
+                    <img src="{{ character.user.userprofile.profile_image_url }}" alt="Profile Picture" class="character-sheet-user-image me-2">
+                    <span>by {{ character.user.username }}</span>
+                </div>
+                <div class="mt-2">
+                    {% if user_has_liked %}
+                    <a class="btn btn-outline-primary" href="{% url 'characters:toggle_like' character.id %}">Liked <i class="fa-solid fa-heart"></i></a>
+                    {% endif %}
+                    {% if not user_has_liked %}
+                        <a class="btn btn-outline-primary" href="{% url 'characters:toggle_like' character.id %}">Like <i class="fa-regular fa-heart"></i></a>
+                    {% endif %}
+                    {% if character.liked_by.count > 0 %}
+                        <span class="character-card-small-text text-muted ms-1">{{ character.liked_by.count }} {{ character.liked_by.count|pluralize:"like,likes" }}</span>
+                        
+                    {% endif %}
+                    
+                </div>
             </div>
         </div>
 

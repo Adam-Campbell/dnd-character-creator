@@ -43,13 +43,20 @@
             {% for character in created_characters %}
                 <div class="character-card-column col-6 col-md-4 col-lg-3 col-xxl-2 mb-4">
                     <div class="card">
-                        <div class="ratio ratio-1x1 character-card-image-holder" style="background-image: url({{ character.image_url }});">
-
-                        </div>
+                        <div class="ratio ratio-1x1 character-card-image-holder" style="background-image: url({{ character.image_url }});"></div>
                         <div class="card-body">
                             <p class="card-title h5">{{ character.name }}</p>
-                            <p class="card-subtitle h6 text-muted mb-4">{{ character.race_data.name }} {{ character.class_data.name }}</p>
-                            <a href="{% url 'characters:character_detail' character.id %}" class="btn btn-outline-primary">Details</a>
+                            <p class="card-subtitle h6 text-muted">{{ character.race_data.name }} {{ character.class_data.name }}</p>
+                            <div class="mt-2 mb-4 d-flex flex-wrap align-items-center">
+                                <img class="character-card-creator-image me-1" src="{{ character.user.userprofile.profile_image_url }}" alt="Profile Picture">
+                                <span class="character-card-small-text">by {{ character.user.username }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{% url 'characters:character_detail' character.id %}" class="btn btn-outline-primary">View</a>
+                                {% if character.liked_by.count > 0 %}
+                                    <span class="character-card-small-text text-muted">{{ character.liked_by.count }} {{ character.liked_by.count|pluralize:"like,likes" }}</span>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,13 +69,20 @@
             {% for character in liked_characters %}
                 <div class="character-card-column col-6 col-md-4 col-lg-3 col-xxl-2 mb-4">
                     <div class="card">
-                        <div class="ratio ratio-1x1 character-card-image-holder" style="background-image: url({{ character.image_url }});">
-
-                        </div>
+                        <div class="ratio ratio-1x1 character-card-image-holder" style="background-image: url({{ character.image_url }});"></div>
                         <div class="card-body">
                             <p class="card-title h5">{{ character.name }}</p>
-                            <p class="card-subtitle h6 text-muted mb-4">{{ character.race_data.name }} {{ character.class_data.name }}</p>
-                            <a href="{% url 'characters:character_detail' character.id %}" class="btn btn-outline-primary">Details</a>
+                            <p class="card-subtitle h6 text-muted">{{ character.race_data.name }} {{ character.class_data.name }}</p>
+                            <div class="mt-2 mb-4 d-flex flex-wrap align-items-center">
+                                <img class="character-card-creator-image me-1" src="{{ character.user.userprofile.profile_image_url }}" alt="Profile Picture">
+                                <span class="character-card-small-text">by {{ character.user.username }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{% url 'characters:character_detail' character.id %}" class="btn btn-outline-primary">View</a>
+                                {% if character.liked_by.count > 0 %}
+                                    <span class="character-card-small-text text-muted">{{ character.liked_by.count }} {{ character.liked_by.count|pluralize:"like,likes" }}</span>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseForbidden, HttpResponseNotFound
 import json
 from .models import Character
@@ -78,6 +78,8 @@ def create_character(request):
                 clothing_accessories=character_data['clothing_accessories']
             )
             new_character.save()
+            # Add the character to the user's liked characters
+            request.user.liked_characters.add(new_character)
             print("Character created")
             return JsonResponse({ 'message': 'POST request handled' })
         
@@ -96,9 +98,11 @@ def create_character(request):
 
 
 def character_detail(request, id):
-    context = { 'id': id }
+    #context = { 'id': id }
     # Get character object from database
-    character = Character.objects.get(id=id)
+    #character = Character.objects.get(id=id)
+    character = get_object_or_404(Character, id=id)
+    user_has_liked = character.liked_by.filter(id=request.user.id).exists()
     # Get static data and add the relevant class and race data to the character object
     static_data = get_static_data()
     character.class_data = get_item_by_id(static_data['classes'], str(character.character_class))
@@ -140,8 +144,23 @@ def character_detail(request, id):
     weapon_proficiencies = list({ weapon['id']: weapon for weapon in character.race_data['weaponProficiencies']+character.class_data['proficiencies']['weapons']}.values())
     character.class_data['proficiencies']['weapons'] = weapon_proficiencies
     
-    context['character'] = character
-    return render(request, 'characters/character_detail.html', context)
+    #context['character'] = character
+    return render(request, 'characters/character_detail.html', {
+        'character': character,
+        'user_has_liked': user_has_liked,
+        'id': id
+    })
+
+
+@login_required
+def toggle_like(request, character_id):
+    character = get_object_or_404(Character, id=character_id)
+    if request.user.liked_characters.filter(id=character_id).exists():
+        request.user.liked_characters.remove(character)
+        
+    else:
+        request.user.liked_characters.add(character)
+    return redirect('characters:character_detail', id=character_id)
 
 
 
