@@ -255,7 +255,9 @@ document.addEventListener("alpine:init", () => {
          * @param {*} e 
          */
         resetStateOnClassChange(e) {
-            console.log(e.target.value);
+            this.character.classSkillChoices = [];
+            this.character.classCantripChoices = [];
+            this.character.classSpellChoices = [];
         },
         addCantrip(cantripId) {
             // If the cantrip is already in the list, do nothing.
