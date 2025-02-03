@@ -7,54 +7,76 @@
 {% block content %}
 <div class="container">
     <div class="row d-flex flex-column flex-md-row py-4">
-            <div class="d-flex flex-column justify-content-center align-items-center col-12 col-md-4 col-lg-3">
-                <img class="profile-image mb-4 mb-md-0 me-md-4" src="{{ user.userprofile.profile_image_url }}" alt="Profile Picture">
-                {% if is_own_profile %}
-                    <button class="btn btn-outline-primary mt-2">Upload image</button>
-                {% endif %}
-            </div>
-            <div class="d-flex flex-column justify-content-center align-items-center align-items-md-start col-12 col-md-8 col-lg-9">
-                <h1>{{ user.username }}</h1>
-                <div id="bio-container">
-                    {% if user.userprofile.bio %}
-                        <p id="bio-text">{{ user.userprofile.bio }}</p>
-                    {% endif %}
-                    {% if not user.userprofile.bio %}
-                        <p>No bio.</p>
-                    {% endif %}
-                    {% if is_own_profile %}
-                        <button id="edit-bio-button" class="btn btn-outline-primary">Edit bio</button>
-                    {% endif %}
-                </div>
-                
-                {% if is_own_profile %}
-                    <form class="d-none align-self-stretch " id="edit-bio-form" action="{% url 'edit_profile_bio' user.id %}" method="POST">
-                        {% csrf_token %}
-                        <textarea class="form-control" name="bio" id="bio-textarea" class="form-control" rows="3">{{ user.userprofile.bio }}</textarea>
-                        <button type="submit" class="btn btn-primary mt-2">Save</button>
-                    </form>
-                {% endif %}
-
-            </div>
+        <div class="d-flex flex-column justify-content-center align-items-center col-12 col-md-4 col-lg-3">
+            <img class="profile-image mb-4 mb-md-0 me-md-4" src="{{ user.userprofile.profile_image_url }}" alt="Profile Picture">
+            {% if is_own_profile %}
+                <button class="btn btn-outline-primary mt-2">Upload image</button>
+            {% endif %}
         </div>
+        <div class="d-flex flex-column justify-content-center align-items-center align-items-md-start col-12 col-md-8 col-lg-9">
+            <h1>{{ user.username }}</h1>
+            <div id="bio-container">
+                {% if user.userprofile.bio %}
+                    <p id="bio-text">{{ user.userprofile.bio }}</p>
+                {% endif %}
+                {% if not user.userprofile.bio %}
+                    <p>No bio.</p>
+                {% endif %}
+                {% if is_own_profile %}
+                    <button id="edit-bio-button" class="btn btn-outline-primary">Edit bio</button>
+                {% endif %}
+            </div>
+            
+            {% if is_own_profile %}
+                <form class="d-none align-self-stretch " id="edit-bio-form" action="{% url 'edit_profile_bio' user.id %}" method="POST">
+                    {% csrf_token %}
+                    <textarea class="form-control" name="bio" id="bio-textarea" class="form-control" rows="3">{{ user.userprofile.bio }}</textarea>
+                    <button type="submit" class="btn btn-primary mt-2">Save</button>
+                </form>
+            {% endif %}
 
-<p>This is the profile for {{ user.username }}</p>
-{% if is_own_profile %}
-    <p>This is your profile!</p>
-{% endif %}
-{% if not is_own_profile %}
-    <p>This is not your profile!</p>
-{% endif %}
-
-{% if created_characters %}
-    <p>This user has created the following characters:</p>
-    {% for character in created_characters %}
-        <p>{{ character.name }}</p>
-    {% endfor %}
-{% endif %}
-    
+        </div>
     </div>
+    {% if created_characters %}
+        <div class="row py-4">
+            <h2 class="h4 mb-4">Created Characters</h2>
+            {% for character in created_characters %}
+                <div class="character-card-column col-6 col-md-4 col-lg-3 col-xxl-2 mb-4">
+                    <div class="card">
+                        <div class="ratio ratio-1x1 character-card-image-holder" style="background-image: url({{ character.image_url }});">
+
+                        </div>
+                        <div class="card-body">
+                            <p class="card-title h5">{{ character.name }}</p>
+                            <p class="card-subtitle h6 text-muted mb-4">{{ character.race_data.name }} {{ character.class_data.name }}</p>
+                            <a href="{% url 'characters:character_detail' character.id %}" class="btn btn-outline-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if liked_characters %}
+        <div class="row py-4">
+            <h2 class="h4 mb-4">Liked Characters</h2>
+            {% for character in liked_characters %}
+                <div class="character-card-column col-6 col-md-4 col-lg-3 col-xxl-2 mb-4">
+                    <div class="card">
+                        <div class="ratio ratio-1x1 character-card-image-holder" style="background-image: url({{ character.image_url }});">
+
+                        </div>
+                        <div class="card-body">
+                            <p class="card-title h5">{{ character.name }}</p>
+                            <p class="card-subtitle h6 text-muted mb-4">{{ character.race_data.name }} {{ character.class_data.name }}</p>
+                            <a href="{% url 'characters:character_detail' character.id %}" class="btn btn-outline-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 </div>
+
 
 {% endblock %}
 
