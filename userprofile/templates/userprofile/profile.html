@@ -5,5 +5,20 @@
 {% block title %}User Profile | DnD Character Creator{% endblock %}
 
 {% block content %}
-<h1>This will be your profile!</h1>
+<p>This is the profile for {{ user.username }}</p>
+{% if is_own_profile %}
+    <p>This is your profile!</p>
+{% endif %}
+{% if not is_own_profile %}
+    <p>This is not your profile!</p>
+{% endif %}
+
+{% if created_characters %}
+    <p>This user has created the following characters:</p>
+    {% for character in created_characters %}
+        <p>{{ character.name }}</p>
+    {% endfor %}
+{% endif %}
+
+
 {% endblock %}

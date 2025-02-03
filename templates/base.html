@@ -63,7 +63,7 @@
                                 Account
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{% url 'profile' %}">View Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'profile' user.id %}">View Profile</a></li>
                                 <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign out</a></li>
                             </ul>
                         </li>
