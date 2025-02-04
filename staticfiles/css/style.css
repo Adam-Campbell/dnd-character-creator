@@ -2,7 +2,190 @@
     box-sizing: border-box;
 }
 
-body {
+html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/********************************
+  Character sheet custom styles
+********************************/
+
+
+
+.ability-card-number {
+    font-size: 6rem;
+}
+
+.character-sheet-user-image {
+    width: 40px;
+    height: auto;
+    border-radius: 50%;
+}
+
+
+@media(min-width: 768px) {
+    .character-sheet-controls-container {
+        margin-left: -8px;
+    }
+}
+
+
+/***********************
+  Navbar custom styles
+***********************/
+
+.nav-button {
+    width: 100%;
+    margin: 0.5rem 0 0.5rem 0;
+}
+
+@media (min-width: 768px) {
+    .nav-button {
+        width: initial;
+    }
+}
+
+@media (min-width: 990px) {
+    .nav-button {
+        margin: 0 0 0 1rem;
+    }
+}
+
+.main-logo {
+    font-size: 2rem;
+}
+
+
+/********************************
+  Characters list custom styles
+********************************/
+.character-card {
+    width: 100%;
+}
+
+.character-card-image-holder {
+    background-size: cover;
+    background-position: center;
+}
+
+.character-card-creator-image {
+    width: 20px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.character-card-small-text {
+    font-size: 0.85rem;
+}
+
+@media (max-width: 380px) {
+    .character-card-column {
+        width: 100%;
+    }
+}
+
+
+
+
+/***************************
+  Auth pages custom styles
+***************************/
+
+.d20-background {
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+        url(../images/d20-background.webp);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+
+
+
+/*********************************
+  Character editor custom styles
+*********************************/
+
+.editor-desktop-nav {
+    display: none;
+}
+
+
+@media (min-width: 768px) {
+    .editor-desktop-nav {
+        display: flex;
+    }
+    .editor-mobile-nav {
+        display: none;
+    }
+}
+
+
+.editor-ability-card-number {
+    font-size: 6rem;
+}
+
+@media (min-width: 768px) {
+    .editor-ability-select-description {
+        display: none;
+    }
+}
+
+/*
+  Need to alter styles of accordion items that correspond to entities that are currently selected in the model,
+  but altering the class of the accordion item dynamically becomes cumbersome because bootstrap also adds and removes
+  classes. Instead, we add a custom attribute to the accordion item and target that.
+*/
+.accordion-button[data-custom-selected-item="true"] {
+    background: rgb(182, 182, 182);
+    font-weight: bold;
+}
+
+
+.editor-summary-card {
+    width: 100%;
+    max-width: 400px;
+    
+}
+
+
+
+
+/*****************************
+  Profile page custom styles
+*****************************/
+
+.profile-image {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    border-radius: 50%;
 }

@@ -15,6 +15,18 @@ const abilityIndexMap = {
     5: "charisma"
 }
 
+const abilityUUIDMap = {
+    "strength": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
+    "dexterity": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
+    "constitution": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
+    "intelligence": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
+    "wisdom": "468b3218-340b-4263-9450-dc72e6750f16",
+    "charisma": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9"
+}
+
+
+
+
 document.addEventListener("alpine:init", () => {
     console.log("alpine has initialised");
     Alpine.prefix("data-")
@@ -68,34 +80,72 @@ document.addEventListener("alpine:init", () => {
         get isCaster() {
             return this.chosenClass.spellcasting.ability !== null;
         },
+        get isComplete() {
+            // Race page doesn't need to be checked
+            // Check class page
+            if (this.character.classSkillChoices.length !== this.computedNumberOfSkillProficiencies) {
+                return false;
+            }
+            // Check ability point page
+            for (let i = 0; i < this.character.abilityPoints.length; i++) {
+                if (this.character.abilityPoints[i].value === "--") {
+                    return false;
+                }
+            }
+            // Check cantrips and spells page
+            if (this.isCaster) {
+                if (this.character.classCantripChoices.length !== this.chosenClass.spellcasting.cantrips.choose) {
+                    return false;
+                }
+                if (this.character.classSpellChoices.length !== this.chosenClass.spellcasting.spells.choose) {
+                    return false;
+                }
+            }
+            // Check background page
+            if (this.character.name === "" || this.character.age === "" || this.character.gender === "" || this.character.background === "") {
+                return false;
+            }
+            // Check appearance page
+            if (this.character.height === "" || this.character.build === "" || this.character.skinTone === "" || this.character.eyeColor === "" || 
+                this.character.hairColor === "" || this.character.hairStyle === "" || this.character.clothingStyle === "" || this.character.clothingColors === "") {
+                return false;
+            }
+            return true;
+        },
         /**
          * Get the current base score for the given ability, with no bonuses applied.
          * @param {*} abilityName 
          * @returns 
          */
-        getAbilityBaseScore(abilityName) {
-            const idx = abilityIndexMap[abilityName];
-            return this.character.abilityPoints[idx].value;
+        getAbilityBaseScore(abilityUUID) {
+            //const idx = abilityIndexMap[abilityName];
+            const ability = this.character.abilityPoints.find(a => a.id === abilityUUID);
+            return ability.value;
+            //return this.character.abilityPoints[idx].value;
         },
         /**
          * Get the racial ability bonus for the given ability.
          * @param {*} abilityName 
          * @returns 
          */
-        getRacialAbilityBonus(abilityName) {
-            const idx = abilityIndexMap[abilityName];
-            const bonus = this.chosenRace.abilityBonuses[idx];;
+        getRacialAbilityBonus(abilityUUID) {
+            //const idx = abilityIndexMap[abilityName];
+            const bonus = this.chosenRace.abilityBonuses.find(a => a.ability.id === abilityUUID);
             return bonus.bonus;
+            //const bonus = this.chosenRace.abilityBonuses[idx];;
+            //return bonus.bonus;
         },
         /**
          * Get the ability score for the given ability, with racial bonuses applied.
          * @param {*} abilityName 
          * @returns 
          */
-        getAdjustedAbilityScore(abilityName) {
-            const idx = abilityIndexMap[abilityName];
-            const baseScore = this.character.abilityPoints[idx].value;
-            const racialBonus = this.getRacialAbilityBonus(abilityName);
+        getAdjustedAbilityScore(abilityUUID) {
+            //const idx = abilityIndexMap[abilityName];
+            //const baseScore = this.character.abilityPoints[idx].value;
+            //const racialBonus = this.getRacialAbilityBonus(abilityName);
+            const baseScore = this.getAbilityBaseScore(abilityUUID);
+            const racialBonus = this.getRacialAbilityBonus(abilityUUID);
             if (baseScore === "--") {
                 return "--";
             } else {
@@ -107,8 +157,8 @@ document.addEventListener("alpine:init", () => {
          * @param {*} abilityName 
          * @returns 
          */
-        getAbilityModifier(abilityName) {
-            const score = this.getAdjustedAbilityScore(abilityName);
+        getAbilityModifier(abilityUUID) {
+            const score = this.getAdjustedAbilityScore(abilityUUID);
             if (score === "--") {
                 return 0;
             }
@@ -157,7 +207,7 @@ document.addEventListener("alpine:init", () => {
             // Construct an array containing some subset of the options
             // '--', 8, 10, 12, 13, 14, 15,
             // where '--' represents none/unset.
-            // Specifically, it should include None, the current value of this ability,
+            // Specifically, it should include '--', the current value of this ability,
             // and any other value that has not been chosen yet.
             const currentAbilityValue = this.character.abilityPoints.find(a => a.id === abilityId).value;
             const points = [8, 10, 12, 13, 14, 15].filter(p => {
@@ -205,7 +255,9 @@ document.addEventListener("alpine:init", () => {
          * @param {*} e 
          */
         resetStateOnClassChange(e) {
-            console.log(e.target.value);
+            this.character.classSkillChoices = [];
+            this.character.classCantripChoices = [];
+            this.character.classSpellChoices = [];
         },
         addCantrip(cantripId) {
             // If the cantrip is already in the list, do nothing.
@@ -256,6 +308,22 @@ document.addEventListener("alpine:init", () => {
             return this.staticData.spells.find(s => s.id === spellId);
         },
         /**
+         * Adjust facial hair length value to account for whether the character has facial hair or not.
+         * Attached to the change event of the facial hair style select element.
+         * @param {*} e 
+         */
+        adjustFacialHairLength(e) {
+            const newStyle = e.target.value;
+            // If the new style is None or Stubble, then the length should be None.
+            if (newStyle === "None" || newStyle === "Stubble") {
+                this.character.facialHairLength = "";
+            // If the new style is not None or Stubble, and the length is None, then set it to Short,
+            // but don't overwrite if it is already set to something else.
+            } else if (this.character.facialHairLength === "") {
+                this.character.facialHairLength = "Short";
+            }
+        },
+        /**
          * Truncates the given text if it is longer than maxLength, adding '...' to the end.
          * @param {*} text 
          * @param {*} maxLength 
@@ -284,7 +352,7 @@ document.addEventListener("alpine:init", () => {
         async handleSubmit(e) {
             console.log("handleSubmit called")
             e.preventDefault();
-            const character = JSON.parse(JSON.stringify(this.character));
+            console.log(this.character);
             const csrfToken = getCookie('csrftoken');
             const python_ready_character = switchObjectNamingConventions(this.character);
             console.log(python_ready_character)
