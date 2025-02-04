@@ -157,7 +157,8 @@ def character_detail(request, id):
         'character': character,
         'user_has_liked': user_has_liked,
         'user_is_owner': user_is_owner,
-        'id': id
+        'id': id,
+        'is_logged_in': request.user.is_authenticated
     })
 
 

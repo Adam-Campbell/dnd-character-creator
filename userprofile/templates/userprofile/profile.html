@@ -49,7 +49,7 @@
                             <p class="card-subtitle h6 text-muted">{{ character.race_data.name }} {{ character.class_data.name }}</p>
                             <div class="mt-2 mb-4 d-flex flex-wrap align-items-center">
                                 <img class="character-card-creator-image me-1" src="{{ character.user.userprofile.profile_image_url }}" alt="Profile Picture">
-                                <span class="character-card-small-text text-truncate">by {{ character.user.username }}</span>
+                                <a href="{% url 'profile' character.user.id %}" class="character-card-small-text text-truncate">by {{ character.user.username }}</a>
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <a href="{% url 'characters:character_detail' character.id %}" class="btn btn-outline-primary">View</a>
@@ -75,7 +75,7 @@
                             <p class="card-subtitle h6 text-muted">{{ character.race_data.name }} {{ character.class_data.name }}</p>
                             <div class="mt-2 mb-4 d-flex flex-wrap align-items-center">
                                 <img class="character-card-creator-image me-1" src="{{ character.user.userprofile.profile_image_url }}" alt="Profile Picture">
-                                <span class="character-card-small-text text-truncate">by {{ character.user.username }}</span>
+                                <a href="{% url 'profile' character.user.id %}" class="character-card-small-text text-truncate">by {{ character.user.username }}</a>
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
                                 <a href="{% url 'characters:character_detail' character.id %}" class="btn btn-outline-primary">View</a>
