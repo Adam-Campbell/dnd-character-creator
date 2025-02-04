@@ -39,4 +39,15 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS(f'Character {character.name} created.'))
         
         self.stdout.write(self.style.SUCCESS('Successfully created characters.'))
+
+        # Add likes
+        characters = Character.objects.all()
+        for user in users:
+            n = random.randint(1, len(characters))  # Random number of likes for each user
+            liked_characters = random.sample(list(characters), n)
+            for character in liked_characters:
+                character.liked_by.add(user)
+                self.stdout.write(self.style.SUCCESS(f'User {user.username} liked character {character.name}.'))
+
+        self.stdout.write(self.style.SUCCESS('Successfully added likes.'))
         
