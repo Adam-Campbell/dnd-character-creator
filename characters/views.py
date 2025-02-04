@@ -16,8 +16,11 @@ class CharacterList(generic.ListView):
     paginate_by = 12  # Number of characters per page
 
     def get_queryset(self):
-        #return Character.objects.all()
-        queryset = Character.objects.all()
+        user = self.request.user
+        if user.is_authenticated:
+            queryset = Character.objects.filter(is_public=True) | Character.objects.filter(user=user)
+        else:
+            queryset = Character.objects.filter(is_public=True)
         character_class = self.request.GET.get('character_class')
         race = self.request.GET.get('race')
         if character_class:
@@ -103,6 +106,9 @@ def character_detail(request, id):
     # Get character object from database
     #character = Character.objects.get(id=id)
     character = get_object_or_404(Character, id=id)
+    # If the character is not public and does not belong to the user, return a 403 error
+    if not character.is_public and character.user != request.user:
+        return HttpResponseForbidden("You do not have permission to view this character")
     user_has_liked = character.liked_by.filter(id=request.user.id).exists()
     user_is_owner = character.user == request.user
     # Get static data and add the relevant class and race data to the character object
@@ -158,6 +164,9 @@ def character_detail(request, id):
 @login_required
 def toggle_like(request, character_id):
     character = get_object_or_404(Character, id=character_id)
+    # If the character is not public and does not belong to the user, return a 403 error
+    if not character.is_public and character.user != request.user:
+        return HttpResponseForbidden("You do not have permission to like this character")
     if request.user.liked_characters.filter(id=character_id).exists():
         request.user.liked_characters.remove(character)
         
@@ -165,6 +174,14 @@ def toggle_like(request, character_id):
         request.user.liked_characters.add(character)
     return redirect('characters:character_detail', id=character_id)
 
+@login_required
+def toggle_privacy(request, character_id):
+    character = get_object_or_404(Character, id=character_id)
+    if character.user != request.user:
+        return HttpResponseForbidden("You do not have permission to change the privacy of this character")
+    character.is_public = not character.is_public
+    character.save()
+    return redirect('characters:character_detail', id=character_id)
 
 @login_required
 @require_http_methods(['DELETE'])

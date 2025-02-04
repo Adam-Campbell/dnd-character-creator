@@ -116,6 +116,7 @@ class Character(models.Model):
     image_url = models.URLField(max_length=200, default=get_default_image_url)
     liked_by = models.ManyToManyField(User, related_name='liked_characters')
     created_at = models.DateTimeField(default=now, editable=False)
+    is_public = models.BooleanField(default=True)
 
     def to_json(self):
         """Return a JSON representation of the instance. with populated fields such as class and race."""

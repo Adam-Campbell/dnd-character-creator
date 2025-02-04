@@ -49,6 +49,11 @@ main {
 }
 
 
+@media(min-width: 768px) {
+    .character-sheet-controls-container {
+        margin-left: -8px;
+    }
+}
 
 
 /***********************

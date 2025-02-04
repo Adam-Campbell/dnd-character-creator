@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from characters.models import Character
 from .forms import BioForm
 from characters.data_utils import get_static_data, get_item_by_id
+from django.db.models import Q
 
 # Create your views here.
 
@@ -14,13 +15,22 @@ def profile(request, user_id):
     is_own_profile = (user == request.user)
     # grab static character data for enriching the characters
     static_character_data = get_static_data()
+
     # grab the created characters for the user
-    created_characters = Character.objects.filter(user=user)
+    if is_own_profile:
+        created_characters = Character.objects.filter(user=user)
+    else:
+        created_characters = Character.objects.filter(user=user, is_public=True)
     for character in created_characters:
         character.class_data = get_item_by_id(static_character_data['classes'], str(character.character_class))
         character.race_data = get_item_by_id(static_character_data['races'], str(character.race))
+    
     # grab the liked characters for the user
-    liked_characters = user.liked_characters.all()
+    if is_own_profile:
+        liked_characters = user.liked_characters.filter(Q(is_public=True) | Q(user=user))
+    else:
+        liked_characters = user.liked_characters.filter(is_public=True)
+    #liked_characters = user.liked_characters.all()
     for character in liked_characters:
         character.class_data = get_item_by_id(static_character_data['classes'], str(character.character_class))
         character.race_data = get_item_by_id(static_character_data['races'], str(character.race))

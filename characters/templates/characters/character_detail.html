@@ -22,15 +22,21 @@
                     <img src="{{ character.user.userprofile.profile_image_url }}" alt="Profile Picture" class="character-sheet-user-image me-2">
                     <span>by {{ character.user.username }}</span>
                 </div>
-                <div class="mt-2 d-flex flex-column align-self-stretch flex-md-row">
+                <div class="character-sheet-controls-container d-flex flex-column align-self-stretch flex-md-row flex-md-wrap">
                     {% if user_is_owner %}
-                        <a class="btn btn-outline-primary" href="{% url 'characters:edit_character' character.id %}">Edit <i class="fa-solid fa-pen-to-square"></i></a>
-                        <button id="delete-button" data-bs-toggle="modal" data-bs-target="#deletionConfirmationModal" class="btn btn-outline-danger mt-2 mt-md-0 ms-md-1">Delete <i class="fa-solid fa-trash-can"></i></button>
+                        <a class="btn btn-outline-primary mt-2 ms-md-1" href="{% url 'characters:edit_character' character.id %}">Edit <i class="fa-solid fa-pen-to-square"></i></a>
+                        <button id="delete-button" data-bs-toggle="modal" data-bs-target="#deletionConfirmationModal" class="btn btn-outline-danger mt-2 ms-md-1">Delete <i class="fa-solid fa-trash-can"></i></button>
+                        {% if character.is_public %}
+                            <a class="btn btn-outline-primary mt-2 ms-md-1" href="{% url 'characters:toggle_privacy' character.id %}">Make Private <i class="fa-solid fa-lock"></i></a>
+                        {% endif %}
+                        {% if not character.is_public %}
+                            <a class="btn btn-outline-primary mt-2 ms-md-1" href="{% url 'characters:toggle_privacy' character.id %}">Make Public <i class="fa-solid fa-lock-open"></i></a>
+                        {% endif %}
                     {% endif %}
-                    <a class="btn btn-outline-primary mt-2 mt-md-0 ms-md-1" href="#">Clone <i class="fa-solid fa-clone"></i></a>
-                    <div class="d-flex align-items-stretch flex-column flex-md-row mt-2 mt-md-0 ms-md-1">
+                    <a class="btn btn-outline-primary mt-2 ms-md-1" href="#">Clone <i class="fa-solid fa-clone"></i></a>
+                    <div class="d-flex align-items-stretch flex-column flex-md-row mt-2 ms-md-1">
                         {% if user_has_liked %}
-                        <a class="btn btn-outline-primary ms-md-1" href="{% url 'characters:toggle_like' character.id %}">Liked <i class="fa-solid fa-heart"></i></a>
+                        <a class="btn btn-outline-primary" href="{% url 'characters:toggle_like' character.id %}">Liked <i class="fa-solid fa-heart"></i></a>
                         {% endif %}
                         {% if not user_has_liked %}
                             <a class="btn btn-outline-primary" href="{% url 'characters:toggle_like' character.id %}">Like <i class="fa-regular fa-heart"></i></a>
