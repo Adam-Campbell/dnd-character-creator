@@ -80,6 +80,9 @@ main {
 /********************************
   Characters list custom styles
 ********************************/
+.character-card {
+    width: 100%;
+}
 
 .character-card-image-holder {
     background-size: cover;

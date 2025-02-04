@@ -35,17 +35,17 @@
 
     <div class="row my-4">
         {% for character in characters %}
-            <div class="character-card-column col-6 col-md-4 col-lg-3 col-xxl-2 mb-4">
-                <div class="card">
+            <div class="character-card-column col-6 col-md-4 col-lg-3 col-xxl-2 mb-4 d-flex">
+                <div class="card flex-grow-1 character-card">
                     <div class="ratio ratio-1x1 character-card-image-holder" style="background-image: url({{ character.image_url }});"></div>
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column">
                         <p class="card-title h5">{{ character.name }}</p>
                         <p class="card-subtitle h6 text-muted">{{ character.race_data.name }} {{ character.class_data.name }}</p>
                         <div class="mt-2 mb-4 d-flex flex-wrap align-items-center">
                             <img class="character-card-creator-image me-1" src="{{ character.user.userprofile.profile_image_url }}" alt="Profile Picture">
                             <span class="character-card-small-text text-truncate">by {{ character.user.username }}</span>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
                             <a href="{% url 'characters:character_detail' character.id %}" class="btn btn-outline-primary">View</a>
                             {% if character.liked_by.count > 0 %}
                                 <span class="character-card-small-text text-muted">{{ character.liked_by.count }} {{ character.liked_by.count|pluralize:"like,likes" }}</span>
