@@ -1,7 +1,73 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}About | DnD Character Creator{% endblock %}
 
 {% block content %}
-    <h1>Welcome to the DnD Character Creator!</h1>
+    <div class="hero-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-8">
+                    <div class="hero-content-container">
+                        <h1 class="heading-font">Welcome, traveller.</h1>
+                        <p>
+                            Here at <em>The Adventurer's Rest</em>, we have everything you need to create and manage your Dungeons and Dragons characters.
+                            Whether you're looking to create something new, or tweak an old favourite, our character editor has you covered.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row my-5">
+
+            <div class="col-12 col-lg-6 d-flex flex-column justify-content-center mb-5">
+                <h2 class="heading-font text-center mb-5">What's on the menu?</h2>
+                <ul class="about-feature-list">
+                    <li class="about-feature-list-item">
+                        <h3 class="h5">Create & Edit Characters</h3>
+                        <p>
+                            Use our intuitive character editor to build heroes, villains, and everything in between.
+                        </p>
+                    </li>
+                    <li class="about-feature-list-item">
+                        <h3 class="h5">View Beautiful Character Sheets</h3>
+                        <p>
+                            Once made, your character is displayed in a clear, easy-to-read format.
+                        </p>
+                    </li>
+                    <li class="about-feature-list-item">
+                        <h3 class="h5">Showcase Your Creations</h3>
+                        <p>
+                            Upload an image, set your character to public or private, and share your adventurer with the world!
+                        </p>
+                    </li>
+                    <li class="about-feature-list-item">
+                        <h3 class="h5">Discover & Clone Characters</h3>
+                        <p>
+                            Browse other users’ public characters, ‘like’ your favourites, or clone a character to use as a starting point for your own.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class=" d-none d-lg-flex col-12 col-lg-6 d-flex justify-content-center align-items-center mb-5">
+                <img class="about-feature-image" src="{% static 'images/dnd-landing-page-portrait-2.webp' %}" alt="Some adventurers sitting around a tavern table playing Dungeons and Dragons" />
+            </div>
+            
+            <div class="col-12 mt-lg-5 d-flex flex-column align-items-center">
+                <h4 class="heading-font text-center">So pull up a chair, sharpen your quill, and get creating!</p>
+                {% if user.is_authenticated %}
+                    <a class="btn btn-primary" href="{% url 'characters:create_character' %}">Create a Character</a>
+                {% else %}
+                    <a class="btn btn-primary" href="{% url 'account_signup' %}">Sign Up</a>
+                {% endif %}
+            </div>
+
+        </div>
+        
+    </div>
+    
 {% endblock %}

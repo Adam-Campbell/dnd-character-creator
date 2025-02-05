@@ -26,10 +26,13 @@
 
 <body>
     {% block nav %}
-    <header class="sticky-top">
+    <header class="fixed-top">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand py-0" href="{% url 'home' %}"><i class="main-logo fa-solid fa-dice-d20"></i></a>
+                <a class="navbar-brand py-0 d-flex align-items-center" href="{% url 'home' %}">
+                    <i class="main-logo fa-solid fa-dice-d20"></i>
+                    <span class="logo-text">The Adventurer's Rest</span>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">

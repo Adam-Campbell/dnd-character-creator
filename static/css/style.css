@@ -6,6 +6,7 @@
 
 :root {
     --background-color: #f9f6f2;
+    --heading-font: 'Cinzel', serif;
 }
 
 html, body {
@@ -23,22 +24,75 @@ body {
 main {
     flex: 1;
     background: var(--background-color);
+    padding-top: 56px;
 }
 
 
-h1,h2,h3,h4,h5,h6 {
-    font-family: 'Cinzel', serif;
+/* h1,h2,h3,h4,h5,h6 {
+    font-family: var(--heading-font)
+} */
+
+.heading-font {
+    font-family: var(--heading-font);
 }
 
 
 
 
+/***************************
+  About page custom styles
+***************************/
 
+.hero-container {
+    background: url('../images/dnd-landing-page-portrait-2.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: calc(100vh - 56px);
+}
 
+@media (min-width: 768px) {
+    .hero-container {
+        background-image: url('../images/dnd-landing-page-landscape-2.webp');
+    }
+}
 
+.hero-content-container {
+    background: rgba(0,0,0,0.85);
+    color: white;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 4rem;
+}
 
+.about-feature-image {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
 
+.about-feature-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
 
+.about-feature-list-item {
+    border-bottom: 2px solid;
+    border-image: linear-gradient(to right, 
+                rgba(0, 0, 0, 0) 10%, 
+                rgba(0, 0, 0, 0.4) 35%, 
+                rgba(0, 0, 0, 0.9) 50%, 
+                rgba(0, 0, 0, 0.4) 65%, 
+                rgba(0, 0, 0, 0) 90%) 
+                1;
+    margin-bottom: 1rem;
+}
 
 
 /********************************
@@ -89,6 +143,19 @@ h1,h2,h3,h4,h5,h6 {
 .main-logo {
     font-size: 2rem;
 }
+
+.logo-text {
+    margin-left: 0.5rem;
+    font-family: var(--heading-font);
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .logo-text {
+        display: inline;
+    }
+}
+
 
 
 /********************************
