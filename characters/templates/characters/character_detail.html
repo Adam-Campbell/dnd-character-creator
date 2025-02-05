@@ -8,7 +8,8 @@
 <div class="container pt-4">
     <div class="row">
         
-        <div class="col-12 d-flex flex-column flex-md-row align-items-center" id="xcharacter-intro">
+        <!-- Header and character intro -->
+        <div class="col-12 d-flex flex-column flex-md-row align-items-center" id="character-intro">
             <img src="{% static 'images/fantasy-placeholder.webp' %}" alt="Character placeholder image" class="img-fluid">
             <div class="ms-md-4 d-flex flex-column align-items-center align-items-md-start align-self-stretch align-self-md-center">
                 <h1>{{ character.name }}</h1>
@@ -22,6 +23,7 @@
                     <img src="{{ character.user.userprofile.profile_image_url }}" alt="Profile Picture" class="character-sheet-user-image me-2">
                     <a href="{% url 'profile' character.user.id %}">by {{ character.user.username }}</a>
                 </div>
+                <!-- Action buttons -->
                 {% if is_logged_in %}
                     <div class="character-sheet-controls-container d-flex flex-column align-self-stretch flex-md-row flex-md-wrap">
                         {% if user_is_owner %}
@@ -51,6 +53,7 @@
             </div>
         </div>
 
+        <!-- Character background section -->
         <div class="col-12 col-md-6 pt-5" id="character-background">
             <h4 class="mb-4">Background</h4>
             <span class="badge text-bg-dark">{{ character.alignment }} Alignment</span>
@@ -101,6 +104,7 @@
             {% endif %}
         </div>
 
+        <!-- Character appearance section -->
         <div class="col-12 col-md-6 pt-5" id="character-appearance">
             <h4 class="mb-4">Appearance</h4>
             <table class="table table-striped">
@@ -177,6 +181,7 @@
             </table>
         </div>
 
+        <!-- Character proficiencies section -->
         <div class="col-12 col-lg-9 pt-5" id="character-proficiencies">
             <h4 class="mb-4">Proficiencies</h4>
             <table class="table table-striped">
@@ -223,6 +228,7 @@
             </table>
         </div>
 
+        <!-- Character equipment section -->
         <div class="col-12 col-lg-3 pt-5" id="character-equipment">
             <h4 class="mb-4">Equipment</h4>
             <ul class="list-group">
@@ -232,62 +238,7 @@
             </ul>
         </div>
 
-        {% if character.race_data.additionalProperties or character.class_data.additionalProperties or character.race_data.darkvision %}
-            <div class="col-12 pt-5" id="character-additional-properties">
-                <h4 class="mb-4">Additional Properties</h4>
-                <ul class="list-group">
-                    {% for property in character.race_data.additionalProperties %}
-                        <li class="list-group-item">
-                            <p class="h5">{{ property.name }}</p> 
-                            <p>{{ property.description }}</p>
-                        </li>
-                    {% endfor %}
-                    {% for property in character.class_data.additionalProperties %}
-                        <li class="list-group-item">
-                            <p class="h5">{{ property.name }}</p> 
-                            <p>{{ property.description }}</p>
-                        </li>
-                    {% endfor %}
-                    {% if character.race_data.darkvision %}
-                        <li class="list-group-item">
-                            <p class="h5">Darkvision</p> 
-                            <p>You can see in darkened areas up to a distance of 60 ft.</p>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        {% endif %}
-
-        {% if character.character_class_cantrip_choices or character.character_class_spell_choices %}
-        <div class="col-12 pt-5" id="character-spellcasting">
-            <h4 class="mb-4">Spellcasting</h4>
-            <div class="row">
-            {% for cantrip in character.character_class_cantrip_choices %}
-                <div class="mb-4 d-flex col-12 col-md-4 col-lg-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ cantrip.name }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Cantrip</h6>
-                            <p class="card-text">{{ cantrip.description | safe | truncatewords:100 }}</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-            {% for spell in character.character_class_spell_choices %}
-                <div class="mb-4 d-flex col-12 col-md-4 col-lg-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ spell.name }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Level {{ spell.level }} spell</h6>
-                            <p class="card-text">{{ spell.description | safe | truncatewords:100 }}</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-            </div>
-        </div>
-        {% endif %}
-
+        <!-- Character ability points section -->
         <div class="col-12 pt-5" id="character-ability-points">
             <h4 class="mb-4">Ability Points</h4>
             <div class="row">
@@ -309,14 +260,101 @@
                     </div>
                 </div>
                 {% endfor %}
-
-                
-
             </div>
         </div>
 
+        <!-- Character spellcasting section -->
+        {% if character.character_class_cantrip_choices or character.character_class_spell_choices %}
+            <div class="col-12 col-xl-6 pt-5">
+                <h4 class="mb-4">Spellcasting</h4>
+                <div class="accordion" id="spellcasting-accordion">
+                    {% for cantrip in character.character_class_cantrip_choices %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cantrip{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne">
+                                    {{ cantrip.name }}
+                                </button>
+                            </h2>
+                            <div id="cantrip{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#spellcasting-accordion">
+                                <div class="accordion-body">
+                                    <p>{{ cantrip.description | safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% for spell in character.character_class_spell_choices %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#spell{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne">
+                                    {{ spell.name }}
+                                </button>
+                            </h2>
+                            <div id="spell{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#spellcasting-accordion">
+                                <div class="accordion-body">
+                                    <p>{{ spell.description | safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Additional character properties section -->
+        {% if character.race_data.additionalProperties or character.class_data.additionalProperties or character.race_data.darkvision %}
+            <div class="col-12 pt-5 {% if character.character_class_cantrip_choices or character.character_class_spell_choices %}col-xl-6{% endif %}">
+                <h4 class="mb-4">Additional Properties</h4>
+                <div class="accordion" id="additional-properties-accordion">
+                    {% for property in character.race_data.additionalProperties %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#raceProperty{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne">
+                                    {{ property.name }}
+                                </button>
+                            </h2>
+                            <div id="raceProperty{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#additional-properties-accordion">
+                                <div class="accordion-body">
+                                    <p>{{ property.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% for property in character.class_data.additionalProperties %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#classProperty{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne">
+                                    {{ property.name }}
+                                </button>
+                            </h2>
+                            <div id="classProperty{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#additional-properties-accordion">
+                                <div class="accordion-body">
+                                    <p>{{ property.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% if character.race_data.darkvision %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#darkvisionProperty" aria-expanded="true" aria-controls="collapseOne">
+                                    Darkvision
+                                </button>
+                            </h2>
+                            <div id="darkvisionProperty" class="accordion-collapse collapse" data-bs-parent="#additional-properties-accordion">
+                                <div class="accordion-body">
+                                    <p>You can see in darkened areas up to a distance of 60 ft.</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
     </div>
 </div>
+
+<!-- Deletion confirmation modal -->
 <div class="modal fade" id="deletionConfirmationModal" tabindex="-1" aria-labelledby="deletionConfirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

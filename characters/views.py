@@ -7,7 +7,7 @@ from django.views.decorators.http import require_http_methods
 from django.views import generic
 from django.core.serializers import serialize
 from .data_utils import get_static_data, validate_character_data, get_item_by_id, format_line_breaks
-
+import time
 
 class CharacterList(generic.ListView):
     """
