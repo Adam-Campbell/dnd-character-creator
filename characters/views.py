@@ -45,6 +45,7 @@ class CharacterList(generic.ListView):
         return context
 
 
+
 @login_required
 def create_character(request):
     """

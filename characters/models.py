@@ -118,6 +118,9 @@ class Character(models.Model):
     created_at = models.DateTimeField(default=now, editable=False)
     is_public = models.BooleanField(default=True)
 
+    class Meta:
+        ordering = ['-created_at']
+
     def to_json(self, exclude_id=False):
         """Return a JSON representation of the instance. with populated fields such as class and race."""
         excluded_fields = { 'user', 'liked_by', 'created_at' }
