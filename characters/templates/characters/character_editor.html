@@ -3,6 +3,12 @@
 
 {% block title %}Create A Character | DnD Character Creator{% endblock %}
 
+{% block extra_head_content %}
+<script>
+    window.editorData = {{  editor_data|safe }};
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="container pt-4">
     <form method="post" id="character-creator-form" data-data="characterGenerator">

@@ -1,4 +1,9 @@
 
+export const editingContexts = {
+    createNew: 'CREATE_NEW',
+    editExisting: 'EDIT_EXISTING',
+    cloneExisting: 'CLONE_EXISTING'
+}
 
 /**
  * Factory function for creating a new, empty character object

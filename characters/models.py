@@ -118,25 +118,23 @@ class Character(models.Model):
     created_at = models.DateTimeField(default=now, editable=False)
     is_public = models.BooleanField(default=True)
 
-    def to_json(self):
+    def to_json(self, exclude_id=False):
         """Return a JSON representation of the instance. with populated fields such as class and race."""
         excluded_fields = { 'user', 'liked_by', 'created_at' }
+        if exclude_id:
+            excluded_fields.add('id')
         instance_dict = {}
         for field in self._meta.fields:
             value = getattr(self, field.name)
-            #print(field.name)
             if field.name in excluded_fields:
                 continue
-                #instance_dict[field.name] = {
-                #    'id': value.id,
-                #    'username': value.username
-                #}
             elif field.get_internal_type() == 'UUIDField':
                 instance_dict[field.name] = str(value)
             else:
                 instance_dict[field.name] = value
         print(instance_dict['image_url'])
-        return json.dumps(instance_dict)
+        #return json.dumps(instance_dict)
+        return instance_dict
 
     def __str__(self):
         return self.name
