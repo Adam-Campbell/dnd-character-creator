@@ -204,8 +204,23 @@ main {
     height: 100%;
 }
 
+.auth-screen-container {
+    background-image: url('../images/dnd-landing-page-landscape-1.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100%;
+}
 
+#signup-form-container {
+    background: rgba(0,0,0,0.9);
+    color: white;
+}
 
+#login-form-container {
+    background: rgba(0,0,0,0.9);
+    color: white;
+}
 
 /*********************************
   Character editor custom styles

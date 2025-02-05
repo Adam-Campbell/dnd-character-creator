@@ -7,13 +7,13 @@
 {% endblock head_title %}
 
 {% block content %}
-<div class="d20-background d-flex flex-column align-items-center justify-content-center">
-    <div class="bg-light p-4 mx-4 rounded">
-        <h2>Log in</h2>
+<div class="auth-screen-container p-4 d-flex flex-column align-items-center justify-content-center">
+    <div id="login-form-container" class="p-4 rounded">
+        <h1 class="heading-font">Log in</h1>
         <form method="post" action="{% url 'account_login' %}">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Log in</button>
+            <button class="btn btn-primary" type="submit">Log in</button>
         </form>
         <a href="{% url 'account_signup' %}">Sign up</a>
     </div>

@@ -1,4 +1,10 @@
-import { fetchStaticData, getEmptyCharacter, getCookie, switchObjectNamingConventions } from "./utils.js";
+import { 
+    fetchStaticData, 
+    getEmptyCharacter, 
+    getCookie, 
+    switchObjectNamingConventions,
+    editingContexts 
+} from "./utils.js";
 
 const abilityIndexMap = {
     "strength": 0,
@@ -35,6 +41,8 @@ document.addEventListener("alpine:init", () => {
         staticData: null,
         isLoading: true,
         currentPage: "race",
+        editingContext: null,
+        characterId: null,
 
         async init() {
             console.log("cg init ran")
@@ -42,15 +50,23 @@ document.addEventListener("alpine:init", () => {
                 console.log("cg init ran")
                 this.isLoading = true;
                 this.staticData = await fetchStaticData();
-                this.character = getEmptyCharacter();
-                this.isLoading = false;
                 //console.log(this.staticData)
-                if (window.characterData) {
-                    console.log(switchObjectNamingConventions(characterData))
-                    this.character = switchObjectNamingConventions(characterData);
-                }
+                this.setInitialState();
+                this.isLoading = false;
             } catch (error) {
                 console.error('Error fetching JSON:', error);
+            }
+        },
+        setInitialState() {
+            if (window.editorData) {
+                const { editingContext, characterData, characterId } = window.editorData;
+                this.editingContext = editingContext;
+                this.characterId = characterId;
+                if (editingContext === editingContexts.editExisting || editingContext === editingContexts.cloneExisting) {
+                    this.character = switchObjectNamingConventions(characterData);
+                } else {
+                    this.character = getEmptyCharacter();
+                }
             }
         },
         setPage(page) {
@@ -356,11 +372,17 @@ document.addEventListener("alpine:init", () => {
             const csrfToken = getCookie('csrftoken');
             const python_ready_character = switchObjectNamingConventions(this.character);
             console.log(python_ready_character)
+            let url = '';
+            if (this.editingContext === editingContexts.editExisting) {
+                url = `/characters/${this.characterId}/edit/`;
+            } else {
+                url = '/characters/new/';
+            }
             try {
-                let url = '/characters/new/';
-                if (python_ready_character.id) {
-                    url = `/characters/${python_ready_character.id}/edit/`;
-                }
+                // let url = '/characters/new/';
+                // if (python_ready_character.id) {
+                //     url = `/characters/${python_ready_character.id}/edit/`;
+                // }
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {

@@ -1,4 +1,9 @@
 
+export const editingContexts = {
+    createNew: 'CREATE_NEW',
+    editExisting: 'EDIT_EXISTING',
+    cloneExisting: 'CLONE_EXISTING'
+}
 
 /**
  * Factory function for creating a new, empty character object
@@ -22,7 +27,7 @@ export function getEmptyCharacter() {
         name: "",
         age: null,
         gender: "",
-        alignment: "",
+        alignment: "True Neutral",
         background: "",
         traits: [],
         ideals: [],
@@ -33,16 +38,17 @@ export function getEmptyCharacter() {
         skinTone: "",
         hairColor: "",
         hairStyle: "",
-        hairLength: "",
-        hairType: "",
-        facialHairStyle: "",
+        hairLength: "Medium",
+        hairType: "Straight",
+        facialHairStyle: "None",
         facialHairLength: "",
         eyeColor: "",
-        eyeShape: "",
-        distinguishingFeatures: [],
+        eyeShape: "Almond",
+        distinguishingFeatures: "",
         clothingStyle: "",
-        clothingColors: [],
-        clothingAccessories: [],
+        clothingColors: "",
+        clothingAccessories: "",
+        imageUrl: ""
     };
 }
 
@@ -96,6 +102,8 @@ const namingConventionMap = {
     clothing_colors: 'clothingColors',
     clothingAccessories: 'clothing_accessories',
     clothing_accessories: 'clothingAccessories',
+    imageUrl: 'image_url',
+    image_url: 'imageUrl'
 }
 
 export function switchObjectNamingConventions(obj) {

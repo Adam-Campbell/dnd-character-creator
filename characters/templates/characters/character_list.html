@@ -39,7 +39,7 @@
                 <div class="card flex-grow-1 character-card">
                     <div class="ratio ratio-1x1 character-card-image-holder" style="background-image: url({{ character.image_url }});"></div>
                     <div class="card-body d-flex flex-column">
-                        <p class="card-title h5">{{ character.name }}</p>
+                        <p class="card-title h5 heading-font">{{ character.name }}</p>
                         <p class="card-subtitle h6 text-muted">{{ character.race_data.name }} {{ character.class_data.name }}</p>
                         <div class="mt-2 mb-4 d-flex flex-wrap align-items-center">
                             <img class="character-card-creator-image me-1" src="{{ character.user.userprofile.profile_image_url }}" alt="Profile Picture">
@@ -58,7 +58,7 @@
     </div>
     
     {% if is_paginated %}
-        <div class="d-flex justify-content-center align-items-center mt-4">
+        <div class="d-flex justify-content-center align-items-center my-4">
             
                 {% if page_obj.has_previous %}
                     <a class="btn btn-outline-primary me-2" href="?page={{ page_obj.previous_page_number }}">&laquo; previous</a>

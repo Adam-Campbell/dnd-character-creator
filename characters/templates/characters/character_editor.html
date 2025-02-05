@@ -17,28 +17,31 @@
         </template>
         <template data-if="!isLoading">
             <div class="d-flex flex-column">
+
+                <!-- Desktop navigation -->
                 <div class="btn-group editor-desktop-nav" role="group" aria-label="Editor page selection">
-                    <button data-bind:class="currentPage === 'race' ? 'btn btn-primary' : 'btn btn-outline-primary'"
+                    <button data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'race'}"
                         type="button" data-on:click="() => setPage('race')">Race</button>
-                    <button data-bind:class="currentPage === 'class' ? 'btn btn-primary' : 'btn btn-outline-primary'"
+                    <button data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'class'}"
                         type="button" data-on:click="() => setPage('class')">Class</button>
-                    <button
-                        data-bind:class="currentPage === 'abilityPoints' ? 'btn btn-primary' : 'btn btn-outline-primary'"
+                    <button data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'abilityPoints'}"
                         type="button" data-on:click="() => setPage('abilityPoints')">Ability Points</button>
                     <template data-if="isCaster">
                         <button
-                            data-bind:class="currentPage === 'spells' ? 'btn btn-primary' : 'btn btn-outline-primary'"
+                            data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'spells'}"
                             type="button" data-on:click="() => setPage('spells')">Spells</button>
                     </template>
                     <button
-                        data-bind:class="currentPage === 'background' ? 'btn btn-primary' : 'btn btn-outline-primary'"
+                        data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'background'}"
                         type="button" data-on:click="() => setPage('background')">Background</button>
                     <button
-                        data-bind:class="currentPage === 'appearance' ? 'btn btn-primary' : 'btn btn-outline-primary'"
+                        data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'appearance'}"
                         type="button" data-on:click="() => setPage('appearance')">Appearance</button>
-                    <button data-bind:disabled="!isComplete" data-bind:class="currentPage === 'summary' ? 'btn btn-primary' : 'btn btn-outline-primary'"
+                    <button data-bind:disabled="!isComplete" data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'summary'}"
                         type="button" data-on:click="() => setPage('summary')">Summary</button>
                 </div>
+
+                <!-- Mobile navigation -->
                 <div class="dropdown editor-mobile-nav  align-self-end">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="editorDropdown"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -68,6 +71,7 @@
                 <!-- Markup for race selection -->
                 <template data-if="currentPage === 'race'">
                     <div class="d-flex flex-column mt-4">
+                        <!-- Race Select box -->
                         <div class="d-flex align-items-center align-self-start">
                             <label class="form-label text-nowrap me-2 mb-0" for="race-select">Choose a race:</label>
                             <select class="form-select" id="race-select" data-model="character.race"
@@ -78,9 +82,10 @@
                                 </template>
                             </select>
                         </div>
+                        <!-- Race info -->
                         <div class="row my-4">
                             <div class="col-12 col-md-8 col-lg-9">
-                                <h1 data-text="chosenRace.name"></h1>
+                                <h1 class="heading-font" data-text="chosenRace.name"></h1>
                                 <p data-text="chosenRace.description"></p>
                             </div>
                             <div class="col-12 col-md-4 col-lg-3">
@@ -100,9 +105,10 @@
                                 </template>
                             </div>
                         </div>
+                        <!-- Additional race properties -->
                         <template data-if="chosenRace.additionalProperties.length > 0">
                             <div class="mb-4">
-                                <h2 class="h4">Additional Properties</h2>
+                                <h2 class="h3 heading-font">Additional Properties</h2>
                                 <div class="accordion" id="additional-race-properties">
                                     <template data-for="(property, index) in chosenRace.additionalProperties">
                                         <div class="accordion-item">
@@ -128,7 +134,7 @@
                 <!-- Markup for class selection -->
                 <template data-if="currentPage === 'class'">
                     <div class="d-flex flex-column mt-4">
-
+                        <!-- Class Select box -->
                         <div class="d-flex align-items-center align-self-start">
                             <label class="form-label text-nowrap me-2 mb-0" for="class-select">Choose a class:</label>
                             <select class="form-select" id="class-select" data-model="character.class" data-on:change="resetStateOnClassChange">
@@ -140,18 +146,20 @@
                         </div>
 
                         <div class="row my-4">
+                            <!-- Class info -->
                             <div class="col-12 col-md-8 col-lg-9 mb-4">
-                                <h1 data-text="chosenClass.name"></h1>
+                                <h1 class="heading-font" data-text="chosenClass.name"></h1>
                                 <span class="badge text-bg-dark" data-text="`Hit Die: ${chosenClass.hitDie}`"></span>
                                 <p data-text="chosenClass.description"></p>
                             </div>
-
+                            <!-- Class skills -->
                             <div class="col-12 col-md-4 col-lg-3 mb-4">
-                                <h2 class="h4">Skills</h2>
+                                <h2 class="h3 heading-font">Skills</h2>
                                 <p data-text="`Choose ${computedNumberOfSkillProficiencies} of the following skills to be proficient in:`"></p>
                                 <ul class="list-group">
-                                    <template data-for="skill in chosenClass.proficiencies.skills.from">
-                                        <li class="list-group-item">
+                                    <!-- Use index to apply rounded-top because Alpine doesn't play nicely with Bootstrap -->
+                                    <template data-for="(skill, index) in chosenClass.proficiencies.skills.from">
+                                        <li data-bind:class="`list-group-item ${index === 0 ? 'rounded-top' : ''}`">
                                             <input type="checkbox" data-bind:id="skill.id" data-bind:checked="character.classSkillChoices.includes(skill.id)"
                                                 data-on:change="toggleSkillProficiency(skill.id)"
                                                 data-bind:disabled="Boolean(character.classSkillChoices.length >= computedNumberOfSkillProficiencies &&  !character.classSkillChoices.includes(skill.id))">
@@ -160,43 +168,47 @@
                                     </template>
                                 </ul>
                             </div>
-
+                            <!-- Class proficiencies -->
                             <div class="col-12 col-lg-9 mb-4">
-                                <h3 class="h4">Proficiencies</h3>
-                                <table class="table table-striped">
-                                    <tbody>
-                                        <tr data-show="chosenClass.proficiencies.armor.length > 0">
-                                            <th class="align-middle">Armor Proficiencies</th>
-                                            <td class="align-middle">
-                                                <template data-for="armorType in chosenClass.proficiencies.armor">
-                                                    <span class="badge text-bg-dark me-1" data-text="armorType.name"></span>
-                                                </template>
-                                            </td>
-                                        </tr>
-                                        <tr data-show="chosenClass.proficiencies.weapons.length > 0">
-                                            <th class="align-middle">Weapon Proficiencies</th>
-                                            <td class="align-middle">
-                                                <template data-for="weapon in chosenClass.proficiencies.weapons">
-                                                    <span class="badge text-bg-dark me-1" data-text="weapon.name"></span>
-                                                </template>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="align-middle">Saving Throw Proficiencies</th>
-                                            <td class="align-middle">
-                                                <template data-for="savingThrow in chosenClass.proficiencies.savingThrows">
-                                                    <span class="badge text-bg-dark me-1" data-text="savingThrow.name"></span>
-                                                </template>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <h2 class="h3 heading-font">Proficiencies</h2>
+                                <div class="border border-light-subtle p-3 bg-white rounded">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr data-show="chosenClass.proficiencies.armor.length > 0">
+                                                <th class="align-middle">Armor Proficiencies</th>
+                                                <td class="align-middle">
+                                                    <template data-for="armorType in chosenClass.proficiencies.armor">
+                                                        <span class="badge text-bg-dark me-1" data-text="armorType.name"></span>
+                                                    </template>
+                                                </td>
+                                            </tr>
+                                            <tr data-show="chosenClass.proficiencies.weapons.length > 0">
+                                                <th class="align-middle">Weapon Proficiencies</th>
+                                                <td class="align-middle">
+                                                    <template data-for="weapon in chosenClass.proficiencies.weapons">
+                                                        <span class="badge text-bg-dark me-1" data-text="weapon.name"></span>
+                                                    </template>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="align-middle">Saving Throw Proficiencies</th>
+                                                <td class="align-middle">
+                                                    <template data-for="savingThrow in chosenClass.proficiencies.savingThrows">
+                                                        <span class="badge text-bg-dark me-1" data-text="savingThrow.name"></span>
+                                                    </template>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                             <div class="col-12 col-lg-3 mb-4">
-                                <h4 class="h4">Equipment</h4>
+                                <!-- Class equipment -->
+                                <h2 class="h3 heading-font">Equipment</h2>
                                 <ul class="list-group">
-                                    <template data-for="equipment in chosenClass.equipment">
-                                        <li class="d-flex justify-content-between list-group-item">
+                                    <!-- Use index to apply rounded-top because Alpine doesn't play nicely with Bootstrap -->
+                                    <template data-for="(equipment, index) in chosenClass.equipment">
+                                        <li data-bind:class="`d-flex justify-content-between list-group-item ${index === 0 ? 'rounded-top' : ''}`">
                                             <span data-text="equipment.item.name"></span>
                                             <span class="badge text-bg-light" data-text="`× ${equipment.quantity}`"></span>
                                         </li>
@@ -205,18 +217,19 @@
                             </div>
 
                             <template data-if="chosenClass.additionalProperties.length > 0">
+                                <!-- Additional class properties -->
                                 <div class="mb-4">
-                                    <h5 class="h4">Additional Properties</h5>
+                                    <h2 class="h3 heading-font">Additional Properties</h2>
                                     <div class="accordion" id="additional-class-properties">
                                         <template data-for="(property, index) in chosenClass.additionalProperties">
                                             <div class="accordion-item">
-                                                <h2 class="accordion-header">
+                                                <h3 class="accordion-header">
                                                     <button class="accordion-button collapsed" type="button" data-bind:data-bs-toggle="'collapse'"
                                                         data-bind:data-bs-target="'#collapse' + index" aria-expanded="false"
                                                         data-bind:aria-controls="'collapse' + index"
                                                         data-text="property.name">            
                                                     </button>
-                                                </h2>
+                                                </h3>
                                                 <div data-bind:id="'collapse' + index" class="accordion-collapse collapse"
                                                     data-bind:data-bs-parent="'#additional-class-properties'">
                                                     <div class="accordion-body" data-text="property.description"></div>
@@ -234,75 +247,74 @@
 
                 <!-- Markup for ability points selection -->
                 <template data-if="currentPage === 'abilityPoints'">
-                    <div>
-
-                        <div class="row" data-data="{ uuids: ['0caab33e-f424-4a44-94cd-0c6951e5bdfe', 'fd107c7f-4536-4b36-bf43-e49d92a3c4c2', 'b9b14f85-78db-49ea-b07b-b8bdd7a40046', '44fbcb3c-d548-4a3c-aa85-4c55e05aabed', '468b3218-340b-4263-9450-dc72e6750f16', 'b15c2aa9-87e7-408d-89a7-3bbd64d981a9'] }">
-                            <div class="col-12 my-4">
-                                <h1>Ability points</h1>
-                                <p>Ability points are assigned using the Standard Array - a method that offers a balanced way to assign your ability scores without the randomness of rolling dice. You are given a predefined set of numbers: 15, 14, 13, 12, 10, and 8. You can assign each of these values to one of your six ability scores—Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma—based on what best suits your character's strengths and weaknesses.</p>
-                                <p>Your character's primary ability is <span class="badge text-bg-dark" data-text="chosenClass.primaryAbility.name"></span></p>
-                            </div>
-                            <template data-for="(uuid, index) in uuids">
-                                <div class="col-12 col-sm-6 col-lg-4 col-xxl-2">
-                                    <div class="d-flex align-items-center mb-md-2">
-                                        <label class="fw-bold form-label me-2 mb-0" :for="`ability-select-${index}`" data-text="getAbilityData(uuid).name"></label>
-                                        <select class="form-select" :id="`abiliity-select-${index}`" data-model.number="character.abilityPoints[index].value">
-                                            <template
-                                                data-for="pointOption in computeAbilityPointOptions(uuid)">
-                                                <option data-bind:value="pointOption"
-                                                    data-bind:selected="character.abilityPoints[index].value === pointOption ? true : false"
-                                                    data-text="pointOption">
-                                                </option>
-                                            </template>
-                                        </select>
-                                    </div>
-                                    <p class="d-md-none" data-text="getAbilityData(uuid).description"></p>
-                                </div>
-                            </template>
-                            <div class="col-12 d-flex flex-column flex-sm-row mb-4">
-                                <button class="btn btn-primary mb-2" type="button" data-on:click="resetAbilityPoints">Reset ability points</button>
-                                <button class="btn btn-primary mb-2 ms-sm-2" type="button" data-on:click="setAbilityPointsToChosenClassDefaults">Use class defaults</button>
-                            </div>
-                            <template data-for="(uuid, index) in uuids">
-                                <div class="d-flex mb-4 col-12 col-md-6 col-lg-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-center justify-content-between justify-content-md-around">
-                                                <p class="display-1 editor-ability-card-number" data-text="getAdjustedAbilityScore(uuid)"></p>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        Base Score: <span class="ms-1 badge bg-light text-dark" data-text="getAbilityBaseScore(uuid)"></span>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        Racial Bonus: <span class="ms-1 badge bg-light text-dark" data-text="getRacialAbilityBonus(uuid)"></span>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        Modifier: <span class="ms-1 badge bg-light text-dark" data-text="getAbilityModifier(uuid)"></span>
-                                                    </li>
-                                                </ul>     
-                                            </div>
-                                            <h5 class="card-title" data-text="getAbilityData(uuid).name"></h5>
-                                            <p class="card-text" data-text="getAbilityData(uuid).description"></p>
-                                        </div>    
-                                    </div>
-                                </div>
-                            </template>
+                    <div class="row" data-data="{ uuids: ['0caab33e-f424-4a44-94cd-0c6951e5bdfe', 'fd107c7f-4536-4b36-bf43-e49d92a3c4c2', 'b9b14f85-78db-49ea-b07b-b8bdd7a40046', '44fbcb3c-d548-4a3c-aa85-4c55e05aabed', '468b3218-340b-4263-9450-dc72e6750f16', 'b15c2aa9-87e7-408d-89a7-3bbd64d981a9'] }">
+                        <!-- Explanation -->
+                        <div class="col-12 my-4">
+                            <h1 class="heading-font">Ability points</h1>
+                            <p>Ability points are assigned using the Standard Array - a method that offers a balanced way to assign your ability scores without the randomness of rolling dice. You are given a predefined set of numbers: 15, 14, 13, 12, 10, and 8. You can assign each of these values to one of your six ability scores—Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma—based on what best suits your character's strengths and weaknesses.</p>
+                            <p>Your character's primary ability is <span class="badge text-bg-dark" data-text="chosenClass.primaryAbility.name"></span></p>
                         </div>
-
-                        
-                    </div>
+                        <!-- Ability points Select boxes -->
+                        <template data-for="(uuid, index) in uuids">
+                            <div class="col-12 col-sm-6 col-lg-4 col-xxl-2">
+                                <div class="d-flex align-items-center mb-md-2">
+                                    <label class="fw-bold form-label me-2 mb-0" :for="`ability-select-${index}`" data-text="getAbilityData(uuid).name"></label>
+                                    <select class="form-select" :id="`abiliity-select-${index}`" data-model.number="character.abilityPoints[index].value">
+                                        <template
+                                            data-for="pointOption in computeAbilityPointOptions(uuid)">
+                                            <option data-bind:value="pointOption"
+                                                data-bind:selected="character.abilityPoints[index].value === pointOption ? true : false"
+                                                data-text="pointOption">
+                                            </option>
+                                        </template>
+                                    </select>
+                                </div>
+                                <p class="d-md-none" data-text="getAbilityData(uuid).description"></p>
+                            </div>
+                        </template>
+                        <div class="col-12 d-flex flex-column flex-sm-row mb-4">
+                            <button class="btn btn-primary mb-2" type="button" data-on:click="resetAbilityPoints">Reset ability points</button>
+                            <button class="btn btn-primary mb-2 ms-sm-2" type="button" data-on:click="setAbilityPointsToChosenClassDefaults">Use class defaults</button>
+                        </div>
+                        <!-- Ability points display -->
+                        <template data-for="(uuid, index) in uuids">
+                            <div class="d-flex mb-4 col-12 col-md-6 col-lg-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between justify-content-md-around">
+                                            <p class="display-1 editor-ability-card-number" data-text="getAdjustedAbilityScore(uuid)"></p>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Base Score: <span class="ms-1 badge bg-light text-dark" data-text="getAbilityBaseScore(uuid)"></span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Racial Bonus: <span class="ms-1 badge bg-light text-dark" data-text="getRacialAbilityBonus(uuid)"></span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Modifier: <span class="ms-1 badge bg-light text-dark" data-text="getAbilityModifier(uuid)"></span>
+                                                </li>
+                                            </ul>     
+                                        </div>
+                                        <h3 class="h5 card-title" data-text="getAbilityData(uuid).name"></h3>
+                                        <p class="card-text" data-text="getAbilityData(uuid).description"></p>
+                                    </div>    
+                                </div>
+                            </div>
+                        </template>
+                    </div> 
                 </template>
 
                 <!-- Markup for spells selection -->
                 <template data-if="currentPage === 'spells'">
-                    <div class="row mt-4">  
+                    <div class="row mt-4">
+                        <!-- Cantrip selection -->
                         <div class="col-12 col-lg-6 mb-4">
-                            <h2 class="h4">Cantrips</h2>
+                            <h2 class="h3 heading-font">Cantrips</h2>
                             <p data-text="`${character.classCantripChoices.length} of ${chosenClass.spellcasting.cantrips.choose} cantrips chosen`"></p>
                             <div class="accordion" id="cantrip-details">
                                 <template data-for="(cantrip, index) in chosenClass.spellcasting.cantrips.from">
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header">
+                                        <h3 class="accordion-header">
                                             <button class="accordion-button collapsed" 
                                                 type="button" data-bind:data-bs-toggle="'collapse'"
                                                 data-bind:data-custom-selected-item="character.classCantripChoices.includes(cantrip.id)"
@@ -310,7 +322,7 @@
                                                 data-bind:aria-controls="'cantrip-collapse' + index"
                                                 data-text="cantrip.name">            
                                             </button>
-                                        </h2>
+                                        </h3>
                                         <div data-bind:id="'cantrip-collapse' + index" class="accordion-collapse collapse"
                                             data-bind:data-bs-parent="'#cantrip-details'">
                                             <div class="accordion-body">
@@ -342,8 +354,9 @@
                                 </template>
                             </div>
                         </div>
+                        <!-- Spell selection -->
                         <div class="col-12 col-lg-6 mb-4">
-                            <h2 class="h4">Spells</h2>
+                            <h2 class="h3 heading-font">Spells</h2>
                             <p data-text="`${character.classSpellChoices.length} of ${chosenClass.spellcasting.spells.choose} spells chosen`"></p>
                             <div class="accordion" id="spell-details">
                                 <template data-for="(spell, index) in chosenClass.spellcasting.spells.from">
@@ -395,7 +408,7 @@
                 <!-- Markup for background selection -->
                 <template data-if="currentPage === 'background'">
                     <div class="row my-4">
-                        <h1>Background</h1>
+                        <h1 class="heading-font">Background</h1>
                         <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
                             <label class="form-label me-2" for="character-name">Name</label>
                             <input class="form-control" id="character-name" type="text" data-model="character.name" placeholder="Enter name" />
@@ -556,7 +569,7 @@
                 <!-- Markup for appearance selection -->
                 <template data-if="currentPage === 'appearance'">
                     <div class="row my-4">
-                        <h1>Appearance</h1>
+                        <h1 class="heading-font">Appearance</h1>
                         <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
                             <label class="form-label me-2" for="character-height">Height</label>
                             <input class="form-control" id="character-height" type="text" data-model="character.height" placeholder="Enter height" />
@@ -588,7 +601,7 @@
                             <label class="form-label me-2" for="character-distinguishing-features">Distinguishing Features</label>
                             <input class="form-control" id="character-distinguishing-features" type="text" data-model="character.distinguishingFeatures" placeholder="Enter distinguishing features" />
                         </div>
-                        <h2 class="h4">Hair</h2>
+                        <h2 class="h3 heading-font">Hair</h2>
                         <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
                             <label class="form-label me-2" for="character-hair-color">Hair Color</label>
                             <input class="form-control" id="character-hair-color" type="text" data-model="character.hairColor" placeholder="Enter hair color" />
@@ -644,7 +657,7 @@
                                 </select>
                             </div>
                         </template>
-                        <h3 class="h4">Clothing</h3>
+                        <h2 class="h3 heading-font">Clothing</h2>
                         <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
                             <label class="form-label me-2" for="character-clothing-style">Clothing Style</label>
                             <input class="form-control" id="character-clothing-style" type="text" data-model="character.clothingStyle" placeholder="Enter clothing style" />

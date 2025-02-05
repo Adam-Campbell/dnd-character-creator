@@ -12,7 +12,7 @@
         <div class="col-12 d-flex flex-column flex-md-row align-items-center" id="character-intro">
             <img src="{% static 'images/fantasy-placeholder.webp' %}" alt="Character placeholder image" class="img-fluid">
             <div class="ms-md-4 d-flex flex-column align-items-center align-items-md-start align-self-stretch align-self-md-center">
-                <h1>{{ character.name }}</h1>
+                <h1 class="heading-font">{{ character.name }}</h1>
                 <p>{{ character.race_data.name }} {{ character.class_data.name }} | {{ character.age }} years old  |  {{ character.gender }}</p>
                 <div>
                     <span class="badge bg-dark">Size: {{ character.race_data.size }}</span>
@@ -55,7 +55,7 @@
 
         <!-- Character background section -->
         <div class="col-12 col-md-6 pt-5" id="character-background">
-            <h4 class="mb-4">Background</h4>
+            <h2 class="mb-4 h3 heading-font">Background</h2>
             <span class="badge text-bg-dark">{{ character.alignment }} Alignment</span>
             <p>{{ character.background }}</p>
             {% if character.traits or character.ideals or character.bonds or character.flaws %}
@@ -106,7 +106,7 @@
 
         <!-- Character appearance section -->
         <div class="col-12 col-md-6 pt-5" id="character-appearance">
-            <h4 class="mb-4">Appearance</h4>
+            <h2 class="mb-4 h3 heading-font">Appearance</h2>
             <div class="border border-light-subtle p-3 bg-white rounded">
                 <table class="table">
                     <tbody>
@@ -185,7 +185,7 @@
 
         <!-- Character proficiencies section -->
         <div class="col-12 col-lg-9 pt-5" id="character-proficiencies">
-            <h4 class="mb-4">Proficiencies</h4>
+            <h2 class="mb-4 h3 heading-font">Proficiencies</h2>
             <div class="border border-light-subtle p-3 bg-white rounded">     
                 <table class="table">
                     <tbody>
@@ -234,7 +234,7 @@
 
         <!-- Character equipment section -->
         <div class="col-12 col-lg-3 pt-5" id="character-equipment">
-            <h4 class="mb-4">Equipment</h4>
+            <h2 class="mb-4 h3 heading-font">Equipment</h2>
             <ul class="list-group">
                 {% for equipment in character.class_data.equipment %}
                     <li class="d-flex justify-content-between list-group-item">{{ equipment.item.name }}  <span class="badge text-bg-light"> × {{ equipment.quantity }}</span></li>
@@ -244,7 +244,7 @@
 
         <!-- Character ability points section -->
         <div class="col-12 pt-5" id="character-ability-points">
-            <h4 class="mb-4">Ability Points</h4>
+            <h2 class="mb-4 h3 heading-font">Ability Points</h2>
             <div class="row">
                 {% for ability in character.ability_points %}
                 <div class="d-flex mb-4 col-12 col-md-6 col-lg-4">
@@ -270,7 +270,7 @@
         <!-- Character spellcasting section -->
         {% if character.character_class_cantrip_choices or character.character_class_spell_choices %}
             <div class="col-12 col-xl-6 my-5">
-                <h4 class="mb-4">Spellcasting</h4>
+                <h2 class="mb-4 h3 heading-font">Spellcasting</h2>
                 <div class="accordion" id="spellcasting-accordion">
                     {% for cantrip in character.character_class_cantrip_choices %}
                         <div class="accordion-item">
@@ -307,7 +307,7 @@
         <!-- Additional character properties section -->
         {% if character.race_data.additionalProperties or character.class_data.additionalProperties or character.race_data.darkvision %}
             <div class="col-12 my-5 {% if character.character_class_cantrip_choices or character.character_class_spell_choices %}col-xl-6{% endif %}">
-                <h4 class="mb-4">Additional Properties</h4>
+                <h2 class="mb-4 h3 heading-font">Additional Properties</h2>
                 <div class="accordion" id="additional-properties-accordion">
                     {% for property in character.race_data.additionalProperties %}
                         <div class="accordion-item">
@@ -363,7 +363,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="deletionConfirmationModalLabel">Confirm Deletion</h1>
+                <h3 class="modal-title fs-5" id="deletionConfirmationModalLabel">Confirm Deletion</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

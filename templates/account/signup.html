@@ -8,9 +8,9 @@
 {% endblock head_title %}
 
 {% block content %}
-<div class="d20-background d-flex flex-column align-items-center justify-content-center">
-    <div class="bg-light p-4 mx-4 rounded">
-        <h2>{% trans "Sign Up" %}</h2>
+<div class="auth-screen-container p-4 d-flex flex-column align-items-center justify-content-center">
+    <div id="signup-form-container" class="p-4 rounded">
+        <h1 class="heading-font">{% trans "Sign Up" %}</h1>
         <p>
             {% blocktranslate %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktranslate %}
         </p>
