@@ -107,125 +107,129 @@
         <!-- Character appearance section -->
         <div class="col-12 col-md-6 pt-5" id="character-appearance">
             <h4 class="mb-4">Appearance</h4>
-            <table class="table table-striped">
-                <tbody>
-                    <tr>
-                        <th>Height</th>
-                        <td>{{ character.height }}</td>
-                    </tr>
-                    <tr>
-                        <th>Build</th>
-                        <td>{{ character.build }}</td>
-                    </tr>
-                    <tr>
-                        <th>Skin Tone</th>
-                        <td>{{ character.skin_tone }}</td>
-                    </tr>
-                    <tr>
-                        <th>Eye Color</th>
-                        <td>{{ character.eye_color }}</td>
-                    </tr>
-                    <tr>
-                        <th>Eye Shape</th>
-                        <td>{{ character.eye_shape }}</td>
-                    </tr>
-                    {% if character.distinguishing_features != "" %}
+            <div class="border border-light-subtle p-3 bg-white rounded">
+                <table class="table">
+                    <tbody>
                         <tr>
-                            <th>Distinguishing Features</th>
-                            <td>{{ character.distinguishing_features }}</td>
+                            <th>Height</th>
+                            <td>{{ character.height }}</td>
                         </tr>
-                    {% endif %}
-                    <tr>
-                        <th>Hair Color</th>
-                        <td>{{ character.hair_color }}</td>
-                    </tr>
-                    <tr>
-                        <th>Hair Style</th>
-                        <td>{{ character.hair_style }}</td>
-                    </tr>
-                    <tr>
-                        <th>Hair Length</th>
-                        <td>{{ character.hair_length }}</td>
-                    </tr>
-                    <tr>
-                        <th>Hair Type</th>
-                        <td>{{ character.hair_type }}</td>
-                    </tr>
-                    {% if character.facial_hair_style != "None" %}
                         <tr>
-                            <th>Facial Hair Style</th>
-                            <td>{{ character.facial_hair_style }}</td>
+                            <th>Build</th>
+                            <td>{{ character.build }}</td>
                         </tr>
-                    {% endif %}
-                    {% if character.facial_hair_length != "" %}
                         <tr>
-                            <th>Facial Hair Length</th>
-                            <td>{{ character.facial_hair_length }}</td>
+                            <th>Skin Tone</th>
+                            <td>{{ character.skin_tone }}</td>
                         </tr>
-                    {% endif %}
-                    <tr>
-                        <th>Clothing Style</th>
-                        <td>{{ character.clothing_style }}</td>
-                    </tr>
-                    <tr>
-                        <th>Clothing Colors</th>
-                        <td>{{ character.clothing_colors }}</td>
-                    </tr>
-                    {% if character.clothing_accessories != "" %}
                         <tr>
-                            <th>Accessories</th>
-                            <td>{{ character.clothing_accessories }}</td>
+                            <th>Eye Color</th>
+                            <td>{{ character.eye_color }}</td>
                         </tr>
-                    {% endif %}
-                </tbody>
-            </table>
+                        <tr>
+                            <th>Eye Shape</th>
+                            <td>{{ character.eye_shape }}</td>
+                        </tr>
+                        {% if character.distinguishing_features != "" %}
+                            <tr>
+                                <th>Distinguishing Features</th>
+                                <td>{{ character.distinguishing_features }}</td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <th>Hair Color</th>
+                            <td>{{ character.hair_color }}</td>
+                        </tr>
+                        <tr>
+                            <th>Hair Style</th>
+                            <td>{{ character.hair_style }}</td>
+                        </tr>
+                        <tr>
+                            <th>Hair Length</th>
+                            <td>{{ character.hair_length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Hair Type</th>
+                            <td>{{ character.hair_type }}</td>
+                        </tr>
+                        {% if character.facial_hair_style != "None" %}
+                            <tr>
+                                <th>Facial Hair Style</th>
+                                <td>{{ character.facial_hair_style }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if character.facial_hair_length != "" %}
+                            <tr>
+                                <th>Facial Hair Length</th>
+                                <td>{{ character.facial_hair_length }}</td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <th>Clothing Style</th>
+                            <td>{{ character.clothing_style }}</td>
+                        </tr>
+                        <tr>
+                            <th>Clothing Colors</th>
+                            <td>{{ character.clothing_colors }}</td>
+                        </tr>
+                        {% if character.clothing_accessories != "" %}
+                            <tr>
+                                <th>Accessories</th>
+                                <td>{{ character.clothing_accessories }}</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- Character proficiencies section -->
         <div class="col-12 col-lg-9 pt-5" id="character-proficiencies">
             <h4 class="mb-4">Proficiencies</h4>
-            <table class="table table-striped">
-                <tbody>
-                    {% if character.class_data.proficiencies.armor %}
-                    <tr>
-                        <th>Armor proficiencies</th>
-                        <td>
-                            {% for armor in character.class_data.proficiencies.armor %}
-                                <span class="badge text-bg-dark">{{ armor.name }}</span>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if character.class_data.proficiencies.weapons %}
-                    <tr>
-                        <th>Weapon proficiencies</th>
-                        <td>
-                            {% for weapon in character.class_data.proficiencies.weapons %}
-                                <span class="badge text-bg-dark">{{ weapon.name }}</span>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if character.class_data.proficiencies.savingThrows %}
-                    <tr>
-                        <th>Saving throw proficiencies</th>
-                        <td>
-                            {% for saving_throw in character.class_data.proficiencies.savingThrows %}
-                                <span class="badge text-bg-dark">{{ saving_throw.name }}</span>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    <tr>
-                        <th>Skill proficiencies</th>
-                        <td>
-                            {% for skill in character.character_class_skill_choices %}
-                                <span class="badge text-bg-dark">{{ skill.name }}</span>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="border border-light-subtle p-3 bg-white rounded">     
+                <table class="table">
+                    <tbody>
+                        {% if character.class_data.proficiencies.armor %}
+                        <tr>
+                            <th>Armor proficiencies</th>
+                            <td>
+                                {% for armor in character.class_data.proficiencies.armor %}
+                                    <span class="badge text-bg-dark">{{ armor.name }}</span>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if character.class_data.proficiencies.weapons %}
+                        <tr>
+                            <th>Weapon proficiencies</th>
+                            <td>
+                                {% for weapon in character.class_data.proficiencies.weapons %}
+                                    <span class="badge text-bg-dark">{{ weapon.name }}</span>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if character.class_data.proficiencies.savingThrows %}
+                        <tr>
+                            <th>Saving throw proficiencies</th>
+                            <td>
+                                {% for saving_throw in character.class_data.proficiencies.savingThrows %}
+                                    <span class="badge text-bg-dark">{{ saving_throw.name }}</span>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <th>Skill proficiencies</th>
+                            <td>
+                                {% for skill in character.character_class_skill_choices %}
+                                    <span class="badge text-bg-dark">{{ skill.name }}</span>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- Character equipment section -->
@@ -265,7 +269,7 @@
 
         <!-- Character spellcasting section -->
         {% if character.character_class_cantrip_choices or character.character_class_spell_choices %}
-            <div class="col-12 col-xl-6 pt-5">
+            <div class="col-12 col-xl-6 my-5">
                 <h4 class="mb-4">Spellcasting</h4>
                 <div class="accordion" id="spellcasting-accordion">
                     {% for cantrip in character.character_class_cantrip_choices %}
@@ -302,7 +306,7 @@
 
         <!-- Additional character properties section -->
         {% if character.race_data.additionalProperties or character.class_data.additionalProperties or character.race_data.darkvision %}
-            <div class="col-12 pt-5 {% if character.character_class_cantrip_choices or character.character_class_spell_choices %}col-xl-6{% endif %}">
+            <div class="col-12 my-5 {% if character.character_class_cantrip_choices or character.character_class_spell_choices %}col-xl-6{% endif %}">
                 <h4 class="mb-4">Additional Properties</h4>
                 <div class="accordion" id="additional-properties-accordion">
                     {% for property in character.race_data.additionalProperties %}
