@@ -99,7 +99,7 @@ def create_character(request):
             # Add the character to the user's liked characters
             request.user.liked_characters.add(new_character)
             print("Character created")
-            return JsonResponse({ 'message': 'POST request handled' })
+            return JsonResponse({ 'message': 'POST request handled', 'characterId': new_character.id })
         
         except json.JSONDecodeError:
             # If JSON data malformed, return a 400 error

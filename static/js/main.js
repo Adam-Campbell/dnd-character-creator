@@ -379,10 +379,6 @@ document.addEventListener("alpine:init", () => {
                 url = '/characters/new/';
             }
             try {
-                // let url = '/characters/new/';
-                // if (python_ready_character.id) {
-                //     url = `/characters/${python_ready_character.id}/edit/`;
-                // }
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
@@ -395,7 +391,13 @@ document.addEventListener("alpine:init", () => {
                     throw new Error('Failed to POST character');
                 }
                 const data = await response.json();
-                console.log('Success', data);
+                // Redirect to the correct character sheet page. If the character was just created, 
+                // then we have to get the characterId from the response data.
+                if (this.editingContext === editingContexts.createNew || 
+                    this.editingContext === editingContexts.cloneExisting) {
+                        this.characterId = data.characterId;
+                }
+                window.location.href = `/characters/${this.characterId}/`;
             } catch (error) {
                 console.error('Error POSTing character:', error);
             }
