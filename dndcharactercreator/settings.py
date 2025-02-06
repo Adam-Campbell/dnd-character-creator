@@ -14,6 +14,9 @@ from pathlib import Path
 import os
 import environ
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 env = environ.Env(
     # set casting, default value
@@ -40,6 +43,12 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '.herokuapp.com',
 ]
+
+cloudinary.config(
+    cloud_name = env('CLOUDINARY_CLOUD_NAME'),
+    api_key = env('CLOUDINARY_API_KEY'),
+    api_secret = env('CLOUDINARY_API_SECRET')
+)
 
 
 # Application definition

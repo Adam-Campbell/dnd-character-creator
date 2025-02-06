@@ -21,22 +21,52 @@
                 <!-- Desktop navigation -->
                 <div class="btn-group editor-desktop-nav" role="group" aria-label="Editor page selection">
                     <button data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'race'}"
-                        type="button" data-on:click="() => setPage('race')">Race</button>
+                        type="button" data-on:click="() => setPage('race')">
+                            Race
+                            <template data-if="raceIsComplete && pageSwitchMade">
+                                <i class="fa-solid fa-check editor-nav-tick"></i>
+                            </template>
+                    </button>
                     <button data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'class'}"
-                        type="button" data-on:click="() => setPage('class')">Class</button>
+                        type="button" data-on:click="() => setPage('class')">
+                            Class
+                            <template data-if="classIsComplete">
+                                <i class="fa-solid fa-check editor-nav-tick"></i>
+                            </template>
+                    </button>
                     <button data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'abilityPoints'}"
-                        type="button" data-on:click="() => setPage('abilityPoints')">Ability Points</button>
+                        type="button" data-on:click="() => setPage('abilityPoints')">
+                            Ability Points
+                            <template data-if="abilityPointsIsComplete">
+                                <i class="fa-solid fa-check editor-nav-tick"></i>
+                            </template>
+                    </button>
                     <template data-if="isCaster">
                         <button
                             data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'spells'}"
-                            type="button" data-on:click="() => setPage('spells')">Spells</button>
+                            type="button" data-on:click="() => setPage('spells')">
+                                Spells
+                                <template data-if="spellsIsComplete">
+                                    <i class="fa-solid fa-check editor-nav-tick"></i>
+                                </template>
+                        </button>
                     </template>
                     <button
                         data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'background'}"
-                        type="button" data-on:click="() => setPage('background')">Background</button>
+                        type="button" data-on:click="() => setPage('background')">
+                            Background
+                            <template data-if="backgroundIsComplete">
+                                <i class="fa-solid fa-check editor-nav-tick"></i>
+                            </template>
+                    </button>
                     <button
                         data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'appearance'}"
-                        type="button" data-on:click="() => setPage('appearance')">Appearance</button>
+                        type="button" data-on:click="() => setPage('appearance')">
+                            Appearance
+                            <template data-if="appearanceIsComplete">
+                                <i class="fa-solid fa-check editor-nav-tick"></i>
+                            </template>
+                    </button>
                     <button data-bind:disabled="!isComplete" data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'summary'}"
                         type="button" data-on:click="() => setPage('summary')">Summary</button>
                 </div>
@@ -48,24 +78,68 @@
                         Select page
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="editorDropdown">
-                        <li><button data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'race' }"
-                                type="button" data-on:click="() => setPage('race')">Race</button></li>
-                        <li><button data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'class' }"
-                                type="button" data-on:click="() => setPage('class')">Class</button></li>
-                        <li><button
+                        <li>
+                            <button data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'race' }"
+                                type="button" data-on:click="() => setPage('race')">
+                                Race
+                                <template data-if="raceIsComplete && pageSwitchMade">
+                                    <i class="fa-solid fa-check editor-nav-tick"></i>
+                                </template>
+                            </button>
+                        </li>
+                        <li>
+                            <button data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'class' }"
+                                type="button" data-on:click="() => setPage('class')">
+                                Class
+                                <template data-if="classIsComplete">
+                                    <i class="fa-solid fa-check editor-nav-tick"></i>
+                                </template>
+                            </button>
+                        </li>
+                        <li>
+                            <button
                                 data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'abilityPoints' }"
-                                type="button" data-on:click="() => setPage('abilityPoints')">Ability Points</button>
+                                type="button" data-on:click="() => setPage('abilityPoints')">
+                                Ability Points
+                                <template data-if="abilityPointsIsComplete">
+                                    <i class="fa-solid fa-check editor-nav-tick"></i>
+                                </template>
+                            </button>
                         </li>
                         <template data-if="isCaster">
-                            <li><button data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'spells' }"
-                                    type="button" data-on:click="() => setPage('spells')">Spells</button></li>
+                            <li>
+                                <button data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'spells' }"
+                                    type="button" data-on:click="() => setPage('spells')">
+                                    Spells
+                                    <template data-if="spellsIsComplete">
+                                        <i class="fa-solid fa-check editor-nav-tick"></i>
+                                    </template>
+                                </button>
+                            </li>
                         </template>
-                        <li><button data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'background' }"
-                                type="button" data-on:click="() => setPage('background')">Background</button></li>
-                        <li><button data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'appearance' }"
-                                type="button" data-on:click="() => setPage('appearance')">Appearance</button></li>
+                        <li>
+                            <button data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'background' }"
+                                type="button" data-on:click="() => setPage('background')">
+                                Background
+                                <template data-if="backgroundIsComplete">
+                                    <i class="fa-solid fa-check editor-nav-tick"></i>
+                                </template>
+                            </button>
+                        </li>
+                        <li>
+                            <button data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'appearance' }"
+                                type="button" data-on:click="() => setPage('appearance')">
+                                Appearance
+                                <template data-if="appearanceIsComplete">
+                                    <i class="fa-solid fa-check editor-nav-tick"></i>
+                                </template>
+                            </button>
+                        </li>
                         <li><button data-bind:disabled="!isComplete" data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'summary' }"
-                                type="button" data-on:click="() => setPage('summary')">Summary</button></li>
+                                type="button" data-on:click="() => setPage('summary')">
+                                Summary
+                            </button>
+                        </li>
                 </div>
 
                 <!-- Markup for race selection -->
@@ -128,6 +202,14 @@
                                 </div>
                             </div>
                         </template>
+                        <template data-if="raceIsComplete">
+                            <div class="d-flex justify-content-center mb-4">
+                                <button class="btn btn-primary" type="button" data-on:click="moveToNextPage">
+                                    Continue
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </template>
                     </div>
                 </template>
 
@@ -151,6 +233,8 @@
                                 <h1 class="heading-font" data-text="chosenClass.name"></h1>
                                 <span class="badge text-bg-dark" data-text="`Hit Die: ${chosenClass.hitDie}`"></span>
                                 <p data-text="chosenClass.description"></p>
+                                <p class="mt-2 editor-skills-warning-mobile"><b>Now choose your skill proficiencies using the checkboxes below.</b></p>
+                                <p class="mt-2 editor-skills-warning-desktop"><b>Now choose your skill proficiencies using the checkboxes to the right.</b></p>
                             </div>
                             <!-- Class skills -->
                             <div class="col-12 col-md-4 col-lg-3 mb-4">
@@ -242,6 +326,14 @@
                                 
                         </div>
 
+                        <template data-if="classIsComplete">
+                            <div class="d-flex justify-content-center mb-4">
+                                <button class="btn btn-primary" type="button" data-on:click="moveToNextPage">
+                                    Continue
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </template>
                     </div>
                 </template>
 
@@ -299,6 +391,15 @@
                                         <p class="card-text" data-text="getAbilityData(uuid).description"></p>
                                     </div>    
                                 </div>
+                            </div>
+                        </template>
+
+                        <template data-if="abilityPointsIsComplete">
+                            <div class="d-flex justify-content-center mb-4">
+                                <button class="btn btn-primary" type="button" data-on:click="moveToNextPage">
+                                    Continue
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
                             </div>
                         </template>
                     </div> 
@@ -401,6 +502,14 @@
                                 </template>
                             </div>
                         </div>
+                        <template data-if="spellsIsComplete">
+                            <div class="d-flex justify-content-center mb-4">
+                                <button class="btn btn-primary" type="button" data-on:click="moveToNextPage">
+                                    Continue
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </template>
                     </div>  
                 </template>
 
@@ -562,7 +671,14 @@
                                 </div>
                             </div>
                         </div>
-
+                        <template data-if="backgroundIsComplete">
+                            <div class="d-flex justify-content-center mb-4">
+                                <button class="btn btn-primary" type="button" data-on:click="moveToNextPage">
+                                    Continue
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </template>
                     </div>
                 </template>
 
@@ -670,6 +786,14 @@
                             <label class="form-label me-2" for="character-clothing-accessories">Clothing Accessories</label>
                             <input class="form-control" id="character-clothing-accessories" type="text" data-model="character.clothingAccessories" placeholder="Enter clothing accessories" />
                         </div>
+                        <template data-if="appearanceIsComplete">
+                            <div class="d-flex justify-content-center mb-4">
+                                <button class="btn btn-primary" type="button" data-on:click="moveToNextPage">
+                                    Continue
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </template>
                     </div>
                 </template>
 
@@ -678,11 +802,15 @@
                     <div class="d-flex justify-content-center">
                         <div class="card editor-summary-card mt-4">
                             <div class="card-body d-flex flex-column align-items-start">
-                                <h1 class="card-title" data-text="character.name"></h1>
+                                <h1 class="card-title heading-font" data-text="character.name"></h1>
                                 <p class="card-subtitle text-body-secondary mb-2" data-text="`${chosenRace.name} ${chosenClass.name}`"></p>
                                 <span class="badge text-bg-dark" data-text="character.alignment"></span>
                                 <p class="card-text mt-3" data-text="character.background"></p>
                                 <button class="btn btn-outline-primary" type="button" data-on:click="handleSubmit">Save</button>
+                                <input type="file" id="image-upload" data-on:change="handleImageUpload">
+                                <button type="button" class="btn outline-primary" data-on:click="generateCharacterImage">
+                                    Generate Character Image
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -10,7 +10,7 @@
         
         <!-- Header and character intro -->
         <div class="col-12 d-flex flex-column flex-md-row align-items-center" id="character-intro">
-            <img src="{% static 'images/fantasy-placeholder.webp' %}" alt="Character placeholder image" class="img-fluid">
+            <img src="{{ character.image_url }}" alt="An image of the character" class="character-sheet-character-image">
             <div class="ms-md-4 d-flex flex-column align-items-center align-items-md-start align-self-stretch align-self-md-center">
                 <h1 class="heading-font">{{ character.name }}</h1>
                 <p>{{ character.race_data.name }} {{ character.class_data.name }} | {{ character.age }} years old  |  {{ character.gender }}</p>

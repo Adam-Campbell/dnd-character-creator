@@ -105,6 +105,13 @@ main {
     font-size: 6rem;
 }
 
+.character-sheet-character-image {
+    width: 100%;
+    height: auto;
+    max-width: 350px;
+    border-radius: 6px;
+}
+
 .character-sheet-user-image {
     width: 40px;
     height: auto;
@@ -231,7 +238,7 @@ main {
 }
 
 
-@media (min-width: 768px) {
+@media (min-width: 990px) {
     .editor-desktop-nav {
         display: flex;
     }
@@ -239,6 +246,11 @@ main {
         display: none;
     }
 }
+
+.editor-nav-tick {
+    font-size: 0.75rem;
+}
+
 
 
 .editor-ability-card-number {
@@ -248,6 +260,19 @@ main {
 @media (min-width: 768px) {
     .editor-ability-select-description {
         display: none;
+    }
+}
+
+.editor-skills-warning-desktop {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .editor-skills-warning-mobile {
+        display: none;
+    }
+    .editor-skills-warning-desktop {
+        display: block;
     }
 }
 

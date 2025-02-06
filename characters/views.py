@@ -8,6 +8,11 @@ from django.views import generic
 from django.core.serializers import serialize
 from .data_utils import get_static_data, validate_character_data, get_item_by_id, format_line_breaks
 import time
+import cloudinary.uploader
+import cloudinary.exceptions
+from openai import OpenAI
+
+client = OpenAI()
 
 class CharacterList(generic.ListView):
     """
@@ -62,6 +67,7 @@ def create_character(request):
             character_data = json.loads(request.body)
             #if not validate_character_data(character_data):
             #    return JsonResponse({ 'message': 'Invalid character data' }, status=400)
+            print(character_data)
             new_character = Character.objects.create(
                 user=request.user,
                 race=character_data['race'],
@@ -93,7 +99,8 @@ def create_character(request):
                 distinguishing_features=character_data['distinguishing_features'],
                 clothing_style=character_data['clothing_style'],
                 clothing_colors=character_data['clothing_colors'],
-                clothing_accessories=character_data['clothing_accessories']
+                clothing_accessories=character_data['clothing_accessories'],
+                image_url=character_data['image_url'],
             )
             new_character.save()
             # Add the character to the user's liked characters
@@ -308,3 +315,74 @@ def delete_character(request, character_id):
     return HttpResponse(status=204)
 
 
+@login_required
+def upload_image(request):
+    if request.method == 'POST':
+        try:
+            image = request.FILES['image']
+
+            if not image:
+                return JsonResponse({'message': 'No image provided'}, status=400)
+            
+            response = cloudinary.uploader.upload(image)
+            return JsonResponse({'url': response['secure_url']})
+        
+        except cloudinary.exceptions.Error as e:
+            return JsonResponse({'message': f'An error occurred: {e}'}, status=500)
+
+
+
+@login_required
+def generate_image(request):
+    if request.method == 'POST':
+        print("Generating image...")
+        # Grab the structured character data from the request body
+        character_data = json.loads(request.body)
+        
+        # This prompt is fed to an LLM to turn the structured charactr data into natural language
+        llm_natural_language_conversion_prompt = f"""
+        Your goal is to take structured data describing a Dungeons and Dragons character, and convert it into a natural language description of the character including their race, class, and physical features. Here is the structured data:
+        {str(character_data)}
+        """
+        # Send prompt to OpenAI's LLM
+        completion = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {
+                    "role": "developer",
+                    "content": "You are a helpful assistant."
+                },
+                {
+                    "role": "user",
+                    "content": llm_natural_language_conversion_prompt
+                }
+            ]
+        )
+        # Extract the natural language character description from the completion
+        natural_language_character_description = completion.choices[0].message.content
+        # This is a preset style instruction for the DALL-E model
+        style_instructions = """Artwork of a fantasy character, single full-body artwork. The image must use a classic hand-painted high-fantasy illustration style. The image must not include multiple versions of the character, or any text or watermarks. It must just include a single character, who is the focal point of the image."""
+        # Construct the DALL-E image prompt by combining the style instructions and the natural language character description
+        dalle_image_prompt = f"""
+        {style_instructions}
+        {natural_language_character_description}
+        """
+        # Send the prompt to OpenAI's DALL-E model
+        response = client.images.generate(
+            prompt=dalle_image_prompt,
+            model='dall-e-3',
+            n=1,
+            response_format="url",
+            size="1024x1024",
+            style="vivid"
+        )
+        # Extract the image URL from the response
+        dalle_image_url = response.data[0].url
+        # If the image URL is valid, upload the image to Cloudinary and return the URL
+        if dalle_image_url:
+            cloudinary_response = cloudinary.uploader.upload(dalle_image_url)
+            cloudinary_image_url = cloudinary_response['secure_url']
+            if cloudinary_image_url:
+                return JsonResponse({'image_url': cloudinary_image_url})
+        return JsonResponse({'message': 'An error occurred'}, status=500)
+        

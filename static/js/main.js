@@ -3,7 +3,7 @@ import {
     getEmptyCharacter, 
     getCookie, 
     switchObjectNamingConventions,
-    editingContexts 
+    editingContexts
 } from "./utils.js";
 
 const abilityIndexMap = {
@@ -43,6 +43,7 @@ document.addEventListener("alpine:init", () => {
         currentPage: "race",
         editingContext: null,
         characterId: null,
+        pageSwitchMade: false,
 
         async init() {
             console.log("cg init ran")
@@ -71,6 +72,33 @@ document.addEventListener("alpine:init", () => {
         },
         setPage(page) {
             this.currentPage = page;
+            this.pageSwitchMade = true;
+        },
+        moveToNextPage() {
+            //nextPage = pages[this.currentPage].next(this.isCaster);
+            //this.setPage(nextPage);
+            switch (this.currentPage) {
+                case 'race':
+                    this.setPage('class');
+                    break;
+                case 'class':
+                    this.setPage('abilityPoints');
+                    break;
+                case 'abilityPoints':
+                    this.isCaster ? this.setPage('spells') : this.setPage('background');
+                    break;
+                case 'spells':
+                    this.setPage('background');
+                    break;
+                case 'background':
+                    this.setPage('appearance');
+                    break;
+                case 'appearance':
+                    this.setPage('summary');
+                    break;
+                default:
+                    console.error("Invalid page name");
+            }
         },
         /**
          * Return the static data for the race that has been chosen by the user.
@@ -96,7 +124,51 @@ document.addEventListener("alpine:init", () => {
         get isCaster() {
             return this.chosenClass.spellcasting.ability !== null;
         },
+        get raceIsComplete() {
+            // With the current design, it is impossible for race to be incomplete, but for 
+            // consistency with other pages, we will add a check for it.
+            return true;
+        },
+        get classIsComplete() {
+            return this.character.classSkillChoices.length === this.computedNumberOfSkillProficiencies;
+        },
+        get abilityPointsIsComplete() {
+            for (let i = 0; i < this.character.abilityPoints.length; i++) {
+                if (this.character.abilityPoints[i].value === "--") {
+                    return false;
+                }
+            }
+            return true;
+        },
+        get spellsIsComplete() {
+            if (this.isCaster) {
+                if (this.character.classCantripChoices.length !== this.chosenClass.spellcasting.cantrips.choose) {
+                    return false;
+                }
+                if (this.character.classSpellChoices.length !== this.chosenClass.spellcasting.spells.choose) {
+                    return false;
+                }
+            }
+            return true;
+        },
+        get backgroundIsComplete() {
+            return (Boolean(this.character.name.trim()) && Boolean(this.character.age) && 
+                    Boolean(this.character.gender.trim()) && Boolean(this.character.background.trim())
+                )
+        },
+        get appearanceIsComplete() {
+            return (Boolean(this.character.height.trim()) && Boolean(this.character.build.trim()) && 
+                    Boolean(this.character.skinTone.trim()) && Boolean(this.character.eyeColor.trim()) && 
+                    Boolean(this.character.hairColor.trim()) && Boolean(this.character.hairStyle.trim()) && 
+                    Boolean(this.character.clothingStyle.trim()) && Boolean(this.character.clothingColors.trim())
+                )
+        },
         get isComplete() {
+
+            return (this.raceIsComplete && this.classIsComplete && this.abilityPointsIsComplete &&
+                this.spellsIsComplete && this.backgroundIsComplete && this.appearanceIsComplete
+            );
+
             // Race page doesn't need to be checked
             // Check class page
             if (this.character.classSkillChoices.length !== this.computedNumberOfSkillProficiencies) {
@@ -118,7 +190,7 @@ document.addEventListener("alpine:init", () => {
                 }
             }
             // Check background page
-            if (this.character.name === "" || this.character.age === "" || this.character.gender === "" || this.character.background === "") {
+            if (this.character.name === "" || !Boolean(this.character.age) || this.character.gender === "" || this.character.background === "") {
                 return false;
             }
             // Check appearance page
@@ -400,6 +472,76 @@ document.addEventListener("alpine:init", () => {
                 window.location.href = `/characters/${this.characterId}/`;
             } catch (error) {
                 console.error('Error POSTing character:', error);
+            }
+        },
+        async handleImageUpload(e) {
+            console.log("handleImageUpload called")
+            console.log(e)
+            const file = e.target.files[0];
+            const formData = new FormData();
+            formData.append('image', file);
+            const csrfToken = getCookie('csrftoken');
+            const url = `/characters/upload-image/`;
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: formData
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to POST image');
+                }
+                const data = await response.json();
+                console.log(data);
+                this.character.imageUrl = data.image_url;
+            } catch (error) {
+                console.error('Error POSTing image:', error);
+            }
+        },
+        async generateCharacterImage() {
+            // It shouldn't be possible to reach this function if the character is not complete,
+            // but just in case, check again.
+            if (!this.isComplete) {
+                console.error("Character is not complete, cannot generate image.");
+                return;
+            }
+            const appearanceKeys = [
+                'age',                    'gender',          'height',         'build',
+                'skinTone',               'hairColor',       'hairStyle',      'hairLength',
+                'hairType',               'facialHairStyle', 'eyeColor',       'eyeShape',
+                'distinguishingFeatures', 'clothingStyle',   'clothingColors', 'clothingAccessories'
+            ];
+            const appearanceData = appearanceKeys.reduce((acc, key) => {
+                acc[key] = this.character[key];
+                return acc;
+            }, {});
+            appearanceData.race = this.chosenRace.name;
+            appearanceData.class = this.chosenClass.name;
+            if (appearanceData.facialHairStyle !== "None" && appearanceData.facialHairStyle !== "Stubble") {
+                appearanceData.facialHairLength = this.character.facialHairLength;
+            }
+            const csrfToken = getCookie('csrftoken');
+            try {
+                const response = await fetch('/characters/generate-image/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify(appearanceData)
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to POST image generation request');
+                }
+                const data = await response.json();
+                console.log("Image generated successfully");
+                console.log(data);
+                this.character.imageUrl = data.image_url;
+            } catch (error) {
+                console.error('Error POSTing image generation request:', error);
             }
         }
     }));

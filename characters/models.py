@@ -4,9 +4,10 @@ import uuid
 import json
 from django.templatetags.static import static
 from django.utils.timezone import now
+from cloudinary.models import CloudinaryField
 
 def get_default_image_url():
-    return static('images/fantasy-placeholder.webp')
+    return "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738858645/fantasy-placeholder_tq6d9i.webp"
 
 # Create your models here.
 class Character(models.Model):
@@ -113,7 +114,7 @@ class Character(models.Model):
     clothing_style = models.CharField(max_length=200)
     clothing_colors = models.CharField(max_length=200)
     clothing_accessories = models.CharField(max_length=200, blank=True)
-    image_url = models.URLField(max_length=200, default=get_default_image_url)
+    image_url = CloudinaryField('image', blank=True, default=get_default_image_url)
     liked_by = models.ManyToManyField(User, related_name='liked_characters')
     created_at = models.DateTimeField(default=now, editable=False)
     is_public = models.BooleanField(default=True)

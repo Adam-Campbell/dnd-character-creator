@@ -5,6 +5,9 @@ export const editingContexts = {
     cloneExisting: 'CLONE_EXISTING'
 }
 
+
+
+
 /**
  * Factory function for creating a new, empty character object
  * @returns 

@@ -11,5 +11,7 @@ urlpatterns = [
     path('<int:character_id>/toggle_like/', views.toggle_like, name='toggle_like'),
     path('<int:character_id>/delete/', views.delete_character, name='delete_character'),
     path('<int:character_id>/toggle_privacy/', views.toggle_privacy, name='toggle_privacy'),
-    path('<int:character_id>/clone/', views.clone_character, name='clone_character')
+    path('<int:character_id>/clone/', views.clone_character, name='clone_character'),
+    path('upload-image/', views.upload_image, name='upload_image'),
+    path('generate-image/', views.generate_image, name='generate_image'),
 ]
