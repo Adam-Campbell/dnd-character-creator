@@ -52,7 +52,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    height: calc(100vh - 56px);
+    min-height: calc(100vh - 56px);
 }
 
 @media (min-width: 768px) {
@@ -66,7 +66,13 @@ main {
     color: white;
     padding: 1rem;
     border-radius: 6px;
-    margin-bottom: 4rem;
+    margin-bottom: 7rem;
+}
+
+@media (min-width: 768px) {
+    .hero-content-container {
+        margin-bottom: 4rem;
+    }
 }
 
 .about-feature-image {
