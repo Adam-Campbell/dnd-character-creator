@@ -574,9 +574,9 @@
                                     <label class="form-label" for="character-traits">Traits</label>
                                     <div class="input-group mb-3">
                                         <input class="form-control" id="character-traits" type="text" data-model="temp"
-                                            data-on:keydown.enter="() => { character.traits.push(temp); clear() }" />
+                                            data-on:keydown.enter="() => { temp !== '' && character.traits.push(temp); clear() }" />
                                         <button class="btn btn-outline-primary" type="button"
-                                            data-on:click="() => { character.traits.push(temp); clear() }">Add</button>
+                                            data-on:click="() => { temp !== '' && character.traits.push(temp); clear() }">Add</button>
                                     </div>
                                     <template data-if="character.traits.length > 0">
                                         <ul class="list-group list-group-flush">
@@ -600,9 +600,9 @@
                                     <label class="form-label" for="character-ideals">Ideals</label>
                                     <div class="input-group mb-3">
                                         <input class="form-control" id="character-ideals" type="text" data-model="temp"
-                                            data-on:keydown.enter="() => { character.ideals.push(temp); clear() }" />
+                                            data-on:keydown.enter="() => { temp !== '' && character.ideals.push(temp); clear() }" />
                                         <button class="btn btn-outline-primary" type="button"
-                                            data-on:click="() => { character.ideals.push(temp); clear() }">Add</button>
+                                            data-on:click="() => { temp !== '' && character.ideals.push(temp); clear() }">Add</button>
                                     </div>
                                     <template data-if="character.ideals.length > 0">
                                         <ul class="list-group list-group-flush">
@@ -626,9 +626,9 @@
                                     <label class="form-label" for="character-bonds">Bonds</label>
                                     <div class="input-group mb-3">
                                         <input class="form-control" id="character-bonds" type="text" data-model="temp"
-                                            data-on:keydown.enter="() => { character.bonds.push(temp); clear() }" />
+                                            data-on:keydown.enter="() => { temp !== '' && character.bonds.push(temp); clear() }" />
                                         <button class="btn btn-outline-primary" type="button"
-                                            data-on:click="() => { character.bonds.push(temp); clear() }">Add</button>
+                                            data-on:click="() => { temp !== '' && character.bonds.push(temp); clear() }">Add</button>
                                     </div>
                                     <template data-if="character.bonds.length > 0">
                                         <ul class="list-group list-group-flush">
@@ -652,9 +652,9 @@
                                     <label class="form-label" for="character-flaws">Flaws</label>
                                     <div class="input-group mb-3">
                                         <input class="form-control" id="character-flaws" type="text" data-model="temp"
-                                            data-on:keydown.enter="() => { character.flaws.push(temp); clear() }" />
+                                            data-on:keydown.enter="() => { temp !== '' && character.flaws.push(temp); clear() }" />
                                         <button class="btn btn-outline-primary" type="button"
-                                            data-on:click="() => { character.flaws.push(temp); clear() }">Add</button>
+                                            data-on:click="() => { temp !== '' && character.flaws.push(temp); clear() }">Add</button>
                                     </div>
                                     <template data-if="character.flaws.length > 0">
                                         <ul class="list-group list-group-flush">
