@@ -44,6 +44,9 @@ document.addEventListener("alpine:init", () => {
         editingContext: null,
         characterId: null,
         pageSwitchMade: false,
+        isGeneratingImage: false,
+        isUploadingImage: false,
+        cropperInstance: null,
 
         async init() {
             console.log("cg init ran")
@@ -51,8 +54,8 @@ document.addEventListener("alpine:init", () => {
                 console.log("cg init ran")
                 this.isLoading = true;
                 this.staticData = await fetchStaticData();
-                //console.log(this.staticData)
                 this.setInitialState();
+                this.initialiseCroppingButtons();
                 this.isLoading = false;
             } catch (error) {
                 console.error('Error fetching JSON:', error);
@@ -70,13 +73,58 @@ document.addEventListener("alpine:init", () => {
                 }
             }
         },
+        /**
+         * Initialise the buttons for the image cropping tool, adding event listeners to them.
+         */
+        initialiseCroppingButtons() {
+            const cropImageButton = document.getElementById('crop-image-button');
+            const cropCancelButton = document.getElementById('crop-cancel-button');
+            const imageModalOverlay = document.getElementById('image-modal-overlay');
+            // On click, retrieve cropped image from cropper instance, convert to blob, and POST to server.
+            cropImageButton.addEventListener('click', () => {
+                if (this.cropperInstance) {
+                    const data = this.cropperInstance.getData();
+                    const croppedWidth = Math.min(data.width, 500);
+                    this.isUploadingImage = true;
+                    this.cropperInstance.getCroppedCanvas({ width: croppedWidth }).toBlob(async (blob) => {
+                        const formData = new FormData();
+                        formData.append('image', blob);
+                        const csrfToken = getCookie('csrftoken');
+                        const url = `/characters/upload-image/`;
+                        try {
+                            const response = await fetch(url, {
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRFToken': csrfToken
+                                },
+                                body: formData
+                            });
+                            if (!response.ok) {
+                                throw new Error('Failed to POST image');
+                            }
+                            const data = await response.json();
+                            this.character.imageUrl = data.url;
+                            imageModalOverlay.style.display = 'none';
+                            this.isUploadingImage = false;
+                        } catch (error) {
+                            console.error('Error POSTing image:', error);
+                        }
+                    })
+                }
+            });
+            // On click, destroy the cropper instance and hide the modal.
+            cropCancelButton.addEventListener('click', () => {
+                if (this.cropperInstance) {
+                    this.cropperInstance.destroy();
+                }
+                imageModalOverlay.style.display = 'none';
+            });
+        },
         setPage(page) {
             this.currentPage = page;
             this.pageSwitchMade = true;
         },
         moveToNextPage() {
-            //nextPage = pages[this.currentPage].next(this.isCaster);
-            //this.setPage(nextPage);
             switch (this.currentPage) {
                 case 'race':
                     this.setPage('class');
@@ -164,41 +212,9 @@ document.addEventListener("alpine:init", () => {
                 )
         },
         get isComplete() {
-
             return (this.raceIsComplete && this.classIsComplete && this.abilityPointsIsComplete &&
                 this.spellsIsComplete && this.backgroundIsComplete && this.appearanceIsComplete
             );
-
-            // Race page doesn't need to be checked
-            // Check class page
-            if (this.character.classSkillChoices.length !== this.computedNumberOfSkillProficiencies) {
-                return false;
-            }
-            // Check ability point page
-            for (let i = 0; i < this.character.abilityPoints.length; i++) {
-                if (this.character.abilityPoints[i].value === "--") {
-                    return false;
-                }
-            }
-            // Check cantrips and spells page
-            if (this.isCaster) {
-                if (this.character.classCantripChoices.length !== this.chosenClass.spellcasting.cantrips.choose) {
-                    return false;
-                }
-                if (this.character.classSpellChoices.length !== this.chosenClass.spellcasting.spells.choose) {
-                    return false;
-                }
-            }
-            // Check background page
-            if (this.character.name === "" || !Boolean(this.character.age) || this.character.gender === "" || this.character.background === "") {
-                return false;
-            }
-            // Check appearance page
-            if (this.character.height === "" || this.character.build === "" || this.character.skinTone === "" || this.character.eyeColor === "" || 
-                this.character.hairColor === "" || this.character.hairStyle === "" || this.character.clothingStyle === "" || this.character.clothingColors === "") {
-                return false;
-            }
-            return true;
         },
         /**
          * Get the current base score for the given ability, with no bonuses applied.
@@ -474,40 +490,61 @@ document.addEventListener("alpine:init", () => {
                 console.error('Error POSTing character:', error);
             }
         },
-        async handleImageUpload(e) {
-            console.log("handleImageUpload called")
-            console.log(e)
+        /**
+         * Grabs the image file that the user selected, performs some maths to scale it correctly to the viewport,
+         * and then creates a Cropper instance with the image.
+         * @param {*} e 
+         */
+        openCropTool(e) {
             const file = e.target.files[0];
-            const formData = new FormData();
-            formData.append('image', file);
-            const csrfToken = getCookie('csrftoken');
-            const url = `/characters/upload-image/`;
-            
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': csrfToken
-                    },
-                    body: formData
-                });
-                if (!response.ok) {
-                    throw new Error('Failed to POST image');
-                }
-                const data = await response.json();
-                console.log(data);
-                this.character.imageUrl = data.image_url;
-            } catch (error) {
-                console.error('Error POSTing image:', error);
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const imageModalOverlay = document.getElementById('image-modal-overlay');
+        
+                    imageModalOverlay.style.display = 'flex';
+                    const imageCropContainer = document.getElementById('image-crop-container');
+                    const imageToCrop = document.getElementById('image-to-crop');
+                    imageToCrop.src = e.target.result;
+                    imageToCrop.onload = () => {
+
+                        const naturalWidth = imageToCrop.naturalWidth;
+                        const naturalHeight = imageToCrop.naturalHeight;
+                        const viewportWidth = window.innerWidth;
+                        const viewportHeight = window.innerHeight;
+
+                        const xScale = (viewportWidth * 0.75) / naturalWidth;
+                        const yScale = (viewportHeight * 0.75) / naturalHeight;
+
+                        const scaleFactor = Math.min(xScale, yScale);
+                        const scaledWidth = naturalWidth * scaleFactor;
+                        const scaledHeight = naturalHeight * scaleFactor;
+                        imageCropContainer.style.width = `${scaledWidth}px`;
+                        imageCropContainer.style.height = `${scaledHeight}px`;
+
+                        if (this.cropperInstance) {
+                            this.cropperInstance.destroy();
+                        }
+                        this.cropperInstance = new Cropper(imageToCrop, {
+                            aspectRatio: 1,
+                            viewMode: 1,
+                            autoCropArea: 1
+                        });
+                    }
+
+                };
+                reader.readAsDataURL(file);
             }
         },
         async generateCharacterImage() {
+            
             // It shouldn't be possible to reach this function if the character is not complete,
             // but just in case, check again.
             if (!this.isComplete) {
                 console.error("Character is not complete, cannot generate image.");
                 return;
             }
+            this.isGeneratingImage = true;
             const appearanceKeys = [
                 'age',                    'gender',          'height',         'build',
                 'skinTone',               'hairColor',       'hairStyle',      'hairLength',
@@ -540,8 +577,10 @@ document.addEventListener("alpine:init", () => {
                 console.log("Image generated successfully");
                 console.log(data);
                 this.character.imageUrl = data.image_url;
+                this.isGeneratingImage = false;
             } catch (error) {
                 console.error('Error POSTing image generation request:', error);
+                this.isGeneratingImage = false;
             }
         }
     }));

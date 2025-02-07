@@ -4,6 +4,7 @@
 {% block title %}Create A Character | DnD Character Creator{% endblock %}
 
 {% block extra_head_content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.css" integrity="sha512-087vysR/jM0N5cp13Vlp+ZF9wx6tKbvJLwPO8Iit6J7R+n7uIMMjg37dEgexOshDmDITHYY5useeSmfD1MYiQA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script>
     window.editorData = {{  editor_data|safe }};
 </script>
@@ -806,11 +807,24 @@
                                 <p class="card-subtitle text-body-secondary mb-2" data-text="`${chosenRace.name} ${chosenClass.name}`"></p>
                                 <span class="badge text-bg-dark" data-text="character.alignment"></span>
                                 <p class="card-text mt-3" data-text="character.background"></p>
-                                <button class="btn btn-outline-primary" type="button" data-on:click="handleSubmit">Save</button>
-                                <input type="file" id="image-upload" data-on:change="handleImageUpload">
-                                <button type="button" class="btn outline-primary" data-on:click="generateCharacterImage">
-                                    Generate Character Image
+                                <img class="editor-summary-image" data-bind:src="character.imageUrl" alt="Character image" />
+                                <p class="card-text mt-2">All you need now is the right image! You can upload one yourself...</p>
+                                <input aria-label="Character image upload" class="form-control" type="file" id="image-upload" data-on:change="openCropTool">
+                                <p class="card-text mt-2 mb-1">...or you can let us make it for you!</p>
+                                <button data-bind:disabled="isGeneratingImage" type="button" class="btn btn-outline-primary" data-on:click="generateCharacterImage">
+                                    <template data-if="!isGeneratingImage">
+                                        <span>Generate Character Image</span>
+                                    </template>
+                                    <template data-if="isGeneratingImage">
+                                        <div class="spinner-border" style="width: 1.5rem; height: 1.5rem;" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </template>
+                                    <template data-if="isGeneratingImage">
+                                        <span class="ms-2">A few moments please...</span>
+                                    </template>
                                 </button>
+                                <button data-bind:disabled="isGeneratingImage || isUploadingImage" class="btn btn-primary mt-3" type="button" data-on:click="handleSubmit">Save Character</button>
                             </div>
                         </div>
                     </div>
@@ -819,10 +833,22 @@
             </div>
         </template>
     </form>
+
+    <div id="image-modal-overlay" class="image-modal-overlay">
+        <div id="image-crop-container">
+            <img id="image-to-crop" src="" alt="Cropped image">
+        </div>
+        <div id="crop-buttons-container">
+            <button id="crop-cancel-button" type="button" class="btn btn-danger">Cancel</button>
+            <button id="crop-image-button" type="button" class="btn btn-primary ms-2">Crop Image</button>
+        </div>
+    </div>
+    
 </div>
 {% endblock %}
 
 {% block extra_scripts %}
 <script type="module" src="{% static 'js/main.js' %}"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js" integrity="sha512-JyCZjCOZoyeQZSd5+YEAcFgz2fowJ1F1hyJOXgtKu4llIa0KneLcidn5bwfutiehUTiOuK87A986BZJMko0eWQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% endblock %}

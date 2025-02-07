@@ -132,7 +132,9 @@ class Character(models.Model):
             value = getattr(self, field.name)
             if field.name in excluded_fields:
                 continue
-            elif field.get_internal_type() == 'UUIDField':
+            elif isinstance(field, models.UUIDField):
+                instance_dict[field.name] = str(value)
+            elif isinstance(field, CloudinaryField):
                 instance_dict[field.name] = str(value)
             else:
                 instance_dict[field.name] = value
