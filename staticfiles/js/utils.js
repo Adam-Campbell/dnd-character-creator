@@ -5,6 +5,9 @@ export const editingContexts = {
     cloneExisting: 'CLONE_EXISTING'
 }
 
+
+
+
 /**
  * Factory function for creating a new, empty character object
  * @returns 
@@ -48,7 +51,7 @@ export function getEmptyCharacter() {
         clothingStyle: "",
         clothingColors: "",
         clothingAccessories: "",
-        imageUrl: ""
+        imageUrl: "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738858645/fantasy-placeholder_tq6d9i.webp"
     };
 }
 

@@ -3,7 +3,7 @@ import {
     getEmptyCharacter, 
     getCookie, 
     switchObjectNamingConventions,
-    editingContexts 
+    editingContexts
 } from "./utils.js";
 
 const abilityIndexMap = {
@@ -43,6 +43,10 @@ document.addEventListener("alpine:init", () => {
         currentPage: "race",
         editingContext: null,
         characterId: null,
+        pageSwitchMade: false,
+        isGeneratingImage: false,
+        isUploadingImage: false,
+        cropperInstance: null,
 
         async init() {
             console.log("cg init ran")
@@ -50,8 +54,8 @@ document.addEventListener("alpine:init", () => {
                 console.log("cg init ran")
                 this.isLoading = true;
                 this.staticData = await fetchStaticData();
-                //console.log(this.staticData)
                 this.setInitialState();
+                this.initialiseCroppingButtons();
                 this.isLoading = false;
             } catch (error) {
                 console.error('Error fetching JSON:', error);
@@ -69,8 +73,80 @@ document.addEventListener("alpine:init", () => {
                 }
             }
         },
+        /**
+         * Initialise the buttons for the image cropping tool, adding event listeners to them.
+         */
+        initialiseCroppingButtons() {
+            const cropImageButton = document.getElementById('crop-image-button');
+            const cropCancelButton = document.getElementById('crop-cancel-button');
+            const imageModalOverlay = document.getElementById('image-modal-overlay');
+            // On click, retrieve cropped image from cropper instance, convert to blob, and POST to server.
+            cropImageButton.addEventListener('click', () => {
+                if (this.cropperInstance) {
+                    const data = this.cropperInstance.getData();
+                    const croppedWidth = Math.min(data.width, 500);
+                    this.isUploadingImage = true;
+                    this.cropperInstance.getCroppedCanvas({ width: croppedWidth }).toBlob(async (blob) => {
+                        const formData = new FormData();
+                        formData.append('image', blob);
+                        const csrfToken = getCookie('csrftoken');
+                        const url = `/characters/upload-image/`;
+                        try {
+                            const response = await fetch(url, {
+                                method: 'POST',
+                                headers: {
+                                    'X-CSRFToken': csrfToken
+                                },
+                                body: formData
+                            });
+                            if (!response.ok) {
+                                throw new Error('Failed to POST image');
+                            }
+                            const data = await response.json();
+                            this.character.imageUrl = data.url;
+                            imageModalOverlay.style.display = 'none';
+                            this.isUploadingImage = false;
+                        } catch (error) {
+                            console.error('Error POSTing image:', error);
+                        }
+                    })
+                }
+            });
+            // On click, destroy the cropper instance and hide the modal.
+            cropCancelButton.addEventListener('click', () => {
+                if (this.cropperInstance) {
+                    this.cropperInstance.destroy();
+                }
+                imageModalOverlay.style.display = 'none';
+            });
+        },
         setPage(page) {
             this.currentPage = page;
+            this.pageSwitchMade = true;
+        },
+        moveToNextPage() {
+            switch (this.currentPage) {
+                case 'race':
+                    this.setPage('class');
+                    break;
+                case 'class':
+                    this.setPage('abilityPoints');
+                    break;
+                case 'abilityPoints':
+                    this.isCaster ? this.setPage('spells') : this.setPage('background');
+                    break;
+                case 'spells':
+                    this.setPage('background');
+                    break;
+                case 'background':
+                    this.setPage('appearance');
+                    break;
+                case 'appearance':
+                    this.setPage('summary');
+                    break;
+                default:
+                    console.error("Invalid page name");
+            }
         },
         /**
          * Return the static data for the race that has been chosen by the user.
@@ -96,19 +172,23 @@ document.addEventListener("alpine:init", () => {
         get isCaster() {
             return this.chosenClass.spellcasting.ability !== null;
         },
-        get isComplete() {
-            // Race page doesn't need to be checked
-            // Check class page
-            if (this.character.classSkillChoices.length !== this.computedNumberOfSkillProficiencies) {
-                return false;
-            }
-            // Check ability point page
+        get raceIsComplete() {
+            // With the current design, it is impossible for race to be incomplete, but for 
+            // consistency with other pages, we will add a check for it.
+            return true;
+        },
+        get classIsComplete() {
+            return this.character.classSkillChoices.length === this.computedNumberOfSkillProficiencies;
+        },
+        get abilityPointsIsComplete() {
             for (let i = 0; i < this.character.abilityPoints.length; i++) {
                 if (this.character.abilityPoints[i].value === "--") {
                     return false;
                 }
             }
-            // Check cantrips and spells page
+            return true;
+        },
+        get spellsIsComplete() {
             if (this.isCaster) {
                 if (this.character.classCantripChoices.length !== this.chosenClass.spellcasting.cantrips.choose) {
                     return false;
@@ -117,16 +197,24 @@ document.addEventListener("alpine:init", () => {
                     return false;
                 }
             }
-            // Check background page
-            if (this.character.name === "" || this.character.age === "" || this.character.gender === "" || this.character.background === "") {
-                return false;
-            }
-            // Check appearance page
-            if (this.character.height === "" || this.character.build === "" || this.character.skinTone === "" || this.character.eyeColor === "" || 
-                this.character.hairColor === "" || this.character.hairStyle === "" || this.character.clothingStyle === "" || this.character.clothingColors === "") {
-                return false;
-            }
             return true;
+        },
+        get backgroundIsComplete() {
+            return (Boolean(this.character.name.trim()) && Boolean(this.character.age) && 
+                    Boolean(this.character.gender.trim()) && Boolean(this.character.background.trim())
+                )
+        },
+        get appearanceIsComplete() {
+            return (Boolean(this.character.height.trim()) && Boolean(this.character.build.trim()) && 
+                    Boolean(this.character.skinTone.trim()) && Boolean(this.character.eyeColor.trim()) && 
+                    Boolean(this.character.hairColor.trim()) && Boolean(this.character.hairStyle.trim()) && 
+                    Boolean(this.character.clothingStyle.trim()) && Boolean(this.character.clothingColors.trim())
+                )
+        },
+        get isComplete() {
+            return (this.raceIsComplete && this.classIsComplete && this.abilityPointsIsComplete &&
+                this.spellsIsComplete && this.backgroundIsComplete && this.appearanceIsComplete
+            );
         },
         /**
          * Get the current base score for the given ability, with no bonuses applied.
@@ -379,10 +467,6 @@ document.addEventListener("alpine:init", () => {
                 url = '/characters/new/';
             }
             try {
-                // let url = '/characters/new/';
-                // if (python_ready_character.id) {
-                //     url = `/characters/${python_ready_character.id}/edit/`;
-                // }
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
@@ -395,9 +479,108 @@ document.addEventListener("alpine:init", () => {
                     throw new Error('Failed to POST character');
                 }
                 const data = await response.json();
-                console.log('Success', data);
+                // Redirect to the correct character sheet page. If the character was just created, 
+                // then we have to get the characterId from the response data.
+                if (this.editingContext === editingContexts.createNew || 
+                    this.editingContext === editingContexts.cloneExisting) {
+                        this.characterId = data.characterId;
+                }
+                window.location.href = `/characters/${this.characterId}/`;
             } catch (error) {
                 console.error('Error POSTing character:', error);
+            }
+        },
+        /**
+         * Grabs the image file that the user selected, performs some maths to scale it correctly to the viewport,
+         * and then creates a Cropper instance with the image.
+         * @param {*} e 
+         */
+        openCropTool(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const imageModalOverlay = document.getElementById('image-modal-overlay');
+        
+                    imageModalOverlay.style.display = 'flex';
+                    const imageCropContainer = document.getElementById('image-crop-container');
+                    const imageToCrop = document.getElementById('image-to-crop');
+                    imageToCrop.src = e.target.result;
+                    imageToCrop.onload = () => {
+
+                        const naturalWidth = imageToCrop.naturalWidth;
+                        const naturalHeight = imageToCrop.naturalHeight;
+                        const viewportWidth = window.innerWidth;
+                        const viewportHeight = window.innerHeight;
+
+                        const xScale = (viewportWidth * 0.75) / naturalWidth;
+                        const yScale = (viewportHeight * 0.75) / naturalHeight;
+
+                        const scaleFactor = Math.min(xScale, yScale);
+                        const scaledWidth = naturalWidth * scaleFactor;
+                        const scaledHeight = naturalHeight * scaleFactor;
+                        imageCropContainer.style.width = `${scaledWidth}px`;
+                        imageCropContainer.style.height = `${scaledHeight}px`;
+
+                        if (this.cropperInstance) {
+                            this.cropperInstance.destroy();
+                        }
+                        this.cropperInstance = new Cropper(imageToCrop, {
+                            aspectRatio: 1,
+                            viewMode: 1,
+                            autoCropArea: 1
+                        });
+                    }
+
+                };
+                reader.readAsDataURL(file);
+            }
+        },
+        async generateCharacterImage() {
+            
+            // It shouldn't be possible to reach this function if the character is not complete,
+            // but just in case, check again.
+            if (!this.isComplete) {
+                console.error("Character is not complete, cannot generate image.");
+                return;
+            }
+            this.isGeneratingImage = true;
+            const appearanceKeys = [
+                'age',                    'gender',          'height',         'build',
+                'skinTone',               'hairColor',       'hairStyle',      'hairLength',
+                'hairType',               'facialHairStyle', 'eyeColor',       'eyeShape',
+                'distinguishingFeatures', 'clothingStyle',   'clothingColors', 'clothingAccessories'
+            ];
+            const appearanceData = appearanceKeys.reduce((acc, key) => {
+                acc[key] = this.character[key];
+                return acc;
+            }, {});
+            appearanceData.race = this.chosenRace.name;
+            appearanceData.class = this.chosenClass.name;
+            if (appearanceData.facialHairStyle !== "None" && appearanceData.facialHairStyle !== "Stubble") {
+                appearanceData.facialHairLength = this.character.facialHairLength;
+            }
+            const csrfToken = getCookie('csrftoken');
+            try {
+                const response = await fetch('/characters/generate-image/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify(appearanceData)
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to POST image generation request');
+                }
+                const data = await response.json();
+                console.log("Image generated successfully");
+                console.log(data);
+                this.character.imageUrl = data.image_url;
+                this.isGeneratingImage = false;
+            } catch (error) {
+                console.error('Error POSTing image generation request:', error);
+                this.isGeneratingImage = false;
             }
         }
     }));
