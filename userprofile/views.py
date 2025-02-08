@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from characters.models import Character
 from .forms import BioForm
-from characters.data_utils import get_static_data, get_item_by_id
+from characters.data_utils import get_static_data, get_item_by_id, get_image_url
 from django.db.models import Q
 
 # Create your views here.
@@ -22,6 +22,7 @@ def profile(request, user_id):
     else:
         created_characters = Character.objects.filter(user=user, is_public=True)
     for character in created_characters:
+        character.image = get_image_url(character.image.public_id)
         character.class_data = get_item_by_id(static_character_data['classes'], str(character.character_class))
         character.race_data = get_item_by_id(static_character_data['races'], str(character.race))
     
@@ -32,6 +33,7 @@ def profile(request, user_id):
         liked_characters = user.liked_characters.filter(is_public=True)
     #liked_characters = user.liked_characters.all()
     for character in liked_characters:
+        character.image = get_image_url(character.image.public_id)
         character.class_data = get_item_by_id(static_character_data['classes'], str(character.character_class))
         character.race_data = get_item_by_id(static_character_data['races'], str(character.race))
 
