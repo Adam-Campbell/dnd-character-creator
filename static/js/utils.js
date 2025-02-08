@@ -51,12 +51,15 @@ export function getEmptyCharacter() {
         clothingStyle: "",
         clothingColors: "",
         clothingAccessories: "",
-        imageUrl: "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738858645/fantasy-placeholder_tq6d9i.webp"
+        image: {
+            id: "fantasy-placeholder_tq6d9i",
+            url: "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738858645/fantasy-placeholder_tq6d9i.webp"
+        }
     };
 }
 
 const namingConventionMap = {
-    id: 'id',
+    image: 'image',
     race: 'race',
     name: 'name',
     age: 'age',
@@ -105,8 +108,6 @@ const namingConventionMap = {
     clothing_colors: 'clothingColors',
     clothingAccessories: 'clothing_accessories',
     clothing_accessories: 'clothingAccessories',
-    imageUrl: 'image_url',
-    image_url: 'imageUrl'
 }
 
 export function switchObjectNamingConventions(obj) {
@@ -119,6 +120,7 @@ export function switchObjectNamingConventions(obj) {
     }
     return newObj;
 }
+
 
 
 /**

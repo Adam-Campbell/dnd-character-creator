@@ -6,11 +6,14 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
 from django.views import generic
 from django.core.serializers import serialize
-from .data_utils import get_static_data, validate_character_data, get_item_by_id, format_line_breaks
+from .data_utils import get_static_data, validate_character_data, get_item_by_id, format_line_breaks, get_image_url
 import time
 import cloudinary.uploader
 import cloudinary.exceptions
+from cloudinary.utils import cloudinary_url
 from openai import OpenAI
+from .forms import CharacterForm
+import uuid
 
 client = OpenAI()
 
@@ -45,6 +48,7 @@ class CharacterList(generic.ListView):
         # Enrich each character with additional properties
         static_data = get_static_data()
         for character in characters:
+            character.image = get_image_url(character.image.public_id)
             character.class_data = get_item_by_id(static_data['classes'], str(character.character_class))
             character.race_data = get_item_by_id(static_data['races'], str(character.race))
         return context
@@ -63,50 +67,21 @@ def create_character(request):
     """
     if request.method == 'POST':
         try:
-            print("POST request received")
             character_data = json.loads(request.body)
-            #if not validate_character_data(character_data):
-            #    return JsonResponse({ 'message': 'Invalid character data' }, status=400)
-            print(character_data)
-            new_character = Character.objects.create(
-                user=request.user,
-                race=character_data['race'],
-                character_class=character_data['character_class'],
-                character_class_skill_choices=character_data['character_class_skill_choices'],
-                character_class_cantrip_choices=character_data['character_class_cantrip_choices'],
-                character_class_spell_choices=character_data['character_class_spell_choices'],
-                ability_points=character_data['ability_points'],
-                name=character_data['name'],
-                age=character_data['age'],
-                gender=character_data['gender'],
-                alignment=character_data['alignment'],
-                background=character_data['background'],
-                traits=character_data['traits'],
-                ideals=character_data['ideals'],
-                bonds=character_data['bonds'],
-                flaws=character_data['flaws'],
-                height=character_data['height'],
-                build=character_data['build'],
-                skin_tone=character_data['skin_tone'],
-                hair_color=character_data['hair_color'],
-                hair_style=character_data['hair_style'],
-                hair_length=character_data['hair_length'],
-                hair_type=character_data['hair_type'],
-                facial_hair_style=character_data['facial_hair_style'],
-                facial_hair_length=character_data['facial_hair_length'],
-                eye_color=character_data['eye_color'],
-                eye_shape=character_data['eye_shape'],
-                distinguishing_features=character_data['distinguishing_features'],
-                clothing_style=character_data['clothing_style'],
-                clothing_colors=character_data['clothing_colors'],
-                clothing_accessories=character_data['clothing_accessories'],
-                image_url=character_data['image_url'],
-            )
-            new_character.save()
-            # Add the character to the user's liked characters
-            request.user.liked_characters.add(new_character)
-            print("Character created")
-            return JsonResponse({ 'message': 'POST request handled', 'characterId': new_character.id })
+            form = CharacterForm(character_data)
+            if form.is_valid():
+                try:
+                    new_character = form.save(commit=False)
+                    new_character.user = request.user
+                    new_character.save()
+                    request.user.liked_characters.add(new_character)
+                    return JsonResponse({ 'message': 'POST request handled', 'characterId': new_character.id })
+                except Exception as e:
+                    print(f"An error occurred: {e}")
+                    return JsonResponse({'message': f'An error occurred: {e}'}, status=500)
+            else:
+                print("FORM INVALID")
+                return JsonResponse({ 'message': 'Invalid character data' }, status=400)
         
         except json.JSONDecodeError:
             # If JSON data malformed, return a 400 error
@@ -139,21 +114,14 @@ def edit_character(request, id):
     """
     if request.method == 'POST':
         character_data = json.loads(request.body)
-        # Validate the character data
-        if not validate_character_data(character_data):
+        #character_data['facial_hair_length'] = 'FOOBAR'
+        character = Character.objects.get(id=id)
+        form = CharacterForm(character_data, instance=character)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({ 'message': 'Character updated successfully' })
+        else:
             return JsonResponse({ 'message': 'Invalid character data' }, status=400)
-        character = Character.objects.get(id=character_data['id'])
-        # Iterate over key-value pairs in character_data. If the key is an attribute of
-        # the character object, update the attribute with the new value. Exclude the id and user fields.
-        for (key, value) in character_data.items():
-            if key == 'id':
-                continue
-            if key == 'user':
-                continue
-            if hasattr(character, key):
-                setattr(character, key, value)
-        character.save()
-        return JsonResponse({ 'message': 'POST request handled' })
     # End of POST request handling
     try:
         character = Character.objects.get(id=id)
@@ -164,6 +132,7 @@ def edit_character(request, id):
     if character.user != request.user:
         return HttpResponseForbidden("You do not have permission to edit this character")
     # If the character exists and belongs to the user, render the edit_character.html template
+    print(character.to_json())
     editor_data = json.dumps({
         'editingContext': 'EDIT_EXISTING',
         'characterId': id,
@@ -211,6 +180,7 @@ def character_detail(request, id):
     user_has_liked = character.liked_by.filter(id=request.user.id).exists()
     user_is_owner = character.user == request.user
     # Get static data and add the relevant class and race data to the character object
+    character.image = get_image_url(character.image.public_id)
     static_data = get_static_data()
     character.class_data = get_item_by_id(static_data['classes'], str(character.character_class))
     character.race_data = get_item_by_id(static_data['races'], str(character.race))
@@ -325,7 +295,7 @@ def upload_image(request):
                 return JsonResponse({'message': 'No image provided'}, status=400)
             
             response = cloudinary.uploader.upload(image)
-            return JsonResponse({'url': response['secure_url']})
+            return JsonResponse({'url': response['secure_url'], 'id': response['public_id']})
         
         except cloudinary.exceptions.Error as e:
             return JsonResponse({'message': f'An error occurred: {e}'}, status=500)
@@ -383,6 +353,6 @@ def generate_image(request):
             cloudinary_response = cloudinary.uploader.upload(dalle_image_url)
             cloudinary_image_url = cloudinary_response['secure_url']
             if cloudinary_image_url:
-                return JsonResponse({'image_url': cloudinary_image_url})
+                return JsonResponse({'url': cloudinary_image_url, 'id': cloudinary_response['public_id']})
         return JsonResponse({'message': 'An error occurred'}, status=500)
         

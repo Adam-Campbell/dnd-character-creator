@@ -103,7 +103,11 @@ document.addEventListener("alpine:init", () => {
                                 throw new Error('Failed to POST image');
                             }
                             const data = await response.json();
-                            this.character.imageUrl = data.url;
+                            this.character.image = {
+                                url: data.url,
+                                id: data.id
+                            }
+                            console.log(this.character)
                             imageModalOverlay.style.display = 'none';
                             this.isUploadingImage = false;
                         } catch (error) {
@@ -121,6 +125,7 @@ document.addEventListener("alpine:init", () => {
             });
         },
         setPage(page) {
+            console.log(this.character)
             this.currentPage = page;
             this.pageSwitchMade = true;
         },
@@ -460,6 +465,10 @@ document.addEventListener("alpine:init", () => {
             const csrfToken = getCookie('csrftoken');
             const python_ready_character = switchObjectNamingConventions(this.character);
             console.log(python_ready_character)
+            python_ready_character.image = python_ready_character.image.id;
+            if (python_ready_character.facial_hair_length === "") {
+                python_ready_character.facial_hair_length = null;
+            }
             let url = '';
             if (this.editingContext === editingContexts.editExisting) {
                 url = `/characters/${this.characterId}/edit/`;
@@ -576,8 +585,13 @@ document.addEventListener("alpine:init", () => {
                 const data = await response.json();
                 console.log("Image generated successfully");
                 console.log(data);
-                this.character.imageUrl = data.image_url;
+                
+                this.character.image = {
+                    url: data.url,
+                    id: data.id
+                }
                 this.isGeneratingImage = false;
+                console.log(this.character)
             } catch (error) {
                 console.error('Error POSTing image generation request:', error);
                 this.isGeneratingImage = false;

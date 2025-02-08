@@ -525,7 +525,7 @@
                         </div>
                         <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
                             <label class="form-label me-2" for="character-age">Age</label>
-                            <input class="form-control" id="character-age" type="number" min="0" data-model="character.age" />
+                            <input class="form-control" id="character-age" type="number" min="0" data-model.number="character.age" />
                         </div>
                         <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
                             <label class="form-label me-2" for="character-gender">Gender</label>
@@ -756,7 +756,7 @@
                                     data-data="{ options: ['None', 'Stubble', 'Full Beard', 'Goatee', 'Moustache', 'Sideburns', 'Soul Patch', 'Mutton Chops'] }">
                                     <template data-for="option in options">
                                         <option data-bind:value="option"
-                                            data-bind:selected="Boolean(character.hairType === option)"
+                                            data-bind:selected="Boolean(character.facialHairStyle === option)"
                                             data-text="option"></option>
                                     </template>
                             </select>
@@ -768,7 +768,7 @@
                                         data-model="character.facialHairLength" id="character-facial-hair-length">
                                         <template data-for="option in options">
                                             <option data-bind:value="option"
-                                                data-bind:selected="Boolean(character.hairType === option)"
+                                                data-bind:selected="Boolean(character.facialHairLength === option)"
                                                 data-text="option"></option>
                                         </template>
                                 </select>
@@ -807,7 +807,7 @@
                                 <p class="card-subtitle text-body-secondary mb-2" data-text="`${chosenRace.name} ${chosenClass.name}`"></p>
                                 <span class="badge text-bg-dark" data-text="character.alignment"></span>
                                 <p class="card-text mt-3" data-text="character.background"></p>
-                                <img class="editor-summary-image" data-bind:src="character.imageUrl" alt="Character image" />
+                                <img class="editor-summary-image" data-bind:src="character.image.url" alt="Character image" />
                                 <p class="card-text mt-2">All you need now is the right image! You can upload one yourself...</p>
                                 <input aria-label="Character image upload" class="form-control" type="file" id="image-upload" data-on:change="openCropTool">
                                 <p class="card-text mt-2 mb-1">...or you can let us make it for you!</p>

@@ -114,7 +114,7 @@ class Character(models.Model):
     clothing_style = models.CharField(max_length=200)
     clothing_colors = models.CharField(max_length=200)
     clothing_accessories = models.CharField(max_length=200, blank=True)
-    image_url = CloudinaryField('image', blank=True, default=get_default_image_url)
+    image = CloudinaryField('image', blank=True, default="fantasy-placeholder_tq6d9i")
     liked_by = models.ManyToManyField(User, related_name='liked_characters')
     created_at = models.DateTimeField(default=now, editable=False)
     is_public = models.BooleanField(default=True)
@@ -134,12 +134,15 @@ class Character(models.Model):
                 continue
             elif isinstance(field, models.UUIDField):
                 instance_dict[field.name] = str(value)
-            elif isinstance(field, CloudinaryField):
-                instance_dict[field.name] = str(value)
+            #elif isinstance(field, CloudinaryField):
+            #    instance_dict[field.name] = str(value)
+            elif field.name == 'image':
+                instance_dict['image'] = {
+                    'url': self.image.url,
+                    'id': self.image.public_id
+                }
             else:
                 instance_dict[field.name] = value
-        print(instance_dict['image_url'])
-        #return json.dumps(instance_dict)
         return instance_dict
 
     def __str__(self):

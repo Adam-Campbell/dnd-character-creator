@@ -108,6 +108,8 @@ characters_data_list = [
         'clothing_style': 'Sturdy, practical dwarven armour with fur-lined cloak',
         'clothing_colors': 'Earthy browns and deep greys',
         'clothing_accessories': 'A thick leather belt with a family crest buckle',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738944749/eiep41owpyuixoqvdqgh.png"
+        'image': "eiep41owpyuixoqvdqgh"
     },
     {
         'race': race_ids['Elf'],
@@ -162,10 +164,12 @@ characters_data_list = [
         'facial_hair_length': '',
         'eye_color': 'Ice blue',
         'eye_shape': 'Almond',
-        'distinguishing_features': ' A tattoo of a crescent moon on her wrist',
+        'distinguishing_features': 'A tattoo of a crescent moon on her wrist',
         'clothing_style': 'Flowing silk tunics and embroidered vests',
         'clothing_colors': 'Deep blues, silvers, and purples',
         'clothing_accessories': 'A silver ring that hums with magic when she sings',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738944752/c6yz49xdfprbodlq5ld9.png"
+        'image': "c6yz49xdfprbodlq5ld9"
     },
     {
         'race': race_ids['Halfling'],
@@ -217,6 +221,8 @@ characters_data_list = [
         'clothing_style': 'Dark leather armour, perfect for blending into shadows',
         'clothing_colors': 'Blacks, greys, and dark blues',
         'clothing_accessories': 'A belt full of hidden pockets and lockpicks',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738944744/pex1odq7celrtmhm8ln8.png"
+        'image': "pex1odq7celrtmhm8ln8"
     },
     {
         'race': race_ids['Tiefling'],
@@ -277,6 +283,8 @@ characters_data_list = [
         'clothing_style': 'Flowing dark robes with silver arcane symbols',
         'clothing_colors': 'Deep crimson and midnight blue',
         'clothing_accessories': 'A leather-bound spellbook chained to his belt',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738944211/brazyorvcuhi571c3u5u.png"
+        'image': "brazyorvcuhi571c3u5u"
     },
     {
         'race': race_ids['Half-Elf'],
@@ -327,6 +335,8 @@ characters_data_list = [
         'clothing_style': 'Rugged pirate garb with a long coat and high boots',
         'clothing_colors': 'Deep crimson and black',
         'clothing_accessories': 'A shark tooth necklace and a golden hoop earring',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738944214/yfqjyxl3gsxyrllgl5rm.png"
+        'image': "yfqjyxl3gsxyrllgl5rm"
     },
     {
         'race': race_ids['Human'],
@@ -384,6 +394,8 @@ characters_data_list = [
         'clothing_style': 'Simple, well-maintained priestly robes with chainmail underneath',
         'clothing_colors': 'White and gold, with dark blue accents',
         'clothing_accessories': 'A rosary of carved bone beads',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738944209/uc8wqdhanl60wxk3upwr.png"
+        'image': "uc8wqdhanl60wxk3upwr"
     },
     {
         'race': race_ids['Half-Elf'],
@@ -436,6 +448,8 @@ characters_data_list = [
         'clothing_style': 'Dark leather armour tailored for stealth',
         'clothing_colors': 'Black and deep crimson',
         'clothing_accessories': 'A set of silver lockpicks hidden in her boots',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943925/duunimauvlfozj0v8sb3.png"
+        'image': "duunimauvlfozj0v8sb3"
     },
     {
         'race': race_ids['Elf'],
@@ -493,6 +507,8 @@ characters_data_list = [
         'clothing_style': 'Flowing robes with silver embroidery, layered over chainmail',
         'clothing_colors': 'Sky blue and silver',
         'clothing_accessories': 'A cloak that crackles faintly with static when touched',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943916/cxtrb1qgclrswikrjn2b.png"
+        'image': "cxtrb1qgclrswikrjn2b"
     },
     {
         'race': race_ids['Dwarf'],
@@ -542,6 +558,8 @@ characters_data_list = [
         'clothing_style': 'Patchwork leather and fur armour, taken from fallen enemies',
         'clothing_colors': 'Charcoal black and deep crimson',
         'clothing_accessories': 'A heavy iron ring that once belonged to his chieftain',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943919/zdkizpln5opxxxikhrhe.png"
+        'image': "zdkizpln5opxxxikhrhe"
     },
     {
         'race': race_ids['Elf'],
@@ -600,6 +618,8 @@ characters_data_list = [
         'clothing_style': 'Flowing, embroidered tunic with elaborate patterns',
         'clothing_colors': 'Deep purple and gold',
         'clothing_accessories': 'A collection of rings, each taken from a different admirer',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943904/ifbvqmphgpejdmxthlal.png"
+        'image': "ifbvqmphgpejdmxthlal"
     },
     {
         'race': race_ids['Elf'],
@@ -649,6 +669,8 @@ characters_data_list = [
         'clothing_style': 'Ornate but practical elven armour',
         'clothing_colors': 'Silver and dark blue',
         'clothing_accessories': 'A flowing, tattered cloak from his homeland',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943731/vgrxa6sbkpmbqmz7wbus.png"
+        'image': "vgrxa6sbkpmbqmz7wbus"
     },
     {
         'race': race_ids['Halfling'],
@@ -707,6 +729,8 @@ characters_data_list = [
         'clothing_style': 'Colourful, flamboyant travel attire with flowing scarves',
         'clothing_colors': 'Deep purple, gold, and emerald green',
         'clothing_accessories': 'A lute slung across her back, adorned with ribbons',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943722/vkyjh4bzvnxxsba9wnqm.png"
+        'image': "vkyjh4bzvnxxsba9wnqm"
     },
     {
         'race': race_ids['Dwarf'],
@@ -764,6 +788,8 @@ characters_data_list = [
         'clothing_style': 'Sturdy, well-worn priestly robes over chainmail',
         'clothing_colors': 'Deep gold and slate grey',
         'clothing_accessories': 'A thick leather belt with pouches filled with holy relics',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943724/creexshw6p9y21wunt0l.png"
+        'image': "creexshw6p9y21wunt0l"
     },
     {
         'race': race_ids['Tiefling'],
@@ -824,6 +850,8 @@ characters_data_list = [
         'clothing_style': 'Elegant but slightly singed robes, trimmed with golden embroidery',
         'clothing_colors': 'Black and deep crimson',
         'clothing_accessories': 'A silver ring that grows hot when near magical energy',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943706/hklrzryrt0f2azklyzxm.png"
+        'image': "hklrzryrt0f2azklyzxm"
     },
     {
         'race': race_ids['Human'],
@@ -881,6 +909,8 @@ characters_data_list = [
         'clothing_style': 'Modest but well-made travelling robes, reinforced with leather patches',
         'clothing_colors': 'White and deep blue',
         'clothing_accessories': 'A wooden prayer bead bracelet, worn smooth from use',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943599/bcbovr2ahz0hezuyt2iz.png"
+        'image': "bcbovr2ahz0hezuyt2iz"
     },
     {
         'race': race_ids['Half-Elf'],
@@ -940,6 +970,8 @@ characters_data_list = [
         'clothing_style': 'A mix of noble and streetwear, tailored but slightly worn',
         'clothing_colors': 'Dark red and charcoal grey',
         'clothing_accessories': 'A small deck of playing cards, each marked for tricks',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943536/n1jhefsiyr3qondtq6xt.png"
+        'image': "n1jhefsiyr3qondtq6xt"
     },
     {
         'race': race_ids['Dwarf'],
@@ -988,6 +1020,8 @@ characters_data_list = [
         'clothing_style': 'Heavy, well-maintained armour with a red cloak',
         'clothing_colors': 'Iron-grey with red accents',
         'clothing_accessories': 'A thick leather belt with dwarven runes engraved on the buckle',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943479/wjnqqjkq50iousxmou0f.png"
+        'image': "wjnqqjkq50iousxmou0f"
     },
     {
         'race': race_ids['Elf'],
@@ -1047,6 +1081,8 @@ characters_data_list = [
         'clothing_style': 'Flowing robes embroidered with silver filigree',
         'clothing_colors': 'Deep blue with silver accents',
         'clothing_accessories': 'A moonstone pendant that pulses with arcane energy',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943398/sc0vla9zhjx8s1evnxcc.png"
+        'image': "sc0vla9zhjx8s1evnxcc"
     },
     {
         'race': race_ids['Human'],
@@ -1097,6 +1133,8 @@ characters_data_list = [
         'clothing_style': 'Dark, well-fitted leather with hidden pockets',
         'clothing_colors': 'Black and charcoal grey',
         'clothing_accessories': 'A set of lockpicks hidden in his belt buckle',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943343/foxjah2hyyqc8zbjzflx.png"
+        'image': "foxjah2hyyqc8zbjzflx"
     },
     {
         'race': race_ids['Tiefling'],
@@ -1154,8 +1192,597 @@ characters_data_list = [
         'clothing_style': 'Flamboyant and stylish, favouring flowing coats and dramatic collars',
         'clothing_colors': 'Deep purples, blacks, and golds',
         'clothing_accessories': 'A silver ring with an unknown sigil, said to grant her luck',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943255/ccvqlw6hntuzhatvsxmx.png"
+        'image': "ccvqlw6hntuzhatvsxmx"
     },
+    {
+        'race': race_ids['Halfling'],
+        'character_class': class_ids['Rogue'],
+        'character_class_skill_choices': [
+            "5fec3a3b-806d-47c5-9101-2fb77832ec18",
+            "57b45a74-aacb-4ea7-9d5d-8219b8f15851",
+            "f0e83eb0-d3a7-40ee-b1a5-ea146b4dd094",
+            "fc38c64c-bc06-4fd1-b38e-3912d517635d",
+        ],
+        'character_class_cantrip_choices': [],
+        'character_class_spell_choices': [],
+        'ability_points': format_ability_points(8,15,13,14,10,12),
+        'name': 'Brynn Thistledown',
+        'age': 24,
+        'gender': 'Female',
+        'alignment': 'Chaotic Neutral',
+        'background': """Brynn grew up in a small halfling village where life was simple and safe—too safe for her liking. Always drawn to excitement, she ran away as a teenager and found herself in a bustling city filled with opportunity and danger. She quickly learned to survive through wit, charm, and quick hands, eventually becoming a skilled thief and con artist. Though she enjoys the thrill of the heist, she follows her own moral code—she never steals from those who can’t afford to lose and occasionally "redistributes" wealth from the corrupt to those in need.""",
+        'traits': [
+            "Incredibly nimble, slipping through crowds unnoticed",
+            "Quick-tongued, always ready with a clever remark or a bold lie",
+            "Enjoys pushing her luck, often taking risks just for the thrill"
+        ],
+        'ideals': [
+            "Life is too short to play it safe",
+            "The world belongs to those clever enough to take it"
+        ],
+        'bonds': [
+            "Holds onto a tiny wooden charm carved by her younger sister, whom she hopes to reunite with one day",
+            "Owes a favour to a dangerous crime lord who once saved her life"
+        ],
+        'flaws': [
+            "Can’t resist a good gamble, even when she knows the odds are against her",
+            "Struggles to trust others, assuming everyone has an angle"
+        ],
+        'height': '3\'2"',
+        'build': 'Slim and wiry',
+        'skin_tone': 'Fair with a light dusting of freckles',
+        'hair_color': 'Auburn',
+        'hair_style': 'Messy, often tucked under a hood',
+        'hair_length': 'Short',
+        'hair_type': 'Wavy',
+        'facial_hair_style': 'None',
+        'facial_hair_length': '',
+        'eye_color': 'Bright green',
+        'eye_shape': 'Round',
+        'distinguishing_features': 'A small scar on her cheek from a botched pickpocket attempt',
+        'clothing_style': 'Dark, practical clothing designed for stealth',
+        'clothing_colors': 'Black and dark green',
+        'clothing_accessories': 'A belt filled with hidden pockets and tiny lockpicks',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943160/ha9qcex8n491olyixp1p.png"
+        'image': "ha9qcex8n491olyixp1p"
+    },
+    {
+        'race': race_ids['Dwarf'],
+        'character_class': class_ids['Cleric'],
+        'character_class_skill_choices': [
+            "affa7db3-34db-4f19-aca3-afae012f47b4",
+            "540937ab-6c67-4c5f-9102-c8b180729a8e"
+        ],
+        'character_class_cantrip_choices': [
+            "87b8c250-f2cc-4920-9b43-0046a8b34e55", 
+            "d535e9f5-9ae8-46d0-8b55-ab85b9689729", 
+            "a9db1992-544e-4fe9-8306-704bf0bea062",
+        ],
+        'character_class_spell_choices': [
+            "eedc57b0-5c91-4254-a8d2-d93cb54b2ad8", 
+            "07e69325-723f-45e1-a632-8a747d835728", 
+            "62634aad-3754-4ea3-be95-2708ebdab3a7",
+        ],
+        'ability_points': format_ability_points(10,13,14,8,15,12),
+        'name': 'Orik Stoneheart',
+        'age': 145,
+        'gender': 'Male',
+        'alignment': 'Lawful Good',
+        'background': """Born into a family of devout clerics, Orik always knew he was destined to serve his god. However, unlike his predecessors who remained in grand temples, he felt his duty was to walk among the people, offering aid where needed. After years of service healing the wounded and protecting the innocent, he now roams the land, acting as both a healer and a warrior against darkness. Though he is stubborn and unyielding in his beliefs, he has a deep love for ale, stories, and companionship.""",
+        'traits': [
+            "Stoic and disciplined, always maintaining his composure",
+            "Deeply protective of his allies, treating them like family",
+            "Surprisingly humorous when in good company"
+        ],
+        'ideals': [
+            "Strength comes not just from steel, but from faith",
+            "The strong should protect the weak, no matter the cost"
+        ],
+        'bonds': [
+            "Swore an oath to defend a sacred relic, which he carries hidden beneath his armour",
+            "Seeks to redeem a fallen comrade who turned to darkness"
+        ],
+        'flaws': [
+            "Can be overly rigid, refusing to compromise his beliefs",
+            "Has little patience for those who lack discipline"
+        ],
+        'height': '4\'6"',
+        'build': 'Stocky and muscular',
+        'skin_tone': 'Ruddy and weathered',
+        'hair_color': 'Iron grey',
+        'hair_style': 'Thick and swept back',
+        'hair_length': 'Long',
+        'hair_type': 'Wavy',
+        'facial_hair_style': 'Full beard',
+        'facial_hair_length': 'Long',
+        'eye_color': 'Dark brown',
+        'eye_shape': 'Hooded',
+        'distinguishing_features': 'A jagged scar running down his nose',
+        'clothing_style': 'Heavy plate armour adorned with religious symbols',
+        'clothing_colors': 'Silver and deep blue',
+        'clothing_accessories': 'A warhammer engraved with holy runes',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738943078/ltxuvo3xu9rkcqy4pmpc.png"
+        'image': "ltxuvo3xu9rkcqy4pmpc"
+    },
+    {
+        'race': race_ids['Human'],
+        'character_class': class_ids['Bard'],
+        'character_class_skill_choices': [
+            "3bbcebbe-8e83-49af-97e0-66648d020ccb",
+            "0cf988cb-ed38-40f8-948f-91b679cf502c",
+            "5fec3a3b-806d-47c5-9101-2fb77832ec18",
+        ],
+        'character_class_cantrip_choices': [
+            "9432fedb-4c67-4b63-8778-ef9c985d0729",
+            "53fc449d-2488-418e-b2c9-6dd3162f333f",
+        ],
+        'character_class_spell_choices': [
+            "07e69325-723f-45e1-a632-8a747d835728", 
+            "e5c90b9e-9590-4050-9dc7-40f14e2c6ae1",
+            "fb37362f-1985-474e-a399-7401b80ab5d7", 
+            "8aa90fa7-7039-4e96-adbf-27fde78da110",
+        ],
+        'ability_points': format_ability_points(10,13,14,8,12,15),
+        'name': 'Lysara Valmont',
+        'age': 31,
+        'gender': 'Female',
+        'alignment': 'Neutral Good',
+        'background': """Lysara was raised in a noble household where she was expected to marry well and uphold the family name. Instead, she abandoned her gilded cage and chose a life of adventure, seeking inspiration for her songs in the real world rather than courtly halls. A skilled musician and storyteller, she now travels from city to city, earning coin with her performances and uncovering forgotten legends. She has a particular fondness for exposing corruption and bringing hope to the downtrodden through her tales.""",
+        'traits': [
+            "Charismatic and effortlessly charming",
+            "Has an encyclopaedic knowledge of myths and folklore",
+            "Always finds a way to make people laugh, even in dire situations"
+        ],
+        'ideals': [
+            "Stories have the power to change the world",
+            "Truth and beauty should never be silenced"
+        ],
+        'bonds': [
+            "Still carries an old locket from her childhood, a reminder of the family she left behind",
+            "Seeks to write the greatest epic the world has ever known"
+        ],
+        'flaws': [
+            "Has difficulty staying in one place for too long, always chasing the next story",
+            "Often gets herself into trouble by speaking out against the powerful"
+        ],
+        'height': '5\'6"',
+        'build': 'Slender and graceful',
+        'skin_tone': 'Warm beige',
+        'hair_color': 'Chestnut brown',
+        'hair_style': 'Elegantly styled into loose curls',
+        'hair_length': 'Long',
+        'hair_type': 'Wavy',
+        'facial_hair_style': 'None',
+        'facial_hair_length': '',
+        'eye_color': 'Sapphire blue',
+        'eye_shape': 'Upturned',
+        'distinguishing_features': 'A delicate tattoo of a quill on her wrist',
+        'clothing_style': 'Elegant, flowing dresses with intricate embroidery',
+        'clothing_colors': 'Deep red and gold',
+        'clothing_accessories': 'A silver charm bracelet with tiny musical notes',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738942987/ybaxyp7wn8dgebxpnmn9.png"
+        'image': "ybaxyp7wn8dgebxpnmn9"
+    },
+    {
+        'race': race_ids['Elf'],
+        'character_class': class_ids['Wizard'],
+        'character_class_skill_choices': [
+            "5fec3a3b-806d-47c5-9101-2fb77832ec18",
+            "f0e83eb0-d3a7-40ee-b1a5-ea146b4dd094",
+        ],
+        'character_class_cantrip_choices': [
+            "53fc449d-2488-418e-b2c9-6dd3162f333f", 
+            "6ed84f5f-d26a-426e-a1e3-99ac71dcfb47", 
+            "227a3f45-39c1-441e-9185-aca770d55827",
+        ],
+        'character_class_spell_choices': [
+            "ba948243-4881-44de-ad9a-e0f55044159f", 
+            "e5c90b9e-9590-4050-9dc7-40f14e2c6ae1", 
+            "f3f8ead5-3969-41a6-a863-09f18811dde1", 
+            "fb37362f-1985-474e-a399-7401b80ab5d7", 
+            "79d4e2a3-96c2-499f-b0dd-154fadb132cf", 
+            "02504055-b348-42af-aa50-757ccb4200da",
+        ],
+        'ability_points': format_ability_points(8,14,12,15,10,13),
+        'name': 'Vaelin Duskwhisper',
+        'age': 132,
+        'gender': 'Male',
+        'alignment': 'Neutral Good',
+        'background': """Vaelin was raised in an ancient elven enclave, where he studied the arcane arts from a young age. A prodigy among his peers, he excelled in spellcraft but was always more fascinated by lost knowledge than tradition. His pursuit of forgotten magic led him to leave his homeland in search of ancient ruins, forbidden tomes, and the secrets of the cosmos. Now, he travels the world, seeking wisdom and protecting knowledge from those who would misuse it.""",
+        'traits': [
+            'Highly intelligent and analytical, always thinking several steps ahead.',
+            'Soft-spoken but precise in his words, valuing knowledge over conflict.',
+            'Has a deep respect for history and forgotten cultures.'
+        ],
+        'ideals': [
+            'Knowledge must be preserved and shared with those who will use it wisely.',
+            'True power lies in understanding, not in brute strength.'
+        ],
+        'bonds': [
+            'Carries a small silver pendant given to him by his first mentor, a reminder of his duty to wisdom.',
+            'Feels responsible for a former apprentice who turned to dark magic.'
+        ],
+        'flaws': [
+            'Prone to overthinking and sometimes hesitant to act in crucial moments.',
+            'Can come across as aloof or dismissive when dealing with those he considers ignorant.'
+        ],
+        'height': "5'10\"",
+        'build': 'Lean and graceful',
+        'skin_tone': 'Pale with a faint golden hue',
+        'hair_color': 'Silver-white',
+        'hair_style': 'Tied back in an intricate braid',
+        'hair_length': 'Long',
+        'hair_type': 'Straight',
+        'facial_hair_style': 'None',
+        'facial_hair_length': '',
+        'eye_color': 'Deep violet',
+        'eye_shape': 'Almond',
+        'distinguishing_features': 'Delicate arcane runes tattooed along his forearms, glowing faintly when he casts spells.',
+        'clothing_style': 'Elegant robes embroidered with celestial patterns',
+        'clothing_colors': 'Deep blue and silver',
+        'clothing_accessories': 'A leather-bound spellbook chained to his belt, filled with his own arcane discoveries',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738942883/cqry1g8vmctwmetvt5my.png"
+        'image': "cqry1g8vmctwmetvt5my"
+    },
+    {
+        'race': race_ids['Dwarf'],
+        'character_class': class_ids['Fighter'],
+        'character_class_skill_choices': [
+            "26cd5299-99a3-42ad-bf86-73c453104a08",
+            "0cf988cb-ed38-40f8-948f-91b679cf502c",
+        ],
+        'character_class_cantrip_choices': [],
+        'character_class_spell_choices': [],
+        'ability_points': format_ability_points(15,12,14,10,13,8),
+        'name': 'Rurik Ironfist',
+        'age': 157,
+        'gender': 'Male',
+        'alignment': 'Lawful Neutral',
+        'background': (
+            "Born into a proud line of warriors, Rurik was raised with an axe in his hands and duty in his heart. "
+            "He served as a soldier in his clan’s army, defending their mountain stronghold from invaders and monstrous threats. "
+            "After a disastrous battle where his entire unit was wiped out, Rurik left his homeland to seek redemption, vowing "
+            "never to let his comrades fall again. Now, he wanders the land as a mercenary, searching for a cause worthy of his blade."
+        ),
+        'traits': [
+            'Disciplined and methodical, treating combat like an art.',
+            'Speaks bluntly, believing honesty is the greatest virtue.',
+            'Enjoys a good drink but never allows himself to lose control.'
+        ],
+        'ideals': [
+            'Strength and honour define a warrior’s worth.',
+            'Loyalty to one’s comrades is the highest duty.'
+        ],
+        'bonds': [
+            'Wears the broken insignia of his fallen unit as a constant reminder of his oath.',
+            'Seeks to reclaim his family’s lost ancestral weapon, stolen during an orc raid.'
+        ],
+        'flaws': [
+            'Struggles to forgive himself for past failures, carrying guilt like a heavy burden.',
+            'Slow to trust outsiders, believing actions speak louder than words.'
+        ],
+        'height': "4'8\"",
+        'build': 'Broad and muscular',
+        'skin_tone': 'Bronzed from years of exposure to forge and battlefield',
+        'hair_color': 'Dark brown with streaks of grey',
+        'hair_style': 'Thick and slightly unkempt',
+        'hair_length': 'Medium',
+        'hair_type': 'Wavy',
+        'facial_hair_style': 'Full beard',
+        'facial_hair_length': 'Long',
+        'eye_color': 'Dark grey',
+        'eye_shape': 'Hooded',
+        'distinguishing_features': 'A deep scar running across his left cheek from an old battle wound.',
+        'clothing_style': 'Heavy plate armour adorned with clan emblems',
+        'clothing_colors': 'Iron grey and crimson',
+        'clothing_accessories': 'A thick leather belt with dwarven runes carved into the buckle',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738942777/r73ns7bfp1eigrjxefav.png"
+        'image': "r73ns7bfp1eigrjxefav"
+    },
+    {
+        'race': race_ids['Tiefling'],
+        'character_class': class_ids['Rogue'],
+        'character_class_skill_choices': [
+            "78f8567e-8c82-4f41-ae7e-112a299dd0aa",
+            "5fec3a3b-806d-47c5-9101-2fb77832ec18",
+            "fc38c64c-bc06-4fd1-b38e-3912d517635d",
+            "3bbcebbe-8e83-49af-97e0-66648d020ccb"
+        ],
+        'character_class_cantrip_choices': [],
+        'character_class_spell_choices': [],
+        'ability_points': format_ability_points(10,15,13,8,12,14),
+        'name': 'Zyra Vex',
+        'age': 29,
+        'gender': 'Female',
+        'alignment': 'Chaotic Neutral',
+        'background': (
+            "Born in the slums and abandoned as a child, Zyra learned early that the world belonged to those willing to take what they needed. "
+            "She honed her skills in the shadows, becoming an expert thief and assassin, taking contracts on the wealthy and corrupt. "
+            "Despite her sharp tongue and colder demeanour, she has a soft spot for the desperate and downtrodden, often leaving a portion of her earnings "
+            "to aid street orphans. Whether she’s robbing nobles or slipping through city guards unnoticed, Zyra lives by one rule: trust no one."
+        ),
+        'traits': [
+            'Cunning and observant, always watching for an advantage.',
+            'Prefers action over words, believing hesitation is weakness.',
+            'Enjoys the thrill of danger, often taking risks just to feel alive.'
+        ],
+        'ideals': [
+            'Freedom is the only thing worth fighting for.',
+            'Survival isn’t about strength—it’s about wit.'
+        ],
+        'bonds': [
+            'Carries a silver coin engraved with a strange symbol, the only clue to her unknown parentage.',
+            'Owes a life debt to an old mentor who once saved her from execution.'
+        ],
+        'flaws': [
+            'Struggles to trust others, always expecting betrayal.',
+            'Often lets her pride push her into reckless situations.'
+        ],
+        'height': "5'5\"",
+        'build': 'Lithe and athletic',
+        'skin_tone': 'Deep purple',
+        'hair_color': 'Jet black',
+        'hair_style': 'Sleek and straight',
+        'hair_length': 'Long',
+        'hair_type': 'Straight',
+        'facial_hair_style': 'None',
+        'facial_hair_length': '',
+        'eye_color': 'Fiery orange',
+        'eye_shape': 'Upturned',
+        'distinguishing_features': 'Small, sharp horns curling back over her temples and a forked tail.',
+        'clothing_style': 'Dark, fitted leather designed for stealth',
+        'clothing_colors': 'Black and deep red',
+        'clothing_accessories': 'A set of throwing knives strapped to her thigh',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738942629/ghznf6wqtgkxp8zakzgf.png"
+        'image': "ghznf6wqtgkxp8zakzgf"
+    },
+    {
+        'race': race_ids['Half-Elf'],
+        'character_class': class_ids['Bard'],
+        'character_class_skill_choices': [
+            "c0570ecd-b0f1-4cdf-b71a-a558cdef866d",
+            "032f782b-2b99-4da4-8fcd-8dae8a207d7d",
+            "f0e83eb0-d3a7-40ee-b1a5-ea146b4dd094",
+            "3bbcebbe-8e83-49af-97e0-66648d020ccb"
+        ],
+        'character_class_cantrip_choices': [
+            "93c2d7d6-6f3b-4d01-a694-f3ebe804fdc7", 
+            "9432fedb-4c67-4b63-8778-ef9c985d0729"
+        ],
+        'character_class_spell_choices': [
+            "e5c90b9e-9590-4050-9dc7-40f14e2c6ae1", 
+            "f3f8ead5-3969-41a6-a863-09f18811dde1",
+            "c3ed0baf-992e-40af-a969-071e8e641da7", 
+            "ae73cd41-1223-4930-afa4-fbe32556281c"
+        ],
+        'ability_points': format_ability_points(8,13,14,12,10,15),
+        'name': 'Elias Thornbrook',
+        'age': 37,
+        'gender': 'Male',
+        'alignment': 'Neutral Good',
+        'background': (
+            "Elias was born to an elven diplomat and a human bard, growing up in the midst of courtly intrigue and artistic expression. "
+            "From a young age, he was drawn to music, using his natural charm to navigate both noble courts and shady taverns. "
+            "Over time, he became a travelling minstrel, collecting stories and uncovering long-forgotten tales. "
+            "Though he enjoys the pleasures of life, his true passion lies in using his music to inspire hope and rebellion."
+        ),
+        'traits': [
+            'Charming and effortlessly persuasive, able to talk his way out of most situations.',
+            'Lover of stories, always eager to hear or tell a good tale.',
+            'Has a mischievous streak, enjoying harmless pranks and jokes.'
+        ],
+        'ideals': [
+            'Music and art can change the world.',
+            'The pen is mightier than the sword, but both have their uses.'
+        ],
+        'bonds': [
+            'Cherishes an old, weathered lute passed down from his father.',
+            'Seeks to reunite with a lost love, leaving secret messages in his songs in hopes they will hear.'
+        ],
+        'flaws': [
+            'A hopeless romantic, often falling for people who are bad for him.',
+            'Has trouble committing to a cause, always chasing the next great story.'
+        ],
+        'height': "5'11\"",
+        'build': 'Lean and toned',
+        'skin_tone': 'Fair with a slight olive undertone',
+        'hair_color': 'Golden blonde',
+        'hair_style': 'Loose waves that frame his face',
+        'hair_length': 'Medium',
+        'hair_type': 'Wavy',
+        'facial_hair_style': 'Stubble',
+        'facial_hair_length': '',
+        'eye_color': 'Emerald green',
+        'eye_shape': 'Almond',
+        'distinguishing_features': 'A faint scar along his jawline from a duel gone wrong.',
+        'clothing_style': 'Stylish but practical, favouring embroidered tunics and high boots',
+        'clothing_colors': 'Royal blue and silver',
+        'clothing_accessories': 'A silver ring set with a sapphire, said to bring luck to performers',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738942533/swssu7ap5d4vgukdsppr.png"
+        'image': "swssu7ap5d4vgukdsppr"
+    },
+    {
+        'race': race_ids['Human'],
+        'character_class': class_ids['Cleric'],
+        'character_class_skill_choices': [
+            "d8eb6094-2655-4fdd-bfb4-ed01163c4cf5",
+            "affa7db3-34db-4f19-aca3-afae012f47b4"
+        ],
+        'character_class_cantrip_choices': [
+            "1954b842-4004-4aa7-84bd-e8eb30fe1744", 
+            "87b8c250-f2cc-4920-9b43-0046a8b34e55", 
+            "d535e9f5-9ae8-46d0-8b55-ab85b9689729",
+        ],
+        'character_class_spell_choices': [
+            "8aa90fa7-7039-4e96-adbf-27fde78da110", 
+            "53541979-b39b-46c7-82f5-125820bab4a4", 
+            "52c3c347-34c7-4b2d-95be-b6fa9f4f940b",
+        ],
+        'ability_points': format_ability_points(14,12,13,10,15,8),
+        'name': 'Seraphine Valmont',
+        'age': 42,
+        'gender': 'Female',
+        'alignment': 'Lawful Good',
+        'background': (
+            "Raised in a remote monastery devoted to the goddess of light, Seraphine spent her life tending to the sick and guiding lost souls. "
+            "She was once content within the monastery walls, but after witnessing the suffering of the world beyond, she took up her mace and shield "
+            "to bring divine justice where it was needed most. Now, she travels from village to village, healing the wounded and smiting the wicked, "
+            "a beacon of hope to those in despair."
+        ),
+        'traits': [
+            'Speaks with a calm and reassuring presence, instilling hope in others.',
+            'Fiercely protective of the innocent and downtrodden.',
+            'Maintains unwavering faith, never doubting her divine purpose.'
+        ],
+        'ideals': [
+            'Compassion and mercy are the greatest strengths one can wield.',
+            'Darkness cannot stand where light is brought forth.'
+        ],
+        'bonds': [
+            'Carries a worn holy symbol that once belonged to her mentor.',
+            'Swore an oath to never let another innocent fall under her watch.'
+        ],
+        'flaws': [
+            'Struggles with guilt over those she couldn’t save.',
+            'Can be overly zealous, sometimes seeing sin where there is none.'
+        ],
+        'height': "5'7\"",
+        'build': 'Strong but graceful',
+        'skin_tone': 'Fair with golden undertones',
+        'hair_color': 'Auburn',
+        'hair_style': 'Swept back into a tight braid',
+        'hair_length': 'Long',
+        'hair_type': 'Wavy',
+        'facial_hair_style': 'None',
+        'facial_hair_length': '',
+        'eye_color': 'Sky blue',
+        'eye_shape': 'Almond',
+        'distinguishing_features': 'A faint halo-like glow appears around her in moments of deep prayer.',
+        'clothing_style': 'Flowing white robes with gold embroidery, layered over chainmail',
+        'clothing_colors': 'White and gold',
+        'clothing_accessories': 'A silver amulet shaped like a sunburst, signifying her divine patron',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738942312/ey34sghlg6izywhcbyyd.png"
+        'image': "ey34sghlg6izywhcbyyd"
+    },
+    {
+        'race': race_ids['Halfling'],
+        'character_class': class_ids['Rogue'],
+        'character_class_skill_choices': [
+            "5fec3a3b-806d-47c5-9101-2fb77832ec18",
+            "57b45a74-aacb-4ea7-9d5d-8219b8f15851",
+            "f0e83eb0-d3a7-40ee-b1a5-ea146b4dd094",
+            "fc38c64c-bc06-4fd1-b38e-3912d517635d",
+        ],
+        'character_class_cantrip_choices': [],
+        'character_class_spell_choices': [],
+        'ability_points': format_ability_points(8,15,14,13,12,10),
+        'name': 'Milo “Quickfingers” Tealeaf',
+        'age': 25,
+        'gender': 'Male',
+        'alignment': 'Chaotic Good',
+        'background': (
+            "Born into a family of renowned burglars, Milo was practically raised on the art of thievery. "
+            "He never stole out of greed, only from those who hoarded wealth while others suffered. "
+            "His carefree attitude and quick wit made him popular among the common folk, though many a noble cursed his name. "
+            "Now, he travels from town to town, relieving the rich of their excess gold and slipping a few coins into the pockets of those in need."
+        ),
+        'traits': [
+            'Always has a joke ready, even in the tensest situations.',
+            'Loves a good gamble, whether with dice or in life.',
+            'Surprisingly kind-hearted despite his criminal tendencies.'
+        ],
+        'ideals': [
+            'The rich have more than they need; it’s only fair to share.',
+            'A person’s worth is measured by their deeds, not their birth.'
+        ],
+        'bonds': [
+            'His mother taught him everything he knows about thievery, and he sends her letters detailing his exploits.',
+            'Once pulled off a heist with a mysterious masked partner—he still wonders who they were.'
+        ],
+        'flaws': [
+            'Has a hard time resisting a challenge, even when it’s clearly a trap.',
+            'Terrible at keeping secrets, especially when drunk.'
+        ],
+        'height': "3'2\"",
+        'build': 'Slim and nimble',
+        'skin_tone': 'Warm tan',
+        'hair_color': 'Chestnut brown',
+        'hair_style': 'Messy and tousled',
+        'hair_length': 'Short',
+        'hair_type': 'Curly',
+        'facial_hair_style': 'None',
+        'facial_hair_length': '',
+        'eye_color': 'Hazel',
+        'eye_shape': 'Round',
+        'distinguishing_features': 'A small tattoo of a playing card on his wrist, a symbol of his past heists.',
+        'clothing_style': 'Dark, close-fitting leathers perfect for sneaking',
+        'clothing_colors': 'Black and burgundy',
+        'clothing_accessories': 'A lockpicking set hidden in the lining of his vest',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738942154/uomqtlgjqwjb7t5amcly.png"
+        'image': "uomqtlgjqwjb7t5amcly"
+    },
+    {
+        'race': race_ids['Elf'],
+        'character_class': class_ids['Barbarian'],
+        'character_class_skill_choices': [
+            "fc38c64c-bc06-4fd1-b38e-3912d517635d",
+            "46323de2-37a8-4b4e-9b63-63bec924f21c"
+        ],
+        'character_class_cantrip_choices': [],
+        'character_class_spell_choices': [],
+        'ability_points': format_ability_points(15,12,14,8,13,10),
+        'name': 'Sylvaris Stormwalker',
+        'age': 120,
+        'gender': 'Non-binary',
+        'alignment': 'Chaotic Neutral',
+        'background': (
+            "Once a serene forest guardian, Sylvaris was forever changed when their homeland was razed by invaders. "
+            "The devastation awakened a primal rage deep within, and they abandoned their old life to embrace the storm within. "
+            "Now, they roam the wilds, seeking vengeance for their lost kin and battling those who would exploit nature. "
+            "Though rage burns in their heart, echoes of their old self remain, making them a fierce protector of the natural world."
+        ),
+        'traits': [
+            'Has a deep, spiritual connection with nature, often speaking to the wind and trees.',
+            'Quick-tempered and fearless, never backing down from a fight.',
+            'Despite their fury, shows unexpected gentleness towards animals and children.'
+        ],
+        'ideals': [
+            'The wilds must be protected at all costs.',
+            'Strength is not just muscle, but the will to endure.'
+        ],
+        'bonds': [
+            'Wields a massive greataxe crafted from an ancient fallen tree, a relic of their lost home.',
+            'Seeks revenge on the warlord who destroyed their homeland.'
+        ],
+        'flaws': [
+            'Finds it difficult to control their rage, sometimes lashing out unpredictably.',
+            'Has little patience for civilisation, struggling with laws and rules.'
+        ],
+        'height': "6'3\"",
+        'build': 'Tall and sinewy, with corded muscle',
+        'skin_tone': 'Bronzed with deep green tribal tattoos',
+        'hair_color': 'Ash blonde',
+        'hair_style': 'Worn in intricate braids',
+        'hair_length': 'Long',
+        'hair_type': 'Wavy',
+        'facial_hair_style': 'None',
+        'facial_hair_length': '',
+        'eye_color': 'Stormy grey',
+        'eye_shape': 'Monolid',
+        'distinguishing_features': 'A jagged scar running down their left arm, earned in their first great battle.',
+        'clothing_style': 'Minimalist, tribal garments made from leather and fur',
+        'clothing_colors': 'Earthy browns and deep greens',
+        'clothing_accessories': 'A necklace made from the teeth of fallen foes, each one representing a victory',
+        #'image_url': "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738942038/imrw0wwm47uvp2ur19ss.png",
+        'image': "imrw0wwm47uvp2ur19ss"
+    }
 ]
+
+
+
+
+
 
 
 # fields = [
