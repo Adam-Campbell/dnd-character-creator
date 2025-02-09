@@ -5,7 +5,7 @@ from copy import deepcopy
 from cloudinary.utils import cloudinary_url
 
 def get_image_url(public_id, format="webp", width=500, height=500):
-    url, options = cloudinary_url(public_id, format=format, width=width, height=height)
+    url, options = cloudinary_url(public_id, format=format, width=width, height=height, secure=True)
     return url
 
 

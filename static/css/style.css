@@ -300,7 +300,8 @@ main {
 }
 
 .editor-summary-image {
-    width: 250px;
+    width: 400px;
+    max-width: 100%;
     height: auto;
     margin-left: auto;
     margin-right: auto;

@@ -14,6 +14,14 @@ from cloudinary.utils import cloudinary_url
 from openai import OpenAI
 from .forms import CharacterForm
 import uuid
+import environ
+
+env = environ.Env(
+    ENABLE_IMAGE_GENERATION=(bool, False)
+)
+
+def get_image_generation_enabled_status():
+    return env('ENABLE_IMAGE_GENERATION')
 
 client = OpenAI()
 
@@ -68,11 +76,15 @@ def create_character(request):
     if request.method == 'POST':
         try:
             character_data = json.loads(request.body)
+            #print(character_data)
+            #character_data['image'] = character_data['image']['id']
+            print(character_data)
             form = CharacterForm(character_data)
             if form.is_valid():
                 try:
                     new_character = form.save(commit=False)
                     new_character.user = request.user
+                    new_character.image = character_data['image']
                     new_character.save()
                     request.user.liked_characters.add(new_character)
                     return JsonResponse({ 'message': 'POST request handled', 'characterId': new_character.id })
@@ -95,7 +107,8 @@ def create_character(request):
     editor_data = json.dumps({
         'editingContext': 'CREATE_NEW',
         'characterId': None,
-        'characterData': None
+        'characterData': None,
+        'enableImageGeneration': get_image_generation_enabled_status()
     })
     return render(request, 'characters/character_editor.html', {
         'editor_data': editor_data
@@ -118,6 +131,7 @@ def edit_character(request, id):
         character = Character.objects.get(id=id)
         form = CharacterForm(character_data, instance=character)
         if form.is_valid():
+            character.image = character_data['image']
             form.save()
             return JsonResponse({ 'message': 'Character updated successfully' })
         else:
@@ -136,7 +150,8 @@ def edit_character(request, id):
     editor_data = json.dumps({
         'editingContext': 'EDIT_EXISTING',
         'characterId': id,
-        'characterData': character.to_json()
+        'characterData': character.to_json(),
+        'enableImageGeneration': get_image_generation_enabled_status()
     })
     return render(request, 'characters/character_editor.html', {
         'editor_data': editor_data
@@ -158,7 +173,8 @@ def clone_character(request, character_id):
     editor_data = json.dumps({
         'editingContext': 'CLONE_EXISTING',
         'characterId': None,
-        'characterData': character_copy
+        'characterData': character_copy,
+        'enableImageGeneration': get_image_generation_enabled_status()
     })
     return render(request, 'characters/character_editor.html', {
         'editor_data': editor_data
@@ -305,6 +321,8 @@ def upload_image(request):
 @login_required
 def generate_image(request):
     if request.method == 'POST':
+        if not get_image_generation_enabled_status():
+            return JsonResponse({'message': 'Image generation is disabled'}, status=403)
         print("Generating image...")
         # Grab the structured character data from the request body
         character_data = json.loads(request.body)

@@ -24,9 +24,15 @@ class CharacterForm(forms.ModelForm):
             'clothing_style', 'clothing_colors', 'clothing_accessories', 'image'
         ]
     
+    # def clean_image(self):
+    #     data = self.cleaned_data.get('image')
+    #     print('Image data in clean method: ', data)
+    #     return data
+
+
     def clean(self):
         cleaned_data = super().clean()
-        print(cleaned_data)
+        #print(cleaned_data)
         # Django forms set empty lists to None for JSONField fields, but we want to keep them as empty lists,
         # so we need to check for None and set them to empty lists if they are None
         jsonFields = ['character_class_skill_choices', 'character_class_cantrip_choices', 

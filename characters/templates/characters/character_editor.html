@@ -68,8 +68,8 @@
                                 <i class="fa-solid fa-check editor-nav-tick"></i>
                             </template>
                     </button>
-                    <button data-bind:disabled="!isComplete" data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'summary'}"
-                        type="button" data-on:click="() => setPage('summary')">Summary</button>
+                    <button data-bind:disabled="!isComplete" data-bind:class="{ 'btn': true, 'btn-primary': true, 'active': currentPage === 'finalise'}"
+                        type="button" data-on:click="() => setPage('finalise')">Finalise</button>
                 </div>
 
                 <!-- Mobile navigation -->
@@ -136,11 +136,12 @@
                                 </template>
                             </button>
                         </li>
-                        <li><button data-bind:disabled="!isComplete" data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'summary' }"
-                                type="button" data-on:click="() => setPage('summary')">
-                                Summary
+                        <li><button data-bind:disabled="!isComplete" data-bind:class="{ 'dropdown-item': true, 'active': currentPage === 'finalise' }"
+                                type="button" data-on:click="() => setPage('finalise')">
+                                Finalise
                             </button>
                         </li>
+                    </ul>
                 </div>
 
                 <!-- Markup for race selection -->
@@ -357,7 +358,7 @@
                                             data-for="pointOption in computeAbilityPointOptions(uuid)">
                                             <option data-bind:value="pointOption"
                                                 data-bind:selected="character.abilityPoints[index].value === pointOption ? true : false"
-                                                data-text="pointOption">
+                                                data-text="pointOption">.
                                             </option>
                                         </template>
                                     </select>
@@ -590,6 +591,7 @@
                                                     </button>
                                                 </li>
                                             </template>
+                                        </ul>
                                     </template>
                                 </div>
                             </div>
@@ -616,6 +618,7 @@
                                                     </button>
                                                 </li>
                                             </template>
+                                        </ul>
                                     </template>
                                 </div>
                             </div>
@@ -642,6 +645,7 @@
                                                     </button>
                                                 </li>
                                             </template>
+                                        </ul>
                                     </template>
                                 </div>
                             </div>
@@ -668,6 +672,7 @@
                                                     </button>
                                                 </li>
                                             </template>
+                                        </ul>
                                     </template>
                                 </div>
                             </div>
@@ -710,7 +715,7 @@
                                     <template data-for="option in options">
                                         <option data-bind:value="option"
                                             data-bind:selected="Boolean(character.eyeShape === option)"
-                                            data-text="option"></option>
+                                            data-text="option">.</option>
                                     </template>
                             </select>
                         </div>
@@ -734,7 +739,7 @@
                                     <template data-for="option in options">
                                         <option data-bind:value="option"
                                             data-bind:selected="Boolean(character.hairLength === option)"
-                                            data-text="option"></option>
+                                            data-text="option">.</option>
                                     </template>
                             </select>
                         </div>
@@ -745,7 +750,7 @@
                                     <template data-for="option in options">
                                         <option data-bind:value="option"
                                             data-bind:selected="Boolean(character.hairType === option)"
-                                            data-text="option"></option>
+                                            data-text="option">.</option>
                                     </template>
                             </select>
                         </div>
@@ -757,7 +762,7 @@
                                     <template data-for="option in options">
                                         <option data-bind:value="option"
                                             data-bind:selected="Boolean(character.facialHairStyle === option)"
-                                            data-text="option"></option>
+                                            data-text="option">.</option>
                                     </template>
                             </select>
                         </div>
@@ -769,7 +774,7 @@
                                         <template data-for="option in options">
                                             <option data-bind:value="option"
                                                 data-bind:selected="Boolean(character.facialHairLength === option)"
-                                                data-text="option"></option>
+                                                data-text="option">.</option>
                                         </template>
                                 </select>
                             </div>
@@ -798,20 +803,19 @@
                     </div>
                 </template>
 
-                <!-- Markup for summary -->
-                <template data-if="currentPage === 'summary'">
-                    <div class="d-flex justify-content-center">
-                        <div class="card editor-summary-card mt-4">
-                            <div class="card-body d-flex flex-column align-items-start">
-                                <h1 class="card-title heading-font" data-text="character.name"></h1>
-                                <p class="card-subtitle text-body-secondary mb-2" data-text="`${chosenRace.name} ${chosenClass.name}`"></p>
-                                <span class="badge text-bg-dark" data-text="character.alignment"></span>
-                                <p class="card-text mt-3" data-text="character.background"></p>
-                                <img class="editor-summary-image" data-bind:src="character.image.url" alt="Character image" />
-                                <p class="card-text mt-2">All you need now is the right image! You can upload one yourself...</p>
-                                <input aria-label="Character image upload" class="form-control" type="file" id="image-upload" data-on:change="openCropTool">
-                                <p class="card-text mt-2 mb-1">...or you can let us make it for you!</p>
-                                <button data-bind:disabled="isGeneratingImage" type="button" class="btn btn-outline-primary" data-on:click="generateCharacterImage">
+                <!-- Markup for finalise character -->
+                <template data-if="currentPage === 'finalise'">
+                    <div class="row my-4">
+                        <h1 class="heading-font mb-3">Finalise Character</h1>
+                        <div class="col-12 col-md-6 col-lg-3 mb-4 d-flex flex-column align-items-center">
+                            <img class="editor-summary-image" data-bind:src="character.image.url" alt="Character image" />
+                            <label class="form-label fw-bold mt-3 align-self-start" for="image-upload">Upload Character Image</label>
+                            <input data-bind:disabled="isGeneratingImage || isUploadingImage" aria-label="Character image upload" class="form-control" type="file" id="image-upload" data-on:change="openCropTool">
+                            <template data-if="enableImageGeneration">
+                                <p class="fw-bold mb-0 mt-3"><em>Or</em></p>
+                            </template>
+                            <template data-if="enableImageGeneration">
+                                <button data-bind:disabled="isGeneratingImage || isUploadingImage" class="btn btn-primary mt-3" type="button" data-on:click="generateCharacterImage">
                                     <template data-if="!isGeneratingImage">
                                         <span>Generate Character Image</span>
                                     </template>
@@ -824,11 +828,17 @@
                                         <span class="ms-2">A few moments please...</span>
                                     </template>
                                 </button>
-                                <button data-bind:disabled="isGeneratingImage || isUploadingImage" class="btn btn-primary mt-3" type="button" data-on:click="handleSubmit">Save Character</button>
-                            </div>
+                            </template>
+                         
                         </div>
+                        <div class="col-12 col-md-6 col-lg-9 mb-4">
+                            <h2 class="h4 heading-font" data-text="character.name"></h2>
+                            <p class="fw-bold mb-1" data-text="`${chosenRace.name} ${chosenClass.name}`"></p>
+                            <span class="badge text-bg-dark" data-text="character.alignment"></span>
+                            <p data-text="character.background"></p>
+                            <button data-bind:disabled="isGeneratingImage || isUploadingImage" class="btn btn-primary mt-3" type="button" data-on:click="handleSubmit">Save Character</button>
+                        </div>    
                     </div>
-                    
                 </template>
             </div>
         </template>

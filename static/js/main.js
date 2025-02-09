@@ -47,6 +47,7 @@ document.addEventListener("alpine:init", () => {
         isGeneratingImage: false,
         isUploadingImage: false,
         cropperInstance: null,
+        enableImageGeneration: false,
 
         async init() {
             console.log("cg init ran")
@@ -63,9 +64,10 @@ document.addEventListener("alpine:init", () => {
         },
         setInitialState() {
             if (window.editorData) {
-                const { editingContext, characterData, characterId } = window.editorData;
+                const { editingContext, characterData, characterId, enableImageGeneration } = window.editorData;
                 this.editingContext = editingContext;
                 this.characterId = characterId;
+                this.enableImageGeneration = enableImageGeneration;
                 if (editingContext === editingContexts.editExisting || editingContext === editingContexts.cloneExisting) {
                     this.character = switchObjectNamingConventions(characterData);
                 } else {
@@ -147,7 +149,7 @@ document.addEventListener("alpine:init", () => {
                     this.setPage('appearance');
                     break;
                 case 'appearance':
-                    this.setPage('summary');
+                    this.setPage('finalise');
                     break;
                 default:
                     console.error("Invalid page name");
@@ -461,7 +463,6 @@ document.addEventListener("alpine:init", () => {
         async handleSubmit(e) {
             console.log("handleSubmit called")
             e.preventDefault();
-            console.log(this.character);
             const csrfToken = getCookie('csrftoken');
             const python_ready_character = switchObjectNamingConventions(this.character);
             console.log(python_ready_character)
@@ -551,6 +552,10 @@ document.addEventListener("alpine:init", () => {
             // but just in case, check again.
             if (!this.isComplete) {
                 console.error("Character is not complete, cannot generate image.");
+                return;
+            }
+            if (!this.enableImageGeneration) {
+                console.error("Image generation is disabled.");
                 return;
             }
             this.isGeneratingImage = true;
