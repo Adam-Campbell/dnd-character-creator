@@ -127,7 +127,6 @@ document.addEventListener("alpine:init", () => {
             });
         },
         setPage(page) {
-            console.log(this.character)
             this.currentPage = page;
             this.pageSwitchMade = true;
         },
