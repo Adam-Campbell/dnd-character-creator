@@ -1,3 +1,5 @@
+import { getCookie } from './utils.js';
+
 console.log("hello from userProfile.js");
 
 const bioContainer = document.getElementById("bio-container");
@@ -12,20 +14,24 @@ if (editBioButton) {
 }
 
 const imageInput = document.getElementById("image-upload");
+const cropImageButton = document.getElementById("crop-image-button");
+const cropCancelButton = document.getElementById("crop-cancel-button");
+const imageModalOverlay = document.getElementById('image-modal-overlay');
+const imageCropContainer = document.getElementById('image-crop-container');
 let cropperInstance = null;
 
+imageCropContainer.innerHTML = `<img id="image-to-crop" src="" alt="Cropped image">`;
 
 if (imageInput) {
     imageInput.addEventListener("change", (e) => {
-        console.log("image input change event");
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                const imageModalOverlay = document.getElementById('image-modal-overlay');
+                
     
                 imageModalOverlay.style.display = 'flex';
-                const imageCropContainer = document.getElementById('image-crop-container');
+                
                 const imageToCrop = document.getElementById('image-to-crop');
                 imageToCrop.src = e.target.result;
                 imageToCrop.onload = () => {
@@ -59,3 +65,43 @@ if (imageInput) {
         }
     });
 }
+
+cropImageButton.addEventListener('click', () => {
+    if (cropperInstance) {
+        const data = cropperInstance.getData();
+        const croppedWidth = Math.min(data.width, 500);
+        cropperInstance.getCroppedCanvas({ width: croppedWidth }).toBlob(async (blob) => {
+            const formData = new FormData();
+            formData.append('image', blob);
+            const csrfToken = getCookie('csrftoken');
+            const userId = imageInput.dataset.userId;
+            const url = `/profile/${userId}/upload-image/`;
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: formData
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to POST image');
+                }
+                const data = await response.json();
+                location.reload();
+                
+                imageModalOverlay.style.display = 'none';
+                
+            } catch (error) {
+                console.error('Error POSTing image:', error);
+            }
+        })
+    }
+});
+
+cropCancelButton.addEventListener('click', () => {
+    if (cropperInstance) {
+        cropperInstance.destroy();
+    }
+    imageModalOverlay.style.display = 'none';
+});

@@ -59,6 +59,7 @@ class CharacterList(generic.ListView):
             character.image = get_image_url(character.image.public_id)
             character.class_data = get_item_by_id(static_data['classes'], str(character.character_class))
             character.race_data = get_item_by_id(static_data['races'], str(character.race))
+            character.user.userprofile.image = get_image_url(character.user.userprofile.image.public_id, width=60, height=60)
         return context
 
 
@@ -197,6 +198,7 @@ def character_detail(request, id):
     user_is_owner = character.user == request.user
     # Get static data and add the relevant class and race data to the character object
     character.image = get_image_url(character.image.public_id)
+    character.user.userprofile.image = get_image_url(character.user.userprofile.image.public_id, width=60, height=60)
     static_data = get_static_data()
     character.class_data = get_item_by_id(static_data['classes'], str(character.character_class))
     character.race_data = get_item_by_id(static_data['races'], str(character.race))

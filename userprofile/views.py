@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from characters.models import Character
 from .forms import BioForm
 from characters.data_utils import get_static_data, get_item_by_id, get_image_url
 from django.db.models import Q
+import cloudinary.uploader
 
 # Create your views here.
 
@@ -23,6 +24,7 @@ def profile(request, user_id):
     else:
         created_characters = Character.objects.filter(user=user, is_public=True)
     for character in created_characters:
+        character.user.userprofile.image = get_image_url(character.user.userprofile.image.public_id, width=60, height=60)
         character.image = get_image_url(character.image.public_id)
         character.class_data = get_item_by_id(static_character_data['classes'], str(character.character_class))
         character.race_data = get_item_by_id(static_character_data['races'], str(character.race))
@@ -34,6 +36,7 @@ def profile(request, user_id):
         liked_characters = user.liked_characters.filter(is_public=True)
     #liked_characters = user.liked_characters.all()
     for character in liked_characters:
+        character.user.userprofile.image = get_image_url(character.user.userprofile.image.public_id, width=60, height=60)
         character.image = get_image_url(character.image.public_id)
         character.class_data = get_item_by_id(static_character_data['classes'], str(character.character_class))
         character.race_data = get_item_by_id(static_character_data['races'], str(character.race))
@@ -62,4 +65,19 @@ def edit_profile_bio(request, user_id):
 
 @login_required
 def upload_profile_image(request, user_id):
-    pass
+    # print("Request received")
+    # return JsonResponse({'message': 'Request received'}, status=200)
+    if request.method == 'POST':
+        # grab the user and related user profile
+        user = User.objects.select_related('userprofile').get(id=user_id)
+        # if the user is not the current user, return a 403
+        if user != request.user:
+            return HttpResponseForbidden("You are not allowed to edit this user's profile")
+        # grab the image from the request
+        image = request.FILES['image']
+        # upload the image to cloudinary
+        upload_result = cloudinary.uploader.upload(image)
+        # update the user profile image
+        user.userprofile.image = upload_result['public_id']
+        user.userprofile.save()
+        return JsonResponse({'message': 'Image uploaded successfully'}, status=200)
