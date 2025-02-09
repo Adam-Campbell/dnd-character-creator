@@ -4,13 +4,21 @@
 
 {% block title %}User Profile | DnD Character Creator{% endblock %}
 
+{% block extra_head_content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.css" integrity="sha512-087vysR/jM0N5cp13Vlp+ZF9wx6tKbvJLwPO8Iit6J7R+n7uIMMjg37dEgexOshDmDITHYY5useeSmfD1MYiQA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+
 {% block content %}
-<div class="container">
+<div class="container pt-4">
     <div class="row d-flex flex-column flex-md-row py-4">
         <div class="d-flex flex-column justify-content-center align-items-center col-12 col-md-4 col-lg-3">
-            <img class="profile-image mb-4 mb-md-0 me-md-4" src="{{ user.userprofile.profile_image_url }}" alt="Profile Picture">
+            <img class="profile-image mb-4 mb-md-0 me-md-4" src="{{ user.userprofile.image }}" alt="Profile Picture">
             {% if is_own_profile %}
-                <button class="btn btn-outline-primary mt-2">Upload image</button>
+                
+                <!-- <label for="image-upload" class="btn btn-outline-primary mt-2">Upload image</label>
+                <input type="file" class="d-none" id="image-upload"> -->
+                <input type="file" class="form-control" id="image-upload">
             {% endif %}
         </div>
         <div class="d-flex flex-column justify-content-center align-items-center align-items-md-start col-12 col-md-8 col-lg-9">
@@ -89,6 +97,17 @@
             {% endfor %}
         </div>
     {% endif %}
+    
+</div>
+
+<div id="image-modal-overlay" class="image-modal-overlay">
+    <div id="image-crop-container">
+        <img id="image-to-crop" src="" alt="Cropped image">
+    </div>
+    <div id="crop-buttons-container">
+        <button id="crop-cancel-button" type="button" class="btn btn-danger">Cancel</button>
+        <button id="crop-image-button" type="button" class="btn btn-primary ms-2">Crop Image</button>
+    </div>
 </div>
 
 
@@ -101,5 +120,7 @@
 
 
 {% block extra_scripts %}
-<script src="{% static 'js/userProfile.js' %}"></script>
+<script type="module" src="{% static 'js/userProfile.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js" integrity="sha512-JyCZjCOZoyeQZSd5+YEAcFgz2fowJ1F1hyJOXgtKu4llIa0KneLcidn5bwfutiehUTiOuK87A986BZJMko0eWQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 {% endblock %}

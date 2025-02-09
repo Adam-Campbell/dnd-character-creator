@@ -12,6 +12,7 @@ from django.db.models import Q
 def profile(request, user_id):
     # get the user and related user profile
     user = User.objects.select_related('userprofile').get(id=user_id)
+    user.userprofile.image = get_image_url(user.userprofile.image.public_id, width=250, height=250)
     is_own_profile = (user == request.user)
     # grab static character data for enriching the characters
     static_character_data = get_static_data()
