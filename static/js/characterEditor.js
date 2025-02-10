@@ -7,36 +7,9 @@ import {
 } from "./utils.js";
 import { showToast } from './toast.js';
 
-const abilityIndexMap = {
-    "strength": 0,
-    "dexterity": 1,
-    "constitution": 2,
-    "intelligence": 3,
-    "wisdom": 4,
-    "charisma": 5,
-    0: "strength",
-    1: "dexterity",
-    2: "constitution",
-    3: "intelligence",
-    4: "wisdom",
-    5: "charisma"
-}
-
-const abilityUUIDMap = {
-    "strength": "0caab33e-f424-4a44-94cd-0c6951e5bdfe",
-    "dexterity": "fd107c7f-4536-4b36-bf43-e49d92a3c4c2",
-    "constitution": "b9b14f85-78db-49ea-b07b-b8bdd7a40046",
-    "intelligence": "44fbcb3c-d548-4a3c-aa85-4c55e05aabed",
-    "wisdom": "468b3218-340b-4263-9450-dc72e6750f16",
-    "charisma": "b15c2aa9-87e7-408d-89a7-3bbd64d981a9"
-}
-
-
-window.showToast = showToast;
 
 document.addEventListener("alpine:init", () => {
-    console.log("alpine has initialised");
-    Alpine.prefix("data-")
+    Alpine.prefix("data-");
     Alpine.data('characterGenerator', () => ({
         character: null,
         staticData: null,
@@ -44,16 +17,19 @@ document.addEventListener("alpine:init", () => {
         currentPage: "race",
         editingContext: null,
         characterId: null,
+        // Just tracks whether the user has switched pages, so always true
+        // after the first switch.
         pageSwitchMade: false,
         isGeneratingImage: false,
         isUploadingImage: false,
         cropperInstance: null,
         enableImageGeneration: false,
 
+        /**
+         * Initialise the component by fetching the static data and setting the initial state.
+         */
         async init() {
-            console.log("cg init ran")
             try {
-                console.log("cg init ran")
                 this.isLoading = true;
                 this.staticData = await fetchStaticData();
                 this.setInitialState();
@@ -61,8 +37,12 @@ document.addEventListener("alpine:init", () => {
                 this.isLoading = false;
             } catch (error) {
                 console.error('Error fetching JSON:', error);
+                showToast("Failed to load character generator, please try again later.");
             }
         },
+        /**
+         * Set the initial state of the character generator, based on the data passed in from the server.
+         */
         setInitialState() {
             if (window.editorData) {
                 const { editingContext, characterData, characterId, enableImageGeneration } = window.editorData;
@@ -127,10 +107,19 @@ document.addEventListener("alpine:init", () => {
                 imageModalOverlay.style.display = 'none';
             });
         },
+        /**
+         * Switch to the given page by updating the currentPage variable, and ensures that
+         * the pageSwitchMade variable is set to true.
+         * @param {string} page The page to switch to.
+         */
         setPage(page) {
             this.currentPage = page;
             this.pageSwitchMade = true;
         },
+        /**
+         * Encapsulates the logic for moving to the next page based on the
+         * current page and the editor state.
+         */
         moveToNextPage() {
             switch (this.currentPage) {
                 case 'race':
@@ -176,17 +165,29 @@ document.addEventListener("alpine:init", () => {
             const raceSkillProficiencies = this.chosenRace ? this.chosenRace.additionalSkillProficiencies : 0;
             return classSkillProficiencies + raceSkillProficiencies;
         },
+        /**
+         * Returns true if the chosen class has a spellcasting ability, false otherwise.
+         */
         get isCaster() {
             return this.chosenClass.spellcasting.ability !== null;
         },
+        /**
+         * Returns true if the race portion of the character creation is complete, false otherwise.
+         */
         get raceIsComplete() {
             // With the current design, it is impossible for race to be incomplete, but for 
             // consistency with other pages, we will add a check for it.
             return true;
         },
+        /**
+         * Returns true if the class portion of the character creation is complete, false otherwise.
+         */
         get classIsComplete() {
             return this.character.classSkillChoices.length === this.computedNumberOfSkillProficiencies;
         },
+        /**
+         * Returns true if the ability points portion of the character creation is complete, false otherwise.
+         */
         get abilityPointsIsComplete() {
             for (let i = 0; i < this.character.abilityPoints.length; i++) {
                 if (this.character.abilityPoints[i].value === "--") {
@@ -195,6 +196,10 @@ document.addEventListener("alpine:init", () => {
             }
             return true;
         },
+        /**
+         * Returns true if the spells portion of the character creation is complete or the
+         * character is not a spellcaster, otherwise returns false.
+         */
         get spellsIsComplete() {
             if (this.isCaster) {
                 if (this.character.classCantripChoices.length !== this.chosenClass.spellcasting.cantrips.choose) {
@@ -206,11 +211,17 @@ document.addEventListener("alpine:init", () => {
             }
             return true;
         },
+        /**
+         * Returns true if the background portion of the character creation is complete, false otherwise.
+         */
         get backgroundIsComplete() {
             return (Boolean(this.character.name.trim()) && Boolean(this.character.age) && 
                     Boolean(this.character.gender.trim()) && Boolean(this.character.background.trim())
                 )
         },
+        /**
+         * Returns true if the appearance portion of the character creation is complete, false otherwise.
+         */
         get appearanceIsComplete() {
             return (Boolean(this.character.height.trim()) && Boolean(this.character.build.trim()) && 
                     Boolean(this.character.skinTone.trim()) && Boolean(this.character.eyeColor.trim()) && 
@@ -218,6 +229,9 @@ document.addEventListener("alpine:init", () => {
                     Boolean(this.character.clothingStyle.trim()) && Boolean(this.character.clothingColors.trim())
                 )
         },
+        /**
+         * Returns true if all portions of the character creation are complete, false otherwise.
+         */
         get isComplete() {
             return (this.raceIsComplete && this.classIsComplete && this.abilityPointsIsComplete &&
                 this.spellsIsComplete && this.backgroundIsComplete && this.appearanceIsComplete
@@ -225,38 +239,30 @@ document.addEventListener("alpine:init", () => {
         },
         /**
          * Get the current base score for the given ability, with no bonuses applied.
-         * @param {*} abilityName 
+         * @param {string} abilityId - the id of the ability to get the base score for.
          * @returns 
          */
-        getAbilityBaseScore(abilityUUID) {
-            //const idx = abilityIndexMap[abilityName];
-            const ability = this.character.abilityPoints.find(a => a.id === abilityUUID);
+        getAbilityBaseScore(abilityId) {
+            const ability = this.character.abilityPoints.find(a => a.id === abilityId);
             return ability.value;
-            //return this.character.abilityPoints[idx].value;
         },
         /**
          * Get the racial ability bonus for the given ability.
-         * @param {*} abilityName 
+         * @param {string} abilityId - the id of the ability to get the bonus for.
          * @returns 
          */
-        getRacialAbilityBonus(abilityUUID) {
-            //const idx = abilityIndexMap[abilityName];
-            const bonus = this.chosenRace.abilityBonuses.find(a => a.ability.id === abilityUUID);
+        getRacialAbilityBonus(abilityId) {
+            const bonus = this.chosenRace.abilityBonuses.find(a => a.ability.id === abilityId);
             return bonus.bonus;
-            //const bonus = this.chosenRace.abilityBonuses[idx];;
-            //return bonus.bonus;
         },
         /**
-         * Get the ability score for the given ability, with racial bonuses applied.
-         * @param {*} abilityName 
+         * Get the adjusted ability score for the given ability, with racial bonuses applied.
+         * @param {string} abilityId - the id of the ability to get the adjusted score for.
          * @returns 
          */
-        getAdjustedAbilityScore(abilityUUID) {
-            //const idx = abilityIndexMap[abilityName];
-            //const baseScore = this.character.abilityPoints[idx].value;
-            //const racialBonus = this.getRacialAbilityBonus(abilityName);
-            const baseScore = this.getAbilityBaseScore(abilityUUID);
-            const racialBonus = this.getRacialAbilityBonus(abilityUUID);
+        getAdjustedAbilityScore(abilityId) {
+            const baseScore = this.getAbilityBaseScore(abilityId);
+            const racialBonus = this.getRacialAbilityBonus(abilityId);
             if (baseScore === "--") {
                 return "--";
             } else {
@@ -265,25 +271,29 @@ document.addEventListener("alpine:init", () => {
         },
         /**
          * Get the modifier for the given ability (adjusted).
-         * @param {*} abilityName 
+         * @param {string} abilityId - the id of the ability to get the modifier for.
          * @returns 
          */
-        getAbilityModifier(abilityUUID) {
-            const score = this.getAdjustedAbilityScore(abilityUUID);
+        getAbilityModifier(abilityId) {
+            const score = this.getAdjustedAbilityScore(abilityId);
+            // If the score is '--', then the modifier is 0, regardless of racial bonuses.
             if (score === "--") {
                 return 0;
             }
+            // Otherwise, the modifier is calculated as normal.
             return Math.floor((score - 10) / 2);
         },
         /**
          * Adds or removes the given skillId from the classSkillChoices array. Respects the
          * computedNumberOfSkillProficiencies, removing the oldest skill if the user tries to
          * add more than the allowed number.
-         * @param {*} skillId 
+         * @param {string} skillId - the id of the skill to toggle proficiency for.
          */
         toggleSkillProficiency(skillId) {
+            // Note: The full behaviour of this function is not currently utilised, as the UI
+            // prevents the user from selecting any additional skills once the maximum number
+            // has been reached. However, for robustness, the function has been left as is.
             const index = this.character.classSkillChoices.indexOf(skillId);
-
             // If the skill is not already in the array...
             if (index === -1) {
                 // ... then add it to the array, if there is space.
@@ -302,7 +312,7 @@ document.addEventListener("alpine:init", () => {
         },
         /**
          * Return the static data for the ability with the given id
-         * @param {*} abilityId 
+         * @param {string} abilityId - the id of the ability to get the data for.
          * @returns 
          */
         getAbilityData(abilityId) {
@@ -311,7 +321,7 @@ document.addEventListener("alpine:init", () => {
         /**
          * Computes the ability point options for the given abilityId, based on which
          * points from the standard array have already been chosen.
-         * @param {*} abilityId 
+         * @param {string} abilityId 
          * @returns 
          */
         computeAbilityPointOptions(abilityId) {
@@ -326,9 +336,8 @@ document.addEventListener("alpine:init", () => {
                 // then include it in the list. 
                 return p === currentAbilityValue || !this.character.abilityPoints.find(a => a.value === p);
             });
-            if (points[0] !== "--") {
-                points.unshift("--");
-            }
+            // Ensure that the none/unset option is always at the start of the list.
+            points.unshift("--");
             return points;
         },
         /**
@@ -353,23 +362,25 @@ document.addEventListener("alpine:init", () => {
             }
         },
         /**
-         * Any cleanup that needs to happen when the race is changed goes here.
-         * (example: resetting class skill proficiency choices, as the race choice
-         * can affect how many skills the class can choose).
+         * Perform any necessary cleanup when the race is changed.
          */
         resetStateOnRaceChange() {
             this.character.classSkillChoices = [];
         },
         /**
-         * Whenever a different class is chosen, reset the relevant parts of state, either
-         * to empty or to the class default.
-         * @param {*} e 
+         * Perform any necessary cleanup when the class is changed.
          */
-        resetStateOnClassChange(e) {
+        resetStateOnClassChange() {
             this.character.classSkillChoices = [];
             this.character.classCantripChoices = [];
             this.character.classSpellChoices = [];
         },
+        /**
+         * Add the given cantrip to the list of class cantrip choices, if it is not already in the list
+         * and there is space for it.
+         * @param {string} cantripId - the id of the cantrip to add.
+         * @returns 
+         */
         addCantrip(cantripId) {
             // If the cantrip is already in the list, do nothing.
             if (this.character.classCantripChoices.includes(cantripId)) {
@@ -383,6 +394,11 @@ document.addEventListener("alpine:init", () => {
             }
             this.character.classCantripChoices.push(cantripId);
         },
+        /**
+         * Remove the given cantrip from the list of class cantrip choices, if it is in the list.
+         * @param {string} cantripId - the id of the cantrip to remove. 
+         * @returns 
+         */
         removeCantrip(cantripId) {
             // If the cantrip is not in the list, do nothing.
             if (!this.character.classCantripChoices.includes(cantripId)) {
@@ -391,9 +407,20 @@ document.addEventListener("alpine:init", () => {
             }
             this.character.classCantripChoices = this.character.classCantripChoices.filter(c => c !== cantripId);
         },
+        /**
+         * Get the static data for the cantrip with the given id.
+         * @param {string} cantripId - the id of the cantrip to get the data for. 
+         * @returns 
+         */
         getCantripData(cantripId) {
             return this.staticData.spells.find(c => c.id === cantripId);
         },
+        /**
+         * Add the given spell to the list of class spell choices, if it is not already in the list
+         * and there is space for it.
+         * @param {string} spellId - the id of the spell to add.
+         * @returns 
+         */
         addSpell(spellId) {
             // If the spell is already in the list, do nothing.
             if (this.character.classSpellChoices.includes(spellId)) {
@@ -407,6 +434,11 @@ document.addEventListener("alpine:init", () => {
             }
             this.character.classSpellChoices.push(spellId);
         },
+        /**
+         * Remove the given spell from the list of class spell choices, if it is in the list.
+         * @param {string} spellId - the id of the spell to remove.
+         * @returns 
+         */
         removeSpell(spellId) {
             // If the spell is not in the list, do nothing.
             if (!this.character.classSpellChoices.includes(spellId)) {
@@ -415,6 +447,11 @@ document.addEventListener("alpine:init", () => {
             }
             this.character.classSpellChoices = this.character.classSpellChoices.filter(s => s !== spellId);
         },
+        /**
+         * Get the static data for the spell with the given id.
+         * @param {string} spellId - the id of the spell to get the data for. 
+         * @returns 
+         */
         getSpellData(spellId) {
             return this.staticData.spells.find(s => s.id === spellId);
         },
@@ -425,33 +462,18 @@ document.addEventListener("alpine:init", () => {
          */
         adjustFacialHairLength(e) {
             const newStyle = e.target.value;
-            // If the new style is None or Stubble, then the length should be None.
+            // If the new style is None or Stubble, then the length should be an empty string.
             if (newStyle === "None" || newStyle === "Stubble") {
                 this.character.facialHairLength = "";
-            // If the new style is not None or Stubble, and the length is None, then set it to Short,
-            // but don't overwrite if it is already set to something else.
+            // If the new style is not None or Stubble, and the length is an empty string, 
+            // then set it to Short, but don't overwrite if it is already set to something else.
             } else if (this.character.facialHairLength === "") {
                 this.character.facialHairLength = "Short";
             }
         },
         /**
-         * Truncates the given text if it is longer than maxLength, adding '...' to the end.
-         * @param {*} text 
-         * @param {*} maxLength 
-         * @returns 
-         */
-        truncateText(text, maxLength) {
-            // This implementation will suffice for now. However, we should ensure that
-            // it doesn't cut off mid-word or mid line-break (\n). Either truncate more
-            // or less if this happens. 
-            if (text.length > maxLength) {
-                return text.slice(0, maxLength) + '...';
-            }
-            return text;
-        },
-        /**
          * Replaces line breaks in the given text with <br> tags, which will be respected by HTML.
-         * @param {*} text 
+         * @param {string} text - the text to format. 
          * @returns 
          */
         formatLineBreaks(text) {
@@ -462,18 +484,24 @@ document.addEventListener("alpine:init", () => {
          */
         async handleSubmit(e) {
             e.preventDefault();
+            // Get the CSRF token from the cookie.
             const csrfToken = getCookie('csrftoken');
+            // Format the character object to match the Python naming conventions.
             const python_ready_character = switchObjectNamingConventions(this.character);
+            // The character editor stores both the image url and public id, but the backend
+            // only cares about the public id, so we can overwrite the image object with just the id.
             python_ready_character.image = python_ready_character.image.id;
             if (python_ready_character.facial_hair_length === "") {
                 python_ready_character.facial_hair_length = null;
             }
             let url = '';
+            // Set the URL to POST to based on the editing context.
             if (this.editingContext === editingContexts.editExisting) {
                 url = `/characters/${this.characterId}/edit/`;
             } else {
                 url = '/characters/new/';
             }
+            // Try to POST the character to the server.
             try {
                 const response = await fetch(url, {
                     method: 'POST',
@@ -495,6 +523,8 @@ document.addEventListener("alpine:init", () => {
                 }
                 window.location.href = `/characters/${this.characterId}/`;
             } catch (error) {
+                // Handle any errors that occur during the POST request by alerting
+                // to the console and showing a toast message to the user.
                 console.error('Error POSTing character:', error);
                 showToast("Failed to save character, please try again.");
             }
@@ -505,8 +535,12 @@ document.addEventListener("alpine:init", () => {
          * @param {*} e 
          */
         openCropTool(e) {
+            // Get the file that the user selected.
             const file = e.target.files[0];
             if (file) {
+                // Create a FileReader to read the file as a data URL.
+                // Whn the file is loaded, display the image and create
+                // a Cropper instance.
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     const imageModalOverlay = document.getElementById('image-modal-overlay');
@@ -516,24 +550,32 @@ document.addEventListener("alpine:init", () => {
                     const imageToCrop = document.getElementById('image-to-crop');
                     imageToCrop.src = e.target.result;
                     imageToCrop.onload = () => {
-
+                        // Perform some maths to scale the image to fit the viewport.
+                        // The image should be as big as possible, but neither its width 
+                        // nor height should exceed 75% of the relevant viewport measurement
+                        // (innerWidth, innerHeight).
                         const naturalWidth = imageToCrop.naturalWidth;
                         const naturalHeight = imageToCrop.naturalHeight;
                         const viewportWidth = window.innerWidth;
                         const viewportHeight = window.innerHeight;
-
+                        // Calculate the scale factors required to make the image
+                        // fit in terms of width and height.
                         const xScale = (viewportWidth * 0.75) / naturalWidth;
                         const yScale = (viewportHeight * 0.75) / naturalHeight;
-
-                        const scaleFactor = Math.min(xScale, yScale);
+                        // Determine the appropriate scale factor to use: either width,
+                        // height, or 1 (if the image is already smaller than 75% of viewport
+                        // in both dimensions).
+                        const scaleFactor = Math.min(xScale, yScale, 1);
                         const scaledWidth = naturalWidth * scaleFactor;
                         const scaledHeight = naturalHeight * scaleFactor;
                         imageCropContainer.style.width = `${scaledWidth}px`;
                         imageCropContainer.style.height = `${scaledHeight}px`;
-
+                        // If there is already a Cropper instance, destroy it before creating a new one.
                         if (this.cropperInstance) {
                             this.cropperInstance.destroy();
                         }
+                        // Create the new cropper instance, with aspectRatio set to 1 to
+                        // enforce a square crop area.
                         this.cropperInstance = new Cropper(imageToCrop, {
                             aspectRatio: 1,
                             viewMode: 1,
@@ -545,8 +587,11 @@ document.addEventListener("alpine:init", () => {
                 reader.readAsDataURL(file);
             }
         },
+        /**
+         * Generate an image of the character based on the current appearance data.
+         * @returns 
+         */
         async generateCharacterImage() {
-            
             // It shouldn't be possible to reach this function if the character is not complete,
             // but just in case, check again.
             if (!this.isComplete) {
@@ -554,12 +599,18 @@ document.addEventListener("alpine:init", () => {
                 showToast("Character is not complete, cannot generate image.");
                 return;
             }
+            // It also shouldn't be possible to reach this function if image generation is disabled, as
+            // the button should not be rendered to the DOM, but check again just in case.
             if (!this.enableImageGeneration) {
                 console.error("Image generation is disabled.");
                 showToast("Image generation is disabled.");
                 return;
             }
+            // Set the isGeneratingImage flag to true so that the relevant parts of the UI
+            // can be disabled.
             this.isGeneratingImage = true;
+
+            // Create an object containing only the appearance data that is required for image generation.
             const appearanceKeys = [
                 'age',                    'gender',          'height',         'build',
                 'skinTone',               'hairColor',       'hairStyle',      'hairLength',
@@ -575,7 +626,9 @@ document.addEventListener("alpine:init", () => {
             if (appearanceData.facialHairStyle !== "None" && appearanceData.facialHairStyle !== "Stubble") {
                 appearanceData.facialHairLength = this.character.facialHairLength;
             }
+            // Grab the CSRF token from the cookie.
             const csrfToken = getCookie('csrftoken');
+            // Try to POST the appearance data to the server to generate an image.
             try {
                 const response = await fetch('/characters/generate-image/', {
                     method: 'POST',
@@ -589,12 +642,16 @@ document.addEventListener("alpine:init", () => {
                     throw new Error('Failed to POST image generation request');
                 }
                 const data = await response.json();
+                // If successful, update the character image data with the new image url and id,
+                // and set the isGeneratingImage flag to false
                 this.character.image = {
                     url: data.url,
                     id: data.id
                 }
                 this.isGeneratingImage = false;
             } catch (error) {
+                // If there is an error during the POST request, log it to the console and show a toast
+                // message to the user. Also set the isGeneratingImage flag to false.
                 console.error('Error POSTing image generation request:', error);
                 showToast("Failed to generate image, please try again later.");
                 this.isGeneratingImage = false;

@@ -809,8 +809,8 @@
                         <h1 class="heading-font mb-3">Finalise Character</h1>
                         <div class="col-12 col-md-6 col-lg-3 mb-4 d-flex flex-column align-items-center">
                             <img class="editor-summary-image" data-bind:src="character.image.url" alt="Character image" />
-                            <label class="form-label fw-bold mt-3 align-self-start" for="image-upload">Upload Character Image</label>
-                            <input data-bind:disabled="isGeneratingImage || isUploadingImage" aria-label="Character image upload" class="form-control" type="file" id="image-upload" data-on:change="openCropTool">
+                            <label for="image-upload" data-bind:class="{ 'btn btn-primary mt-2': true, 'disabled': isGeneratingImage || isUploadingImage}">Upload Character Image</label>
+                            <input data-bind:disabled="isGeneratingImage || isUploadingImage" type="file" class="d-none" id="image-upload" data-on:change="openCropTool">
                             <template data-if="enableImageGeneration">
                                 <p class="fw-bold mb-0 mt-3"><em>Or</em></p>
                             </template>
@@ -858,7 +858,7 @@
 {% endblock %}
 
 {% block extra_scripts %}
-<script type="module" src="{% static 'js/main.js' %}"></script>
+<script type="module" src="{% static 'js/characterEditor.js' %}"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js" integrity="sha512-JyCZjCOZoyeQZSd5+YEAcFgz2fowJ1F1hyJOXgtKu4llIa0KneLcidn5bwfutiehUTiOuK87A986BZJMko0eWQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 {% endblock %}
