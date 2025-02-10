@@ -294,7 +294,7 @@
         {
             "name": "Barbarian",
             "id": "44f84547-8935-4ab4-bd29-fb60d0000d04",
-            "description": "Unleashing raw, primal fury in battle, barbarians are ferocious warriors who channel their rage into overwhelming strength and resilience.",
+            "description": "Muscle, fury, and raw survival instinct define the barbarian. Where others wear plate and wield steel with finesse, a barbarian charges into battle clad in scars and driven by rage. Their strength is more than just brute force—it is the unshackled power of those who refuse to break, who thrive in the heart of the storm.Born of harsh lands and tougher lives, barbarians trust their instincts over books and battle-cries over diplomacy. Their rage is not just anger, but a primal force that fuels their might, allowing them to shrug off wounds that would fell lesser warriors. Whether they fight to protect their tribe, seek revenge, or prove their strength, barbarians do not hesitate when the call to battle sounds. They are the tempest on the battlefield, the unyielding force that neither blade nor spell can easily bring low. To stand against a barbarian is to stand against a force of nature itself.",
             "hitDie": 12,
             "proficiencies": {
                 "armor": [
@@ -395,18 +395,18 @@
             "additionalProperties": [
                 { 
                     "name": "Rage", 
-                    "description": " In battle, you fight with primal ferocity. On your turn, you can enter a rage as a bonus action. \nWhile raging, you gain the following benefits if you aren't wearing heavy armor: \nYou have advantage on Strength checks and Strength saving throws. \nWhen you make a melee weapon attack using Strength, you gain a bonus to the damage roll that increases as you gain levels as a barbarian. \nYou have resistance to bludgeoning, piercing, and slashing damage. \nIf you are able to cast spells, you can't cast them or concentrate on them while raging. \nYour rage lasts for 1 minute. It ends early if you are knocked unconscious or if your turn ends and you haven't attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a bonus action. \nOnce you have raged the number of times allowed by your barbarian level, you must finish a long rest before you can rage again." 
+                    "description": "In battle, you fight with primal ferocity. On your turn, you can enter a rage as a bonus action. \nWhile raging, you gain the following benefits if you aren't wearing heavy armor: \nYou have advantage on Strength checks and Strength saving throws. \nWhen you make a melee weapon attack using Strength, you gain a bonus to the damage roll that increases as you gain levels as a barbarian. \nYou have resistance to bludgeoning, piercing, and slashing damage. \nIf you are able to cast spells, you can't cast them or concentrate on them while raging. \nYour rage lasts for 1 minute. It ends early if you are knocked unconscious or if your turn ends and you haven't attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a bonus action. \nOnce you have raged the number of times allowed by your barbarian level, you must finish a long rest before you can rage again." 
                 },
                 { 
                     "name": "Unarmored Defense",  
-                    "description": " While you are not wearing any armor, your Armor Class equals 10 + your Dexterity modifier + your Constitution modifier. You can use a shield and still gain this benefit." 
+                    "description": "While you are not wearing any armor, your Armor Class equals 10 + your Dexterity modifier + your Constitution modifier. You can use a shield and still gain this benefit." 
                 }
             ]
         },
         {
             "name": "Bard",
             "id": "ea6fbdc2-82c7-44d7-b065-bd70e136ccc7",
-            "description": "Weaving magic through music, poetry, and art, bards are versatile performers who inspire allies, confound foes, and bring charm to every encounter.",
+            "description": "A sly smile, a well-timed jest, a song that lingers in the soul—these are the weapons of a bard. Where others rely on steel and sorcery alone, bards weave magic into words and melodies, turning charm into an art and battle into a performance. Their power lies in inspiration, in knowing that a story well told can change the course of fate itself. A bard is just as comfortable at a noble’s feast as they are in a seedy tavern, spinning tales of heroism and tragedy, of love lost and glory won. Some travel to uncover hidden lore, others to spread their own legend. Whether with a lute, a quill, or a silver tongue, a bard’s presence turns the mundane into the extraordinary. When a bard is in the party, every moment has the potential to become legend. And when they sing of their deeds, the world listens.",
             "hitDie": 8,
             "proficiencies": {
                 "armor": [
@@ -549,7 +549,7 @@
         {
             "name": "Cleric",
             "id": "17d2bd00-57b7-4756-b14e-43bf1f102585",
-            "description": "Guided by divine power, clerics are holy warriors and healers, capable of both calling miracles and smiting foes in the name of their deity.",
+            "description": "Faith is more than just belief—it is power, and a cleric wields it with unwavering devotion. Chosen by the gods, they serve as conduits of divine will, whether as healers, warriors, or harbingers of their deity’s judgment. Their prayers are more than words; they are invocations that mend wounds, smite the wicked, and shape destiny itself. A cleric’s path is not always one of quiet reverence. Some march into battle clad in shining armour, leading the charge with righteous fury. Others seek wisdom in ancient texts, uncovering lost truths and forbidden knowledge. From the smallest shrine to the grandest temple, they are both servants and champions of the divine. But faith is a burden as much as it is a gift. The gods have many enemies, and a cleric must stand resolute in the face of doubt and darkness. For where their light shines, shadows retreat—and miracles are made real.",
             "hitDie": 8,
             "proficiencies": {
                 "armor": [
@@ -674,7 +674,7 @@
         {
             "name": "Fighter",
             "id": "e72b02b5-a7d0-4b1b-860f-7c965ea5e18c",
-            "description": "Masters of combat and strategy, fighters are adaptable warriors, excelling with weapons, armour, and tactics to dominate the battlefield.",
+            "description": "Discipline. Precision. Strength. A fighter is the master of combat, forged through endless training and hardened by battle. While others may rely on magic or divine favour, a fighter trusts in their skill, their steel, and the will to emerge victorious. Whether wielding a greatsword in the thick of battle or a rapier in a noble’s duel, they are the embodiment of martial excellence. Fighters come from all walks of life—soldiers, mercenaries, knights, gladiators—but all share a relentless drive to hone their craft. Some perfect a single style, striking with unmatched expertise, while others adapt, turning any weapon or tactic into a tool for victory. Their versatility is their greatest strength, allowing them to stand firm where others would falter. In the chaos of battle, a fighter is a steady hand and an unbreakable force. Where others see a fight, they see a challenge—and one they intend to win.",
             "hitDie": 10,
             "proficiencies": {
                 "armor": [
@@ -789,7 +789,7 @@
         {
             "name": "Rogue",
             "id": "32ea43f0-8f6f-4ce4-829c-f58955a758d1",
-            "description": "Skilled in stealth, cunning, and precision, rogues are resourceful adventurers who thrive in the shadows and strike when least expected.",
+            "description": "Silent as a shadow, quick as a whisper, and deadly as a dagger in the dark—the rogue is a master of skill and subterfuge. Whether a cunning thief, a smooth-talking trickster, or a relentless assassin, they thrive in the spaces between law and chaos, between seen and unseen. Where others charge in with swords raised, a rogue strikes when the moment is right—and when escape is assured. A rogue’s greatest weapon is not their blade, but their mind. Every locked door is a challenge to be solved, every conversation a dance of deception and wit. Some move through the underworld, gathering secrets and coin in equal measure, while others operate in the open, playing the part of spies, saboteurs, or noble scoundrels. A rogue’s path is never a straight one—it twists through shadows, secrets, and silent victories. But one thing is certain: when a rogue is near, no treasure, no secret, and no enemy is ever truly safe.",
             "hitDie": 8,
             "proficiencies": {
                 "armor": [
@@ -904,7 +904,7 @@
         {
             "name": "Wizard",
             "id": "ef560074-395d-4e42-b5ac-5ad9d3342271",
-            "description": "Dedicated scholars of the arcane, wizards wield immense magical power, bending reality through study and mastery of ancient spells.",
+            "description": "Knowledge is power, and no one understands this better than a wizard. While others rely on brute strength or divine favour, wizards shape reality itself through sheer intellect and mastery of the arcane. With spellbook in hand and years of study behind them, they wield magic with precision, bending the laws of nature to their will. A wizard’s journey is one of endless learning. Every spell is a puzzle to be solved, every ancient tome a gateway to greater power. Some seek lost knowledge in forgotten ruins, while others conduct grand experiments in towering academies. Whether they specialise in destructive fire, illusions that deceive the senses, or magic that unravels the fabric of existence, wizards are always searching for the next secret to unlock. But power comes at a price. A wizard’s mind is their greatest strength—and their greatest vulnerability. One misstep, one mispronounced incantation, and the magic they control might just consume them.",
             "hitDie": 6,
             "proficiencies": {
                 "armor": [],
