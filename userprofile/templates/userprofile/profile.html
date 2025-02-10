@@ -36,7 +36,7 @@
             {% if is_own_profile %}
                 <form class="d-none align-self-stretch " id="edit-bio-form" action="{% url 'edit_profile_bio' user.id %}" method="POST">
                     {% csrf_token %}
-                    <textarea class="form-control" name="bio" id="bio-textarea" class="form-control" rows="3">{{ user.userprofile.bio }}</textarea>
+                    <textarea class="form-control" name="bio" id="bio-textarea" rows="3">{{ user.userprofile.bio }}</textarea>
                     <button type="submit" class="btn btn-primary mt-2">Save</button>
                 </form>
             {% endif %}

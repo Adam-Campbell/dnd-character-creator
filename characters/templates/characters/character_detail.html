@@ -275,7 +275,7 @@
                     {% for cantrip in character.character_class_cantrip_choices %}
                         <div class="accordion-item">
                             <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cantrip{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#cantrip{{ forloop.counter }}" aria-expanded="false" aria-controls="cantrip{{ forloop.counter }}">
                                     {{ cantrip.name }}
                                 </button>
                             </h2>
@@ -289,7 +289,7 @@
                     {% for spell in character.character_class_spell_choices %}
                         <div class="accordion-item">
                             <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#spell{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#spell{{ forloop.counter }}" aria-expanded="false" aria-controls="spell{{ forloop.counter }}">
                                     {{ spell.name }}
                                 </button>
                             </h2>
@@ -312,7 +312,7 @@
                     {% for property in character.race_data.additionalProperties %}
                         <div class="accordion-item">
                             <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#raceProperty{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#raceProperty{{ forloop.counter }}" aria-expanded="false" aria-controls="raceProperty{{ forloop.counter }}">
                                     {{ property.name }}
                                 </button>
                             </h2>
@@ -326,7 +326,7 @@
                     {% for property in character.class_data.additionalProperties %}
                         <div class="accordion-item">
                             <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#classProperty{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#classProperty{{ forloop.counter }}" aria-expanded="false" aria-controls="classProperty{{ forloop.counter }}">
                                     {{ property.name }}
                                 </button>
                             </h2>
@@ -340,7 +340,7 @@
                     {% if character.race_data.darkvision %}
                         <div class="accordion-item">
                             <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#darkvisionProperty" aria-expanded="true" aria-controls="collapseOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#darkvisionProperty" aria-expanded="false" aria-controls="darkvisionProperty">
                                     Darkvision
                                 </button>
                             </h2>
@@ -371,7 +371,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button id="confirm-delete-button" data-character-id="{{ character.id }}" class="btn btn-danger" href="#">Delete</button>
+                <button id="confirm-delete-button" data-character-id="{{ character.id }}" class="btn btn-danger">Delete</button>
             </div>
         </div>
     </div>
