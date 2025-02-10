@@ -93,7 +93,19 @@
         <p>&copy; 2025 Adam Campbell</p>
     </footer>
     {% endblock %}
-
+    <div id="toast-container">
+        <div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Attention</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <div class="alert alert-danger" id="toast-message-container">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

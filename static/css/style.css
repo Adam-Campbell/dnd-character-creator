@@ -28,15 +28,21 @@ main {
 }
 
 
-/* h1,h2,h3,h4,h5,h6 {
-    font-family: var(--heading-font)
-} */
-
 .heading-font {
     font-family: var(--heading-font);
 }
 
-
+#toast-container {
+    position: fixed;
+    top: 5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 11000;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
 
 
 /***************************

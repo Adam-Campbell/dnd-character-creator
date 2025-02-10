@@ -1,6 +1,6 @@
 import { getCookie } from './utils.js';
+import { showToast } from './toast.js';
 
-console.log("hello from userProfile.js");
 
 const bioContainer = document.getElementById("bio-container");
 const editBioButton = document.getElementById("edit-bio-button");
@@ -88,12 +88,12 @@ cropImageButton.addEventListener('click', () => {
                     throw new Error('Failed to POST image');
                 }
                 const data = await response.json();
-                location.reload();
-                
                 imageModalOverlay.style.display = 'none';
+                showToast('Image uploaded successfully!', { variant: 'success', delay: 2000, callback: () => window.location.reload() });
                 
             } catch (error) {
                 console.error('Error POSTing image:', error);
+                showToast('Failed to upload image. Please try again later.');
             }
         })
     }
