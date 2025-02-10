@@ -1,17 +1,12 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import User
-import uuid
-import json
-from django.templatetags.static import static
 from django.utils.timezone import now
 from cloudinary.models import CloudinaryField
 
-def get_default_image_url():
-    return "https://res.cloudinary.com/dybgrzu7z/image/upload/v1738858645/fantasy-placeholder_tq6d9i.webp"
 
-# Create your models here.
 class Character(models.Model):
-    
+
     ALIGNMENT_CHOICES = [
         ('Lawful Good', 'Lawful Good'),
         ('Neutral Good', 'Neutral Good'),
@@ -87,7 +82,10 @@ class Character(models.Model):
     race = models.UUIDField(choices=CHARACTER_RACE_CHOICES)
     character_class = models.UUIDField(choices=CHARACTER_CLASS_CHOICES)
     character_class_skill_choices = models.JSONField(default=list)
-    character_class_cantrip_choices = models.JSONField(default=list, blank=True)
+    character_class_cantrip_choices = models.JSONField(
+        default=list,
+        blank=True
+    )
     character_class_spell_choices = models.JSONField(default=list, blank=True)
     ability_points = models.JSONField(default=list)
     name = models.CharField(max_length=100)
@@ -106,15 +104,26 @@ class Character(models.Model):
     hair_style = models.CharField(max_length=100)
     hair_length = models.CharField(max_length=100, choices=HAIR_LENGTH_CHOICES)
     hair_type = models.CharField(max_length=100, choices=HAIR_TYPE_CHOICES)
-    facial_hair_style = models.CharField(max_length=100, choices=FACIAL_HAIR_STYLE_CHOICES)
-    facial_hair_length = models.CharField(max_length=100, choices=FACIAL_HAIR_LENGTH_CHOICES, blank=True)
+    facial_hair_style = models.CharField(
+        max_length=100,
+        choices=FACIAL_HAIR_STYLE_CHOICES
+    )
+    facial_hair_length = models.CharField(
+        max_length=100,
+        choices=FACIAL_HAIR_LENGTH_CHOICES,
+        blank=True
+    )
     eye_color = models.CharField(max_length=100)
     eye_shape = models.CharField(max_length=100, choices=EYE_SHAPE_CHOICES)
     distinguishing_features = models.CharField(max_length=300, blank=True)
     clothing_style = models.CharField(max_length=200)
     clothing_colors = models.CharField(max_length=200)
     clothing_accessories = models.CharField(max_length=200, blank=True)
-    image = CloudinaryField('image', blank=True, default="fantasy-placeholder_tq6d9i")
+    image = CloudinaryField(
+        'image',
+        blank=True,
+        default="fantasy-placeholder_tq6d9i"
+    )
     liked_by = models.ManyToManyField(User, related_name='liked_characters')
     created_at = models.DateTimeField(default=now, editable=False)
     is_public = models.BooleanField(default=True)
@@ -123,8 +132,11 @@ class Character(models.Model):
         ordering = ['-created_at']
 
     def to_json(self, exclude_id=False):
-        """Return a JSON representation of the instance. with populated fields such as class and race."""
-        excluded_fields = { 'user', 'liked_by', 'created_at' }
+        """
+        Return a JSON representation of the instance. with populated fields
+        such as class and race.
+        """
+        excluded_fields = {'user', 'liked_by', 'created_at'}
         if exclude_id:
             excluded_fields.add('id')
         instance_dict = {}
@@ -134,8 +146,6 @@ class Character(models.Model):
                 continue
             elif isinstance(field, models.UUIDField):
                 instance_dict[field.name] = str(value)
-            #elif isinstance(field, CloudinaryField):
-            #    instance_dict[field.name] = str(value)
             elif field.name == 'image':
                 instance_dict['image'] = {
                     'url': self.image.url,
@@ -147,4 +157,3 @@ class Character(models.Model):
 
     def __str__(self):
         return self.name
-
