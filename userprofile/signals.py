@@ -6,6 +6,9 @@ from .models import UserProfile
 
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
+    """
+    Ensures that a UserProfile instance is created for each User instance.
+    """
     if created:
         UserProfile.objects.create(user=instance)
     else:

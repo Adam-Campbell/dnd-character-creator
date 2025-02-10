@@ -5,6 +5,10 @@ from .data_utils import get_static_data, get_item_by_id
 
 
 def get_item_by_uuid(item_list, uuid_object):
+    """
+    Retrieve an item from item_list whose id property is a string
+    representation of uuid_object.
+    """
     for item in item_list:
         uuid_str = item.get('id')
         if uuid_str is not None:
@@ -14,7 +18,9 @@ def get_item_by_uuid(item_list, uuid_object):
 
 
 class CharacterForm(forms.ModelForm):
-
+    """
+    Form for creating and updating a :model:`characters.Character` instance.
+    """
     class Meta:
         model = Character
         fields = [
@@ -30,6 +36,10 @@ class CharacterForm(forms.ModelForm):
         ]
 
     def clean(self):
+        """
+        Custom form validation to ensure that the characters attributes
+        obey the DnD rules.
+        """
         cleaned_data = super().clean()
         # Django forms set empty lists to None for JSONField fields, but we
         # want to keep them as empty lists, so we need to check for None and

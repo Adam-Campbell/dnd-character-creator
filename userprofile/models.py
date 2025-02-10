@@ -4,6 +4,10 @@ from cloudinary.models import CloudinaryField
 
 
 class UserProfile(models.Model):
+    """
+    Represents a user's profile, which has a one-to-one relationship with
+    user accounts.
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True, null=True, default="")
     image = CloudinaryField(

@@ -6,6 +6,11 @@ from cloudinary.utils import cloudinary_url
 
 
 def get_image_url(public_id, format="webp", width=500, height=500):
+    """
+    Take a public ID of an image stored in Cloudinary and returns the URL of
+    a transformed version of the image with the specified format, width, and
+    height. The image is also served over HTTPS.
+    """
     url, options = cloudinary_url(
         public_id,
         format=format,
@@ -21,6 +26,7 @@ static_data_lock = threading.Lock()
 
 
 def format_line_breaks(text):
+    """Replace line breaks in the text with HTML line breaks."""
     return text.replace(
         '\r\n', '<br/>'
     ).replace('\r', '<br/>').replace('\n', '<br/>')

@@ -2,6 +2,7 @@ import cloudinary.uploader
 from django.shortcuts import render, redirect
 from django.http import HttpResponseForbidden, JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
 from django.contrib.auth.models import User
 from django.db.models import Q
 from characters.models import Character
@@ -14,6 +15,10 @@ from characters.data_utils import (
 
 
 def profile(request, user_id):
+    """
+    Renders the users profile page, showing their basic profile information,
+    the characters they have created and the characters they have liked.
+    """
     # get the user and related user profile
     user = User.objects.select_related('userprofile').get(id=user_id)
     user.userprofile.image = get_image_url(
@@ -82,39 +87,46 @@ def profile(request, user_id):
 
 
 @login_required
+@require_http_methods(['POST'])
 def edit_profile_bio(request, user_id):
-    if request.method == 'POST':
-        # grab the user and related user profile]
-        user = User.objects.select_related('userprofile').get(id=user_id)
-        # if the user is not the current user, return a 403
-        if user != request.user:
-            return HttpResponseForbidden(
-                "You are not allowed to edit this user's profile"
-            )
-        form = BioForm(request.POST, instance=user.userprofile)
-        if form.is_valid():
-            form.save()
-            return redirect('profile', user_id=user_id)
+    """
+    Edit the user's bio information. This view is only accessible via POST.
+    """
+    # grab the user and related user profile]
+    user = User.objects.select_related('userprofile').get(id=user_id)
+    # if the user is not the current user, return a 403
+    if user != request.user:
+        return HttpResponseForbidden(
+            "You are not allowed to edit this user's profile"
+        )
+    form = BioForm(request.POST, instance=user.userprofile)
+    if form.is_valid():
+        form.save()
+        return redirect('profile', user_id=user_id)
 
 
 @login_required
+@require_http_methods(['POST'])
 def upload_profile_image(request, user_id):
-    if request.method == 'POST':
-        # grab the user and related user profile
-        user = User.objects.select_related('userprofile').get(id=user_id)
-        # if the user is not the current user, return a 403
-        if user != request.user:
-            return HttpResponseForbidden(
-                "You are not allowed to edit this user's profile"
-            )
-        # grab the image from the request
-        image = request.FILES['image']
-        # upload the image to cloudinary
-        upload_result = cloudinary.uploader.upload(image)
-        # update the user profile image
-        user.userprofile.image = upload_result['public_id']
-        user.userprofile.save()
-        return JsonResponse(
-            {'message': 'Image uploaded successfully'},
-            status=200
+    """
+    Upload a new profile image for the user. This view is only accessible via
+    POST.
+    """
+    # grab the user and related user profile
+    user = User.objects.select_related('userprofile').get(id=user_id)
+    # if the user is not the current user, return a 403
+    if user != request.user:
+        return HttpResponseForbidden(
+            "You are not allowed to edit this user's profile"
         )
+    # grab the image from the request
+    image = request.FILES['image']
+    # upload the image to cloudinary
+    upload_result = cloudinary.uploader.upload(image)
+    # update the user profile image
+    user.userprofile.image = upload_result['public_id']
+    user.userprofile.save()
+    return JsonResponse(
+        {'message': 'Image uploaded successfully'},
+        status=200
+    )

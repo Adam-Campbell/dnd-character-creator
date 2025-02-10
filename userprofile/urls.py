@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
     path('<int:user_id>/', views.profile, name='profile'),
     path(
-        '<int:user_id>/edit_bio/',
+        '<int:user_id>/edit-bio/',
         views.edit_profile_bio,
         name='edit_profile_bio'
     ),

@@ -49,6 +49,10 @@ class CharacterList(generic.ListView):
     paginate_by = 12
 
     def get_queryset(self):
+        """
+        Return a queryset of characters based on the query parameters
+        and the user's authentication status.
+        """
         user = self.request.user
         if user.is_authenticated:
             queryset = (
@@ -66,6 +70,9 @@ class CharacterList(generic.ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
+        """
+        Enrich the context data with additional properties for each character.
+        """
         context = super().get_context_data(**kwargs)
         characters = context['characters']
         # Enrich each character with additional properties
@@ -193,7 +200,7 @@ def edit_character(request, id):
     editor_data = json.dumps({
         'editingContext': 'EDIT_EXISTING',
         'characterId': id,
-        'characterData': character.to_json(),
+        'characterData': character.to_dict(),
         'enableImageGeneration': get_image_generation_enabled_status()
     })
     return render(request, 'characters/character_editor.html', {
@@ -213,7 +220,7 @@ def clone_character(request, character_id):
         return HttpResponseForbidden(
             "You do not have permission to clone this character"
         )
-    character_copy = character.to_json(exclude_id=True)
+    character_copy = character.to_dict(exclude_id=True)
     editor_data = json.dumps({
         'editingContext': 'CLONE_EXISTING',
         'characterId': None,
@@ -389,105 +396,116 @@ def delete_character(request, character_id):
 
 
 @login_required
+@require_http_methods(['POST'])
 def upload_image(request):
-    if request.method == 'POST':
-        try:
-            image = request.FILES['image']
+    """
+    Uploads an image to Cloudinary and returns the URL and id of
+    the uploaded image.
+    """
+    try:
+        image = request.FILES['image']
 
-            if not image:
-                return JsonResponse(
-                    {'message': 'No image provided'},
-                    status=400
-                )
-
-            response = cloudinary.uploader.upload(image)
-            return JsonResponse({
-                'url': response['secure_url'],
-                'id': response['public_id']
-            })
-
-        except cloudinary.exceptions.Error as e:
+        if not image:
             return JsonResponse(
-                {'message': f'An error occurred: {e}'},
-                status=500
+                {'message': 'No image provided'},
+                status=400
             )
+
+        response = cloudinary.uploader.upload(image)
+        return JsonResponse({
+            'url': response['secure_url'],
+            'id': response['public_id']
+        })
+
+    except cloudinary.exceptions.Error as e:
+        return JsonResponse(
+            {'message': f'An error occurred: {e}'},
+            status=500
+        )
 
 
 @login_required
+@require_http_methods(['POST'])
 def generate_image(request):
-    if request.method == 'POST':
-        if not get_image_generation_enabled_status():
-            return JsonResponse(
-                {'message': 'Image generation is disabled'},
-                status=403
-            )
-        print("Generating image...")
-        # Grab the structured character data from the request body
-        character_data = json.loads(request.body)
-        # This prompt is fed to an LLM to turn the structured charactr data
-        # into natural language
-        conversion_instructions = (
-            "Your goal is to take structured data describing a Dungeons and "
-            "Dragons character, and convert it into a natural language "
-            "description of the character including their race, class, and "
-            "physical features. Here is the structured data: "
+    """
+    Generates an image of the character based on the data taken
+    from the character editor.
+    The image is generated using OpenAI's DALL-E model, and is then
+    uploaded to Cloudinary before returning the url and id of the
+    uploaded image to the client.
+    """
+    if not get_image_generation_enabled_status():
+        return JsonResponse(
+            {'message': 'Image generation is disabled'},
+            status=403
         )
-        llm_natural_language_conversion_prompt = f"""
-        {conversion_instructions}
-        {str(character_data)}
-        """
-        # Send prompt to OpenAI's LLM
-        completion = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {
-                    "role": "developer",
-                    "content": "You are a helpful assistant."
-                },
-                {
-                    "role": "user",
-                    "content": llm_natural_language_conversion_prompt
-                }
-            ]
-        )
-        # Extract the natural language character description from the
-        # completion
-        natural_language_character_description = (
-            completion.choices[0].message.content
-        )
-        # This is a preset style instruction for the DALL-E model
-        style_instructions = (
-            "Artwork of a fantasy character, single full-body artwork. The "
-            "image must use a classic hand-painted high-fantasy illustration "
-            "style. The image must not include multiple versions of the "
-            "character, or any text or watermarks. It must just include a "
-            "single character, who is the focal point of the image."
-        )
-        # Construct the DALL-E image prompt by combining the style
-        # instructions and the natural language character description
-        dalle_image_prompt = f"""
-        {style_instructions}
-        {natural_language_character_description}
-        """
-        # Send the prompt to OpenAI's DALL-E model
-        response = client.images.generate(
-            prompt=dalle_image_prompt,
-            model='dall-e-3',
-            n=1,
-            response_format="url",
-            size="1024x1024",
-            style="vivid"
-        )
-        # Extract the image URL from the response
-        dalle_image_url = response.data[0].url
-        # If the image URL is valid, upload the image to Cloudinary and
-        # return the URL
-        if dalle_image_url:
-            cloudinary_response = cloudinary.uploader.upload(dalle_image_url)
-            cloudinary_image_url = cloudinary_response['secure_url']
-            if cloudinary_image_url:
-                return JsonResponse({
-                    'url': cloudinary_image_url,
-                    'id': cloudinary_response['public_id']
-                })
-        return JsonResponse({'message': 'An error occurred'}, status=500)
+    print("Generating image...")
+    # Grab the structured character data from the request body
+    character_data = json.loads(request.body)
+    # This prompt is fed to an LLM to turn the structured charactr data
+    # into natural language
+    conversion_instructions = (
+        "Your goal is to take structured data describing a Dungeons and "
+        "Dragons character, and convert it into a natural language "
+        "description of the character including their race, class, and "
+        "physical features. Here is the structured data: "
+    )
+    llm_natural_language_conversion_prompt = f"""
+    {conversion_instructions}
+    {str(character_data)}
+    """
+    # Send prompt to OpenAI's LLM
+    completion = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {
+                "role": "developer",
+                "content": "You are a helpful assistant."
+            },
+            {
+                "role": "user",
+                "content": llm_natural_language_conversion_prompt
+            }
+        ]
+    )
+    # Extract the natural language character description from the
+    # completion
+    natural_language_character_description = (
+        completion.choices[0].message.content
+    )
+    # This is a preset style instruction for the DALL-E model
+    style_instructions = (
+        "Artwork of a fantasy character, single full-body artwork. The "
+        "image must use a classic hand-painted high-fantasy illustration "
+        "style. The image must not include multiple versions of the "
+        "character, or any text or watermarks. It must just include a "
+        "single character, who is the focal point of the image."
+    )
+    # Construct the DALL-E image prompt by combining the style
+    # instructions and the natural language character description
+    dalle_image_prompt = f"""
+    {style_instructions}
+    {natural_language_character_description}
+    """
+    # Send the prompt to OpenAI's DALL-E model
+    response = client.images.generate(
+        prompt=dalle_image_prompt,
+        model='dall-e-3',
+        n=1,
+        response_format="url",
+        size="1024x1024",
+        style="vivid"
+    )
+    # Extract the image URL from the response
+    dalle_image_url = response.data[0].url
+    # If the image URL is valid, upload the image to Cloudinary and
+    # return the URL
+    if dalle_image_url:
+        cloudinary_response = cloudinary.uploader.upload(dalle_image_url)
+        cloudinary_image_url = cloudinary_response['secure_url']
+        if cloudinary_image_url:
+            return JsonResponse({
+                'url': cloudinary_image_url,
+                'id': cloudinary_response['public_id']
+            })
+    return JsonResponse({'message': 'An error occurred'}, status=500)

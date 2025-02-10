@@ -3,10 +3,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from cloudinary.models import CloudinaryField
-
+from .data_utils import get_image_url
 
 class Character(models.Model):
-
+    """
+    Stores information about a single Character instance, created by
+    a User. 
+    """
     ALIGNMENT_CHOICES = [
         ('Lawful Good', 'Lawful Good'),
         ('Neutral Good', 'Neutral Good'),
@@ -131,10 +134,10 @@ class Character(models.Model):
     class Meta:
         ordering = ['-created_at']
 
-    def to_json(self, exclude_id=False):
+    def to_dict(self, exclude_id=False):
         """
-        Return a JSON representation of the instance. with populated fields
-        such as class and race.
+        Return a serialisable dictionary representation of the character,
+        excluding meta and relational fields.
         """
         excluded_fields = {'user', 'liked_by', 'created_at'}
         if exclude_id:
@@ -148,7 +151,7 @@ class Character(models.Model):
                 instance_dict[field.name] = str(value)
             elif field.name == 'image':
                 instance_dict['image'] = {
-                    'url': self.image.url,
+                    'url': get_image_url(self.image.public_id),
                     'id': self.image.public_id
                 }
             else:
