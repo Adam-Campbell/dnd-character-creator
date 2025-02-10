@@ -5,6 +5,7 @@ import {
     switchObjectNamingConventions,
     editingContexts
 } from "./utils.js";
+import { showToast } from './toast.js';
 
 const abilityIndexMap = {
     "strength": 0,
@@ -31,7 +32,7 @@ const abilityUUIDMap = {
 }
 
 
-
+window.showToast = showToast;
 
 document.addEventListener("alpine:init", () => {
     console.log("alpine has initialised");
@@ -47,6 +48,7 @@ document.addEventListener("alpine:init", () => {
         isGeneratingImage: false,
         isUploadingImage: false,
         cropperInstance: null,
+        enableImageGeneration: false,
 
         async init() {
             console.log("cg init ran")
@@ -63,9 +65,10 @@ document.addEventListener("alpine:init", () => {
         },
         setInitialState() {
             if (window.editorData) {
-                const { editingContext, characterData, characterId } = window.editorData;
+                const { editingContext, characterData, characterId, enableImageGeneration } = window.editorData;
                 this.editingContext = editingContext;
                 this.characterId = characterId;
+                this.enableImageGeneration = enableImageGeneration;
                 if (editingContext === editingContexts.editExisting || editingContext === editingContexts.cloneExisting) {
                     this.character = switchObjectNamingConventions(characterData);
                 } else {
@@ -103,11 +106,15 @@ document.addEventListener("alpine:init", () => {
                                 throw new Error('Failed to POST image');
                             }
                             const data = await response.json();
-                            this.character.imageUrl = data.url;
+                            this.character.image = {
+                                url: data.url,
+                                id: data.id
+                            }
                             imageModalOverlay.style.display = 'none';
                             this.isUploadingImage = false;
                         } catch (error) {
                             console.error('Error POSTing image:', error);
+                            showToast("Failed to upload image, please try again later.");
                         }
                     })
                 }
@@ -142,7 +149,7 @@ document.addEventListener("alpine:init", () => {
                     this.setPage('appearance');
                     break;
                 case 'appearance':
-                    this.setPage('summary');
+                    this.setPage('finalise');
                     break;
                 default:
                     console.error("Invalid page name");
@@ -454,12 +461,13 @@ document.addEventListener("alpine:init", () => {
          * When the user has finished creating their character, POST the character to the server.
          */
         async handleSubmit(e) {
-            console.log("handleSubmit called")
             e.preventDefault();
-            console.log(this.character);
             const csrfToken = getCookie('csrftoken');
             const python_ready_character = switchObjectNamingConventions(this.character);
-            console.log(python_ready_character)
+            python_ready_character.image = python_ready_character.image.id;
+            if (python_ready_character.facial_hair_length === "") {
+                python_ready_character.facial_hair_length = null;
+            }
             let url = '';
             if (this.editingContext === editingContexts.editExisting) {
                 url = `/characters/${this.characterId}/edit/`;
@@ -488,6 +496,7 @@ document.addEventListener("alpine:init", () => {
                 window.location.href = `/characters/${this.characterId}/`;
             } catch (error) {
                 console.error('Error POSTing character:', error);
+                showToast("Failed to save character, please try again.");
             }
         },
         /**
@@ -542,6 +551,12 @@ document.addEventListener("alpine:init", () => {
             // but just in case, check again.
             if (!this.isComplete) {
                 console.error("Character is not complete, cannot generate image.");
+                showToast("Character is not complete, cannot generate image.");
+                return;
+            }
+            if (!this.enableImageGeneration) {
+                console.error("Image generation is disabled.");
+                showToast("Image generation is disabled.");
                 return;
             }
             this.isGeneratingImage = true;
@@ -574,12 +589,14 @@ document.addEventListener("alpine:init", () => {
                     throw new Error('Failed to POST image generation request');
                 }
                 const data = await response.json();
-                console.log("Image generated successfully");
-                console.log(data);
-                this.character.imageUrl = data.image_url;
+                this.character.image = {
+                    url: data.url,
+                    id: data.id
+                }
                 this.isGeneratingImage = false;
             } catch (error) {
                 console.error('Error POSTing image generation request:', error);
+                showToast("Failed to generate image, please try again later.");
                 this.isGeneratingImage = false;
             }
         }

@@ -22,6 +22,7 @@ class Command(BaseCommand):
         for user_data in users_data_list:
             user = User.objects.create_user(username=user_data['username'], password=user_data['password'])
             user.userprofile.bio = user_data['bio']
+            user.userprofile.image = user_data['image']
             user.userprofile.save()
             self.stdout.write(self.style.SUCCESS(f'User {user.username} created with bio.'))
 

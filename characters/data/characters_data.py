@@ -5,26 +5,31 @@ users_data_list = [
         'username': 'AdventurerAlice',
         'password': 'password1',
         'bio': 'A passionate gamer and story-teller who loves creating epic characters and thrilling adventures.',
+        'image': 'adventuring-alice_goc4ha'
     },
     {
         'username': 'dungeonmasterdave',
         'password': 'password2',
         'bio': 'Experienced dungeon master with a knack for weaving intricate plots and challenging encounters.',
+        'image': 'dungeonmaster-dave_vy1vfq'
     },
     {
         'username': 'ElfEnthusiast',
         'password': 'password3',
         'bio': 'Enthusiastic about all things elf-related, from lore to character creation, and loves role-playing as nimble archers.',
+        'image': 'elf-enthusiast_qcfiq1'
     },
     {
         'username': 'battlemagebobby',
         'password': 'password4',
         'bio': 'A fan of magical combat and strategy games, constantly seeking the perfect blend of might and magic.',
+        'image': 'battlemage-bobby_mysfnp'
     },
     {
         'username': 'HeroicHelen',
         'password': 'password5',
         'bio': 'Loves diving into heroic tales and creating characters with rich backstories and unique abilities.',
+        'image': 'heroic-helen_clrsfl'
     },
 ]
 
