@@ -18,9 +18,10 @@ urlpatterns = [
         views.delete_character,
         name='delete_character'
     ),
-    path('<int:character_id>/toggle-privacy/',
-         views.toggle_privacy,
-         name='toggle_privacy'
+    path(
+        '<int:character_id>/toggle-privacy/',
+        views.toggle_privacy,
+        name='toggle_privacy'
     ),
     path(
         '<int:character_id>/clone/',
