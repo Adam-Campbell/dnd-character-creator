@@ -89,14 +89,14 @@ document.addEventListener("alpine:init", () => {
                             this.character.image = {
                                 url: data.url,
                                 id: data.id
-                            }
+                            };
                             imageModalOverlay.style.display = 'none';
                             this.isUploadingImage = false;
                         } catch (error) {
                             console.error('Error POSTing image:', error);
                             showToast("Failed to upload image, please try again later.");
                         }
-                    })
+                    });
                 }
             });
             // On click, destroy the cropper instance and hide the modal.
@@ -217,7 +217,7 @@ document.addEventListener("alpine:init", () => {
         get backgroundIsComplete() {
             return (Boolean(this.character.name.trim()) && Boolean(this.character.age) && 
                     Boolean(this.character.gender.trim()) && Boolean(this.character.background.trim())
-                )
+                );
         },
         /**
          * Returns true if the appearance portion of the character creation is complete, false otherwise.
@@ -227,7 +227,7 @@ document.addEventListener("alpine:init", () => {
                     Boolean(this.character.skinTone.trim()) && Boolean(this.character.eyeColor.trim()) && 
                     Boolean(this.character.hairColor.trim()) && Boolean(this.character.hairStyle.trim()) && 
                     Boolean(this.character.clothingStyle.trim()) && Boolean(this.character.clothingColors.trim())
-                )
+                );
         },
         /**
          * Returns true if all portions of the character creation are complete, false otherwise.
@@ -348,7 +348,7 @@ document.addEventListener("alpine:init", () => {
                 return {
                     ...a,
                     value: "--"
-                }
+                };
             });
         },
         /**
@@ -581,7 +581,7 @@ document.addEventListener("alpine:init", () => {
                             viewMode: 1,
                             autoCropArea: 1
                         });
-                    }
+                    };
 
                 };
                 reader.readAsDataURL(file);
@@ -647,7 +647,7 @@ document.addEventListener("alpine:init", () => {
                 this.character.image = {
                     url: data.url,
                     id: data.id
-                }
+                };
                 this.isGeneratingImage = false;
             } catch (error) {
                 // If there is an error during the POST request, log it to the console and show a toast
@@ -658,5 +658,5 @@ document.addEventListener("alpine:init", () => {
             }
         }
     }));
-})
+});
 

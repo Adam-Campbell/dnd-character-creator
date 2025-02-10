@@ -14,12 +14,18 @@ const defaultOptions = {
     delay: 5000,
     variant: 'danger',
     callback: noop,
-}
+};
 
 
 if (toastEl) {
+    // Add event listener to the toast element (which is always in
+    // the DOM). When the toast is hidden, clear the message and
+    // call the current callback, then dispose of the toast instance.
     toastEl.addEventListener('hidden.bs.toast', () => {
         toastMessageEl.innerText = '';
+        // currentCallback is stored in a closure, so we can call it here
+        // and it will always be the callback that was set when the most
+        // recent toast was shown.
         currentCallback();
         currentCallback = noop;
         toastInstance.dispose();
