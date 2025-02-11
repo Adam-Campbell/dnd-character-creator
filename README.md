@@ -71,6 +71,10 @@ TBD
 
 ## AI Implementation and Orchestration
 
+- **Code creation:** I utilised Copilot to assist with code creation at various points. It was useful when dealing with parts of Django that I wasn't yet familiar with, and was especially useful for getting me up to speed with libraries I hadn't used before such as [CropperJS](https://fengyuanchen.github.io/cropperjs/).
+- **Debugging:** Copilot also proved useful for debugging, although somewhat inconsistently. Sometimes it was very helpful, other times it didn't do much good and I probably would have been better off debugging the issue by myself.
+- **Asset generation:** I used Dall-E to generate artwork for the site, including the illustrated images on the about page and some placeholder images. It was quite effective at generating the illustrated artwork, but less so for the placeholders - it took a bit of effort to get it to stop putting extra details into the image.
+- **Dynamically creating character images:** In order to dynamically generate character images for the user, I utilised the OpenAI API, which I interacted with through the official openai Python package. At first I attempted to take the appearance data from the character editor and feed it straight into Dall-E as key:value pairs, but this led to very poor and inconsistent results. In the end, I decided to first feed the key:value pairs into the gpt-4o-mini model so that it could generate a natural language description of the character, which I then took and combined with some artwork style instructions and fed it into Dall-E. This produces reasonable results, but they are still somewhat inconsistent. I suspect that it isn't possible to get a high-level of consistency with this approach.
 
 
 
