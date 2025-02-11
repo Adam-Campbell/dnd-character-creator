@@ -60,22 +60,42 @@ their characters, as well as to browse other users characters for inspiration.
   - The homepage is responsive
 
 ### Should-Have User Stories
-- **User Story 1:** Briefly describe the should-have feature.  
-  **Acceptance Criteria:** List the criteria that define the successful implementation of this user story.
-- **User Story 2:** Briefly describe the should-have feature.  
-  **Acceptance Criteria:** List the criteria that define the successful implementation of this user story.
+- **User Story 1:** As a user I can choose to make any of my characters private so that I can create characters without others being able to see them.  
+  **Acceptance Criteria:**
+  - A user can choose to make any of their characters private.
+  - Once a character has been made private, it is only viewable by its creator.
+  - A user cannot make other users characters private.
+  - A user can choose to switch their own characters between public and private at any point.
+- **User Story 2:** As a user I can clone any publicly viewable character so that I can use it as a starting point for my character.
+  **Acceptance Criteria:**
+  - When a user is viewing any public character, they can click a button to clone that character.
+  - When a user clones a character, it creates a new Character, with all the same details as the previous character, except for meta things (user, id, likes etc).
+- **User Story 3:** As a user I can like another users character so that I can show my approval, and keep a reference to it in my likes list
+  **Acceptance Criteria:**
+  - A user can like another users character, or unlike it if they have already liked it.
+  - The users profile will contain a list of all characters that they have liked.
 
-(Include all prioritized should-have features)  
-**Guidance:** Document the secondary features that you aim to implement in Phase 3: Should User Stories Implementation & Any Advanced Features. Include clear acceptance criteria for each.
 
 ### Could-Have User Stories
-- **User Story 1:** Briefly describe the could-have feature.  
-  **Acceptance Criteria:** List the criteria that define the successful implementation of this user story.
-- **User Story 2:** Briefly describe the could-have feature.  
-  **Acceptance Criteria:** List the criteria that define the successful implementation of this user story.
-
-(Include any could-have features considered for future enhancements)  
-**Guidance:** Document any optional features that are nice to have but not essential.
+- **User Story 1:** As a user I can upload an image for my character so that I can have a visual representation of them.  
+  **Acceptance Criteria:**
+  - A user can add an image to a character that they have created.
+  - The user is presented with an intuitive UI for uploading the image.
+  - The image is uploaded to Cloudinary.
+- **User Story 2:** As a user I can generate an AI image of my character based on my characters description so that I can still have a visual representation even if I don't have my own image.    
+  **Acceptance Criteria:**
+  - User can click a button to generate an image for their created character.
+  - The image is created by taking the appearance options that the user has specified for the character, and feeding them into an AI image generator.
+  - The resulting image is uploaded to Cloudinary, and set as the characters image.
+- **User Story 3:** As a user I can download a PDF of my character sheet so that I can use it offline.
+  **Acceptance Criteria:**
+  - A user can click a button to render a character sheet as a PDF, which downloads to their computer.
+  - The PDF presents the same information as the digital character sheet, in a neat manner.
+- **User Story 4:** As a user I can create character collections so that I can store characters in an organised way.  
+  **Acceptance Criteria:**
+  - Users can create new collections
+  - Users can give the collection a name and description
+  - Users can add and remove public characters to and from their collections
 
 ## Design Decisions
 
