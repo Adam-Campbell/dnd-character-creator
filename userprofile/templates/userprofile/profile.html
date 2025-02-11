@@ -13,19 +13,19 @@
 <div class="container pt-4">
     <div class="row d-flex flex-column flex-md-row py-4">
         <div class="d-flex flex-column justify-content-center align-items-center col-12 col-md-4 col-lg-3">
-            <img class="profile-image mb-4 mb-md-0 me-md-4" src="{{ user.userprofile.image }}" alt="Profile Picture">
+            <img class="profile-image mb-4 mb-md-0 me-md-4" src="{{ profile_user.userprofile.image }}" alt="Profile Picture">
             {% if is_own_profile %} 
                 <label for="image-upload" class="btn btn-outline-primary mt-2">Upload image</label>
-                <input data-user-id="{{ user.id }}" type="file" class="d-none" id="image-upload">
+                <input data-user-id="{{ profile_user.id }}" type="file" class="d-none" id="image-upload">
             {% endif %}
         </div>
         <div class="d-flex flex-column justify-content-center align-items-center align-items-md-start col-12 col-md-8 col-lg-9">
-            <h1 class="heading-font">{{ user.username }}</h1>
+            <h1 class="heading-font">{{ profile_user.username }}</h1>
             <div id="bio-container">
-                {% if user.userprofile.bio %}
-                    <p id="bio-text">{{ user.userprofile.bio }}</p>
+                {% if profile_user.userprofile.bio %}
+                    <p id="bio-text">{{ profile_user.userprofile.bio }}</p>
                 {% endif %}
-                {% if not user.userprofile.bio %}
+                {% if not profile_user.userprofile.bio %}
                     <p>No bio.</p>
                 {% endif %}
                 {% if is_own_profile %}
@@ -34,9 +34,9 @@
             </div>
             
             {% if is_own_profile %}
-                <form class="d-none align-self-stretch " id="edit-bio-form" action="{% url 'edit_profile_bio' user.id %}" method="POST">
+                <form class="d-none align-self-stretch " id="edit-bio-form" action="{% url 'edit_profile_bio' profile_user.id %}" method="POST">
                     {% csrf_token %}
-                    <textarea class="form-control" name="bio" id="bio-textarea" rows="3">{{ user.userprofile.bio }}</textarea>
+                    <textarea class="form-control" name="bio" id="bio-textarea" rows="3">{{ profile_user.userprofile.bio }}</textarea>
                     <button type="submit" class="btn btn-primary mt-2">Save</button>
                 </form>
             {% endif %}

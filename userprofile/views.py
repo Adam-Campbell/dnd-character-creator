@@ -79,7 +79,7 @@ def profile(request, user_id):
         )
 
     return render(request, 'userprofile/profile.html', {
-        'user': user,
+        'profile_user': user,
         'created_characters': created_characters,
         'liked_characters': liked_characters,
         'is_own_profile': is_own_profile
