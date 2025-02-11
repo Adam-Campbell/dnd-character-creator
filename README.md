@@ -81,6 +81,7 @@ I ensured that colour contrasts were sufficient throughout the site, and that fo
 
 All features were manually tested, both for the Python backend code and the JavaScript frontend code. Bugs were discovered at several points during development, but were quickly dealt with.  
 All JavaScript code was ran through JSHint, all Python code was validated with a PEP 8 validator. All HTML and CSS was ran through validators. All issues identified during this process were dealt with, and then the files we revalidated. 
+All pages of the deployed site were run through lighthouse.
 
 The screenshots are included below.
 ![main_views-screenshot](https://github.com/user-attachments/assets/1bbe70a1-fd6e-4062-8ff4-d4401452d296)
@@ -130,23 +131,18 @@ The screenshots are included below.
 
 
 
-
-## Reflection on Development Process
-
-### Successes
-Effective use of AI tools, including GitHub Copilot and DALL-E, and how they contributed to the development process.
-
-### Challenges
-Describe any challenges faced when integrating AI-generated content and how they were addressed.
-
-### Final Thoughts
-Provide any additional insights gained during the project and thoughts on the overall process.  
-**Guidance:** Begin drafting reflections during Phase 1 and update throughout the project. Finalize this section after Phase 4. Highlight successes and challenges, particularly regarding the use of AI tools, and provide overall insights into the project.
-
-## Code Attribution
-Properly attribute any external code sources used in the project (excluding GitHub Copilot-generated code).  
-**Guidance:** Document any external code sources used throughout the entire project, especially during Phase 2 and Phase 3. Exclude GitHub Copilot-generated code from attribution.
-
 ## Future Improvements
-Briefly discuss potential future improvements or features that could be added to the project.  
-**Guidance:** Reflect on potential enhancements that could be made to the project after Phase 4: Final Testing, Debugging & Deployment. These could be Could user story features you didn’t have time to implement or improvements based on testing feedback.
+One feature I didn't get time to implement was generating PDF character sheets for created characters. I was planning to make the character sheets using HTML, and then converting them to a PDF using a solution such as [weasyprint](https://weasyprint.org/).
+
+
+## Technologies Used
+
+
+## Credits
+
+
+
+
+
+
+
