@@ -4,7 +4,7 @@
 
 ### Purpose
 The Adventurer's Rest is an online Dungeons & Dragons character creation and management tool. It provides an intuitive interface for creating a character conforming to the subset of Dungeons and Dragons rules contained within 
-the [Systems Reference Document](https://www.dndbeyond.com/resources/1781-systems-reference-document-srd?srsltid=AfmBOooY4RPy4pqzFizxz7M8g6XqFSs6ig6Iiy24rGq_g1TwqeZZatup).
+the [Systems Reference Document](https://www.dndbeyond.com/resources/1781-systems-reference-document-srd?srsltid=AfmBOooY4RPy4pqzFizxz7M8g6XqFSs6ig6Iiy24rGq_g1TwqeZZatup) - a subset of the core Dungeons and Dragons rules that are released under the Creative Commons licence.
 It also provides an online character sheet, displaying the character's details in an easy-to-digest layout.
 
 
@@ -12,137 +12,69 @@ It also provides an online character sheet, displaying the character's details i
 The target audience for this website is Dungeons & Dragons players (current or prospective) that are looking for an easy way to manage their Dungeons & Dragons characters. The site gives them a simple way to create, store and share
 their characters, as well as to browse other users characters for inspiration.
 
-![responsive-about-page](https://github.com/user-attachments/assets/cf009579-a035-486f-be83-2a5fdd1371bd)
+![responsive-about-screenshot](https://github.com/user-attachments/assets/230dd2b8-641f-4792-aca3-4ce81b8e0e07)
+
 
 [Link to deployed site](https://dnd-character-creator-196a1c69fe18.herokuapp.com/)
 
-## User Stories
+## UX Design Process
 
-### Must-Have User Stories
-- **User Story 1:** As a user I can create an account so that I can store my created characters online.  
-  **Acceptance Criteria:**
-  - The user can sign up or log in using a username and password
-  - The signup and login pages are styled to match the rest of the site
-  - The users login status is reflected in the sites header
-- **User Story 2:** As a user I can create a character and save it to my account so that I can reference it again later.  
-  **Acceptance Criteria:**
-  - A logged in user can create a character using an intuitive UI.
-  - The character is saved to the users account
-  - Validation is performed on the front end and back end, for a better user experience
-- **User Story 3:** As a user I can edit my previously characters so that I can update it with my new ideas.  
-  **Acceptance Criteria:**
-  - A logged in user can load up one of their previously made characters in the character creator/editor, and make changes to that character.
-  - Upon saving, the correct character entity in the database will be updates with the new details.
-- **User Story 4:** As a user I can view the character sheet for a character so that I can see the information presented in an easy-to-digest manner.  
-  **Acceptance Criteria:**
-  - Character sheet presents the character information in a clear way.
-  - Character sheet is responsive.
-- **User Story 5:** As a user I can browse through all public characters so that I can draw inspiration from the creations of others.  
-  **Acceptance Criteria:**
-  - User can view a paginated list of character cards for publicly viewable characters.
-  - User can apply filters and ordering to the list.
-  - If user clicks any of the character cards then they are taken to the corresponding character sheet
-- **User Story 6:** As a user I can have a profile page so that I can display my public characters, and write a bit about myself.  
-  **Acceptance Criteria:**
-  - Each user has their own profile page
-  - It can only be edited by the correct user
-  - Other users will see the users basic information and public characters, whilst the user themselves will see everything.
-- **User Story 7:** As a user I can delete any of my previously created characters so that I can control what remains online.  
-  **Acceptance Criteria:**
-  - User is presented with the option to delete any character that they have created.
-  - Deletion can be triggered from the character sheet.
-  - User is asked to confirm before deletion occurs.
-  - User cannot delete any characters that they did not create.
-- **User Story 8:** As a prospective user I can view the homepage so that I can determine whether I want to use the site.  
-  **Acceptance Criteria:**
-  - There is a homepage served at the base route
-  - The homepage is informative
-  - The homepage is responsive
-
-### Should-Have User Stories
-- **User Story 1:** As a user I can choose to make any of my characters private so that I can create characters without others being able to see them.  
-  **Acceptance Criteria:**
-  - A user can choose to make any of their characters private.
-  - Once a character has been made private, it is only viewable by its creator.
-  - A user cannot make other users characters private.
-  - A user can choose to switch their own characters between public and private at any point.
-- **User Story 2:** As a user I can clone any publicly viewable character so that I can use it as a starting point for my character.
-  **Acceptance Criteria:**
-  - When a user is viewing any public character, they can click a button to clone that character.
-  - When a user clones a character, it creates a new Character, with all the same details as the previous character, except for meta things (user, id, likes etc).
-- **User Story 3:** As a user I can like another users character so that I can show my approval, and keep a reference to it in my likes list
-  **Acceptance Criteria:**
-  - A user can like another users character, or unlike it if they have already liked it.
-  - The users profile will contain a list of all characters that they have liked.
-
-
-### Could-Have User Stories
-- **User Story 1:** As a user I can upload an image for my character so that I can have a visual representation of them.  
-  **Acceptance Criteria:**
-  - A user can add an image to a character that they have created.
-  - The user is presented with an intuitive UI for uploading the image.
-  - The image is uploaded to Cloudinary.
-- **User Story 2:** As a user I can generate an AI image of my character based on my characters description so that I can still have a visual representation even if I don't have my own image.    
-  **Acceptance Criteria:**
-  - User can click a button to generate an image for their created character.
-  - The image is created by taking the appearance options that the user has specified for the character, and feeding them into an AI image generator.
-  - The resulting image is uploaded to Cloudinary, and set as the characters image.
-- **User Story 3:** As a user I can download a PDF of my character sheet so that I can use it offline.
-  **Acceptance Criteria:**
-  - A user can click a button to render a character sheet as a PDF, which downloads to their computer.
-  - The PDF presents the same information as the digital character sheet, in a neat manner.
-- **User Story 4:** As a user I can create character collections so that I can store characters in an organised way.  
-  **Acceptance Criteria:**
-  - Users can create new collections
-  - Users can give the collection a name and description
-  - Users can add and remove public characters to and from their collections
-
-## Design Decisions
+The project board including user stories can be found [here](https://github.com/users/Adam-Campbell/projects/3).
 
 The two most complex views on this website are the Character Editor and Character Detail views, and both of these views required a significant amount of data to be displayed in a clear manner that was easy to interact with. I therefore made the decision to forgo wireframes and to instead just design it directly in the browser where I could interact with it in the manner that a user would, and could also see how it looked with varying amounts of content. I experimented with different layout configurations and UI components to create the layouts, and was able to iterate efficiently thanks to Bootstrap. I made use of UX patterns such as accordions to hide certain details from the user until they were ready to look for them, in order to avoid overwhelming the user with information.
 
-Include wireframes for key sections of your website.  
-Briefly describe the design choices, including layout, colour schemes, and fonts.  
-**Guidance:** Start this section during Phase 1: Ideation & Initial Setup and update it throughout Phase 2 and Phase 3. Include digital wireframes created in Phase 1. Document the reasoning behind your layout choices, colour schemes, and font selections.
+**Character list view**  
+![responsive-character-list-screenshot](https://github.com/user-attachments/assets/bc68a95a-564d-41a7-aa95-2af6cbe05345)
+
+**Character detail view**  
+![responsive-character-detail-screenshot](https://github.com/user-attachments/assets/6c99020f-d077-4f8b-a82c-8364f1efb666)
+
+**Character editor mobile view**  
+![responsive-editor-mobile-screenshot](https://github.com/user-attachments/assets/ee25b4be-e6fd-418e-baa6-ecf17757725b)
+
+**Character editor tablet view**  
+![responsive-editor-tablet-screenshot](https://github.com/user-attachments/assets/536f2162-6439-4616-b4b1-ee60ae42e950)
+
+**Character editor desktop view**  
+![responsive-editor-desktop-screenshot](https://github.com/user-attachments/assets/32e053c0-bedd-4c13-bc3e-11da9d3bc95a)
+
+I utilised the following colour scheme throughout the site:
+
+![color-palette-screenshot](https://github.com/user-attachments/assets/14bf9b6a-cd1c-49a9-8e56-581d0cc81192)
+
+I sourced the fonts from Google Fonts - I used Cinzel for the headings and Cabin for the body text.
+
+![google-fonts-screenshot](https://github.com/user-attachments/assets/b73e4ab9-2d44-4a03-a8f8-3a2cb86a5e0f)
 
 ### Accessibility Considerations
-Discuss how accessibility guidelines were adhered to, including colour contrast and alt text for images.  
-**Guidance:** Outline how you've incorporated accessibility into your design, ensuring that your project adheres to guidelines such as WCAG.
+I ensured that colour contrasts were sufficient throughout the site, and that fonts were of sufficient size. Semantic HTML has been used where appropriate, and all form controls are properly labelled. 
 
-## AI Tools Usage
 
-### DALL-E
-Describe how DALL-E was used for image generation, including examples of successes and challenges.  
-**Guidance:** Specifically mention how you used DALL-E for image generation and the impact this had on your design process.
 
-## Features Implementation
+## Key Features
 
-### Core Features (Must-Haves)
-- **Feature 1:** Description of the implemented feature.
-- **Feature 2:** Description of the implemented feature.
+- **Authentication:** Authentication was handled by django-allauth, and I made some adjustments to the default HTML templates it uses.
+- **Character creation and editing:** The character editor allows the user to create a character adhering to the rules given in the Dungeons and Dragons Systems Reference Document (SRD). The editor reacts according to the choices that the user has made, adjusting the options it presents to ensure that the created characters adhere to the SRD. The editor was built with [AlpineJS](https://alpinejs.dev/) which handles all of the reactivity, and it communicates with the backend via the Fetch API.
+- **Character sheets (Character Detail):** The character detail view essentially functions as an online character sheet for a character that a user has created. It takes all of the character information and displays it in an easy-to-digest manner, using responsive design principles to ensure that it looks good at all screen sizes.
+- **Character browsing:** Users can browse all publicly available characters, filtering by race and class.
+- **Public and private characters:** Users can choose at any time whether they want one of their characters to be public or private. Any private characters can only be viewed by the user that created it.
+- **Character 'likes':** Users can 'like' a character, increasing its publicly displayed 'like' count, and also saving it to the users profile under the Liked Characters section.
+- **Character cloning:** Users can clone a publicly viewable character, which creates a copy of it in the character editor for them, which they can then use as the starting point for one of their own characters.
+- **Image uploading:** Users can upload an image both for their character, and for themselves on their user profile. Uploaded images are cropped to a square (1:1) aspect ratio, and this is handled on the front end by [CropperJS](https://fengyuanchen.github.io/cropperjs/).
+- **Character image generation:** The users can choose to generate an image based on their character. This is achieved by taking the characters appearance data from the character editor and using the OpenAI API to feed the data into Dall-E, which then creates the image.
 
-(Include all must-have features)  
-**Guidance:** Use this section as you complete Phase 2: Must User Stories Implementation & Testing. Document all the must-have features you implemented, explaining how they align with the user stories and acceptance criteria.
 
-### Advanced Features (Should-Haves)
-- **Feature 1:** Description of the implemented feature.
-- **Feature 2:** Description of the implemented feature.
+## Deploymant
 
-(Include all should-have features)  
-**Guidance:** Include any advanced features you implemented during Phase 3: Should User Stories Implementation & Any Advanced Features. Explain how these features enhance user experience and their alignment with the acceptance criteria.
+TBD
 
-### Optional Features (Could-Haves)
-- **Feature 1:** Description of the implemented feature (if any).
-- **Feature 2:** Description of the implemented feature (if any).
 
-(Include any could-have features that were implemented or considered)  
-**Guidance:** If any could-have features were implemented, describe them here. This is an opportunity to showcase extra work done beyond the initial scope. But remember - keep it simple! Focus on the Must stories first. Could user story features are commonly earmarked for future project iterations.
+## AI Implementation and Orchestration
 
-## AI Tools Usage
 
-### GitHub Copilot
-Describe how GitHub Copilot assisted in coding, including any challenges or adjustments needed.  
-**Guidance:** Reflect on how GitHub Copilot assisted in coding, particularly any challenges or adjustments that were needed to align with project goals.
+
+
+
 
 ## Testing and Validation
 
