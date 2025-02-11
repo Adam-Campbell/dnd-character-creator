@@ -53,7 +53,6 @@ class CharacterForm(forms.ModelForm):
             data = cleaned_data.get(field, [])
             if data is None:
                 cleaned_data[field] = []
-
         static_data = get_static_data()
         race_data = get_item_by_uuid(
             static_data['races'], cleaned_data['race']
@@ -142,6 +141,7 @@ class CharacterForm(forms.ModelForm):
                 )
         # Check that facial_hair_length is an empty string if
         # facial_hair_style is 'None' or 'Stubble'
+        #print(cleaned_data)
         if (
             cleaned_data['facial_hair_style'] in ['None', 'Stubble']
             and cleaned_data['facial_hair_length'] != ''

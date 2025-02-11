@@ -495,6 +495,7 @@ document.addEventListener("alpine:init", () => {
                 python_ready_character.facial_hair_length = null;
             }
             let url = '';
+            console.log(python_ready_character);
             // Set the URL to POST to based on the editing context.
             if (this.editingContext === editingContexts.editExisting) {
                 url = `/characters/${this.characterId}/edit/`;
