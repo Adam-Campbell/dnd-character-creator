@@ -1,15 +1,16 @@
 
+/**
+ * Accepted types for the character editors editingContext.
+ */
 export const editingContexts = {
     createNew: 'CREATE_NEW',
     editExisting: 'EDIT_EXISTING',
     cloneExisting: 'CLONE_EXISTING'
-}
-
-
+};
 
 
 /**
- * Factory function for creating a new, empty character object
+ * Factory function for creating a new, empty/default character object
  * @returns 
  */
 export function getEmptyCharacter() {
@@ -58,6 +59,9 @@ export function getEmptyCharacter() {
     };
 }
 
+/**
+ * Bidirectional map between naming conventions used on the client and the server.
+ */
 const namingConventionMap = {
     image: 'image',
     race: 'race',
@@ -108,8 +112,16 @@ const namingConventionMap = {
     clothing_colors: 'clothingColors',
     clothingAccessories: 'clothing_accessories',
     clothing_accessories: 'clothingAccessories',
-}
+};
 
+/**
+ * Takes a character data object and switches the naming conventions of its keys.
+ * That is, it connverts incoming character data from the server to the naming
+ * conventions used on the client, and outgoing character data from the client to
+ * the naming conventions used on the server.
+ * @param {*} obj 
+ * @returns 
+ */
 export function switchObjectNamingConventions(obj) {
     const newObj = {};
     for (const key in obj) {
@@ -136,7 +148,7 @@ function denormaliseClass(cls, data) {
         return {
             item: item,
             quantity: e.quantity
-        }
+        };
     });
     // Abilities need to have their shape changed
     cls.abilities = cls.abilities.map(a => {
@@ -144,7 +156,7 @@ function denormaliseClass(cls, data) {
         return {
             ability: ability,
             value: a.value
-        }
+        };
     });
     cls.primaryAbility = data.abilities.find(a => a.id === cls.primaryAbility);
     // Proficiencies can just be replaced as-is
@@ -173,7 +185,7 @@ function denormaliseRace(race, data) {
         return {
             ability: ability,
             bonus: abilityBonus.bonus
-        }
+        };
     });
     // Weapon proficiencies can be replaced as-is
     race.weaponProficiencies = race.weaponProficiencies.map(w => data.items.find(i => i.id === w));
@@ -186,10 +198,10 @@ function denormaliseRace(race, data) {
  * @returns 
  */
 export function denormaliseData(data) {
-    //combineItems(data);
     data.classes.forEach(cls => denormaliseClass(cls, data));
     data.races.forEach(race => denormaliseRace(race, data));
-    // return the data object just for flexibility
+    // Even though we are mutating the data object,
+    // we still return it for convenience.
     return data;
 }
 
