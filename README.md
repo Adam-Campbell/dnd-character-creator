@@ -99,7 +99,8 @@ their characters, as well as to browse other users characters for inspiration.
 
 ## Design Decisions
 
-### Wireframes
+The two most complex views on this website are the Character Editor and Character Detail views, and both of these views required a significant amount of data to be displayed in a clear manner that was easy to interact with. I therefore made the decision to forgo wireframes and to instead just design it directly in the browser where I could interact with it in the manner that a user would, and could also see how it looked with varying amounts of content. I experimented with different layout configurations and UI components to create the layouts, and was able to iterate efficiently thanks to Bootstrap. I made use of UX patterns such as accordions to hide certain details from the user until they were ready to look for them, in order to avoid overwhelming the user with information.
+
 Include wireframes for key sections of your website.  
 Briefly describe the design choices, including layout, colour schemes, and fonts.  
 **Guidance:** Start this section during Phase 1: Ideation & Initial Setup and update it throughout Phase 2 and Phase 3. Include digital wireframes created in Phase 1. Document the reasoning behind your layout choices, colour schemes, and font selections.
