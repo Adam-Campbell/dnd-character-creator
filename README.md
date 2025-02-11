@@ -157,6 +157,7 @@ One feature I didn't get time to implement was generating PDF character sheets f
 - OpenAI API for programmatic image generation, along with the `openai` Python library. 
 
 ## Credits
+- Wizards of the Coast, who make the core Dungeons and Dragons rules in the Systems Resource Document available to use under the Creative Commons licence. 
 - Unsplash used to source a few images, whilst Dall-E made the rest.
 - AI (both ChatGPT and Copilot) was used as a learning aid and to increase velocity throughout. It was also used to generate text content for the site, including Dungeons and Dragons -related flavour text, and to generate characters according to the schema I gave it, which I then populated the database with.  
 - I made use of the documentation for the various libraries and frameworks used in the project.
