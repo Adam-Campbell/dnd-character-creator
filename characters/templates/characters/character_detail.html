@@ -15,9 +15,9 @@
                 <h1 class="heading-font">{{ character.name }}</h1>
                 <p>{{ character.race_data.name }} {{ character.class_data.name }} | {{ character.age }} years old  |  {{ character.gender }}</p>
                 <div>
-                    <span class="badge bg-dark">Size: {{ character.race_data.size }}</span>
-                    <span class="badge bg-dark">Speed: {{ character.race_data.speed }} ft</span>
-                    <span class="badge bg-dark">Hit Die: 1d{{ character.class_data.hitDie }}</span>
+                    <span class="badge custom-bg-dark">Size: {{ character.race_data.size }}</span>
+                    <span class="badge custom-bg-dark">Speed: {{ character.race_data.speed }} ft</span>
+                    <span class="badge custom-bg-dark">Hit Die: 1d{{ character.class_data.hitDie }}</span>
                 </div>
                 <div class="mt-2 d-flex align-items-center">
                     <img src="{{ character.user.userprofile.image }}" alt="Profile Picture" class="character-sheet-user-image me-2">
@@ -56,7 +56,7 @@
         <!-- Character background section -->
         <div class="col-12 col-md-6 pt-5" id="character-background">
             <h2 class="mb-4 h3 heading-font">Background</h2>
-            <span class="badge text-bg-dark">{{ character.alignment }} Alignment</span>
+            <span class="badge custom-bg-dark">{{ character.alignment }} Alignment</span>
             <p>{{ character.background }}</p>
             {% if character.traits or character.ideals or character.bonds or character.flaws %}
                 <ul class="list-group mt-4">
@@ -107,7 +107,7 @@
         <!-- Character appearance section -->
         <div class="col-12 col-md-6 pt-5" id="character-appearance">
             <h2 class="mb-4 h3 heading-font">Appearance</h2>
-            <div class="border border-light-subtle p-3 bg-white rounded">
+            <div class="border border-light-subtle p-3 custom-bg-light rounded">
                 <table class="table">
                     <tbody>
                         <tr>
@@ -186,7 +186,7 @@
         <!-- Character proficiencies section -->
         <div class="col-12 col-lg-9 pt-5" id="character-proficiencies">
             <h2 class="mb-4 h3 heading-font">Proficiencies</h2>
-            <div class="border border-light-subtle p-3 bg-white rounded">     
+            <div class="border border-light-subtle p-3 custom-bg-light rounded">     
                 <table class="table">
                     <tbody>
                         {% if character.class_data.proficiencies.armor %}
@@ -194,7 +194,7 @@
                             <th>Armor proficiencies</th>
                             <td>
                                 {% for armor in character.class_data.proficiencies.armor %}
-                                    <span class="badge text-bg-dark">{{ armor.name }}</span>
+                                    <span class="badge custom-bg-dark">{{ armor.name }}</span>
                                 {% endfor %}
                             </td>
                         </tr>
@@ -204,7 +204,7 @@
                             <th>Weapon proficiencies</th>
                             <td>
                                 {% for weapon in character.class_data.proficiencies.weapons %}
-                                    <span class="badge text-bg-dark">{{ weapon.name }}</span>
+                                    <span class="badge custom-bg-dark">{{ weapon.name }}</span>
                                 {% endfor %}
                             </td>
                         </tr>
@@ -214,7 +214,7 @@
                             <th>Saving throw proficiencies</th>
                             <td>
                                 {% for saving_throw in character.class_data.proficiencies.savingThrows %}
-                                    <span class="badge text-bg-dark">{{ saving_throw.name }}</span>
+                                    <span class="badge custom-bg-dark">{{ saving_throw.name }}</span>
                                 {% endfor %}
                             </td>
                         </tr>
@@ -223,7 +223,7 @@
                             <th>Skill proficiencies</th>
                             <td>
                                 {% for skill in character.character_class_skill_choices %}
-                                    <span class="badge text-bg-dark">{{ skill.name }}</span>
+                                    <span class="badge custom-bg-dark">{{ skill.name }}</span>
                                 {% endfor %}
                             </td>
                         </tr>

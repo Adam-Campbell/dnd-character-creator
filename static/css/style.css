@@ -6,9 +6,18 @@
 }
 
 :root {
-    --background-color: #f9f6f2;
     --heading-font: 'Cinzel', serif;
     --body-font: 'Cabin', sans-serif;
+    --custom-background-color: #f9f6f2;
+    --custom-background-accent-color: #fcfbf9;
+    --custom-primary-color: #046e8f;
+    --custom-primary-desaturated-color: #16667E;
+    --custom-primary-darkened-color: #035c77;
+    --custom-primary-extra-darkened-color: #034d63;
+    --custom-dark-color: #1c1b19;
+    --bs-body-bg: var(--custom-background-accent-color);
+    --bs-list-group-bg: transparent;
+    --bs-table-bg: var(--bs-body-bg);
 }
 
 
@@ -28,7 +37,7 @@ body {
 
 main {
     flex: 1;
-    background: var(--background-color);
+    background: var(--custom-background-color);
     padding-top: 56px;
 }
 
@@ -47,6 +56,39 @@ main {
     z-index: 11000;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+}
+
+.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--custom-primary-color);
+    --bs-btn-border-color: var(--custom-primary-color);
+    --bs-btn-hover-bg: var(--custom-primary-darkened-color);
+    --bs-btn-hover-border-color: var(--custom-primary-darkened-color);
+    --bs-btn-active-bg: var(--custom-primary-extra-darkened-color);
+    --bs-btn-active-border-color: var(--custom-primary-extra-darkened-color);
+    --bs-btn-disabled-bg: var(--custom-primary-desaturated-color);
+    --bs-btn-disabled-border-color: var(--custom-primary-desaturated-color);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--custom-primary-darkened-color);
+    --bs-btn-border-color: var(--custom-primary-darkened-color);
+    --bs-btn-hover-bg: var(--custom-primary-darkened-color);
+    --bs-btn-hover-border-color: var(--custom-primary-darkened-color);
+    --bs-btn-active-bg: var(--custom-primary-extra-darkened-color);
+    --bs-btn-active-border-color: var(--custom-primary-extra-darkened-color);
+    --bs-btn-disabled-bg: var(--custom-primary-desaturated-color);
+    --bs-btn-disabled-border-color: var(--custom-primary-desaturated-color);   
+}
+
+
+.custom-bg-light {
+    background-color: var(--bs-body-bg);
+}
+
+.custom-bg-dark {
+    background-color: var(--custom-dark-color);
+    color: white;
 }
 
 
@@ -187,7 +229,7 @@ main {
 ********************************/
 .character-card {
     width: 100%;
-    background: rgba(255,255,255,0.8);
+    background: var(--custom-background-accent-color);
 }
 
 .character-card-image-holder {

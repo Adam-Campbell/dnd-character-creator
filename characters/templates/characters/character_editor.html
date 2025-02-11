@@ -165,19 +165,19 @@
                                 <p data-text="chosenRace.description"></p>
                             </div>
                             <div class="col-12 col-md-4 col-lg-3">
-                                <span class="badge text-bg-dark me-1" data-text="`Size: ${chosenRace.size}`"></span>
-                                <span class="badge text-bg-dark me-1"
+                                <span class="badge custom-bg-dark me-1" data-text="`Size: ${chosenRace.size}`"></span>
+                                <span class="badge custom-bg-dark me-1"
                                     data-text="`Speed: ${chosenRace.speed} feet`"></span>
                                 <template data-if="chosenRace.darkvision === true">
-                                    <span class="badge text-bg-dark me-1">Darkvision</span>
+                                    <span class="badge custom-bg-dark me-1">Darkvision</span>
                                 </template>
                                 <template
                                     data-for="abilityBonus in chosenRace.abilityBonuses.filter(abilityBonus => abilityBonus.bonus !== 0)">
-                                    <span class="badge text-bg-dark me-1"
+                                    <span class="badge custom-bg-dark me-1"
                                         data-text="`${abilityBonus.ability.name} +${abilityBonus.bonus}`"></span>
                                 </template>
                                 <template data-for="weapon in chosenRace.weaponProficiencies">
-                                    <span class="badge text-bg-dark" data-text="`${weapon.name} proficiency`"></span>
+                                    <span class="badge custom-bg-dark" data-text="`${weapon.name} proficiency`"></span>
                                 </template>
                             </div>
                         </div>
@@ -233,7 +233,7 @@
                             <!-- Class info -->
                             <div class="col-12 col-md-8 col-lg-9 mb-4">
                                 <h1 class="heading-font" data-text="chosenClass.name"></h1>
-                                <span class="badge text-bg-dark" data-text="`Hit Die: ${chosenClass.hitDie}`"></span>
+                                <span class="badge custom-bg-dark" data-text="`Hit Die: ${chosenClass.hitDie}`"></span>
                                 <p data-text="chosenClass.description"></p>
                                 <p class="mt-2 editor-skills-warning-mobile"><b>Now choose your skill proficiencies using the checkboxes below.</b></p>
                                 <p class="mt-2 editor-skills-warning-desktop"><b>Now choose your skill proficiencies using the checkboxes to the right.</b></p>
@@ -257,14 +257,14 @@
                             <!-- Class proficiencies -->
                             <div class="col-12 col-lg-9 mb-4">
                                 <h2 class="h3 heading-font">Proficiencies</h2>
-                                <div class="border border-light-subtle p-3 bg-white rounded">
+                                <div class="border border-light-subtle p-3 custom-bg-light rounded">
                                     <table class="table">
                                         <tbody>
                                             <tr data-show="chosenClass.proficiencies.armor.length > 0">
                                                 <th class="align-middle">Armor Proficiencies</th>
                                                 <td class="align-middle">
                                                     <template data-for="armorType in chosenClass.proficiencies.armor">
-                                                        <span class="badge text-bg-dark me-1" data-text="armorType.name"></span>
+                                                        <span class="badge custom-bg-dark me-1" data-text="armorType.name"></span>
                                                     </template>
                                                 </td>
                                             </tr>
@@ -272,7 +272,7 @@
                                                 <th class="align-middle">Weapon Proficiencies</th>
                                                 <td class="align-middle">
                                                     <template data-for="weapon in chosenClass.proficiencies.weapons">
-                                                        <span class="badge text-bg-dark me-1" data-text="weapon.name"></span>
+                                                        <span class="badge custom-bg-dark me-1" data-text="weapon.name"></span>
                                                     </template>
                                                 </td>
                                             </tr>
@@ -280,7 +280,7 @@
                                                 <th class="align-middle">Saving Throw Proficiencies</th>
                                                 <td class="align-middle">
                                                     <template data-for="savingThrow in chosenClass.proficiencies.savingThrows">
-                                                        <span class="badge text-bg-dark me-1" data-text="savingThrow.name"></span>
+                                                        <span class="badge custom-bg-dark me-1" data-text="savingThrow.name"></span>
                                                     </template>
                                                 </td>
                                             </tr>
@@ -346,7 +346,7 @@
                         <div class="col-12 my-4">
                             <h1 class="heading-font">Ability points</h1>
                             <p>Ability points are assigned using the Standard Array - a method that offers a balanced way to assign your ability scores without the randomness of rolling dice. You are given a predefined set of numbers: 15, 14, 13, 12, 10, and 8. You can assign each of these values to one of your six ability scores—Strength, Dexterity, Constitution, Intelligence, Wisdom, and Charisma—based on what best suits your character's strengths and weaknesses.</p>
-                            <p>Your character's primary ability is <span class="badge text-bg-dark" data-text="chosenClass.primaryAbility.name"></span></p>
+                            <p>Your character's primary ability is <span class="badge custom-bg-dark" data-text="chosenClass.primaryAbility.name"></span></p>
                         </div>
                         <!-- Ability points Select boxes -->
                         <template data-for="(uuid, index) in uuids">
@@ -431,11 +431,11 @@
                                             <div class="accordion-body">
                                                 <p data-html="formatLineBreaks(cantrip.description)"></p>
                                                 <div>
-                                                    <span class="badge text-bg-dark" data-text="`Range: ${cantrip.range}`"></span>
-                                                    <span class="badge text-bg-dark" data-text="`Casting time: ${cantrip.castingTime}`"></span>
-                                                    <span class="badge text-bg-dark" data-text="`Duration: ${cantrip.duration}`"></span>
+                                                    <span class="badge custom-bg-dark" data-text="`Range: ${cantrip.range}`"></span>
+                                                    <span class="badge custom-bg-dark" data-text="`Casting time: ${cantrip.castingTime}`"></span>
+                                                    <span class="badge custom-bg-dark" data-text="`Duration: ${cantrip.duration}`"></span>
                                                     <template data-if="cantrip.concentration">
-                                                        <span class="badge text-bg-dark">Requires concentration</span>
+                                                        <span class="badge custom-bg-dark">Requires concentration</span>
                                                     </template>
                                                 </div>
                                                 <template data-if="character.classCantripChoices.includes(cantrip.id)">
@@ -478,11 +478,11 @@
                                             <div class="accordion-body">
                                                 <p data-html="formatLineBreaks(spell.description)"></p>
                                                 <div>
-                                                    <span class="badge text-bg-dark" data-text="`Range: ${spell.range}`"></span>
-                                                    <span class="badge text-bg-dark" data-text="`Casting time: ${spell.castingTime}`"></span>
-                                                    <span class="badge text-bg-dark" data-text="`Duration: ${spell.duration}`"></span>
+                                                    <span class="badge custom-bg-dark" data-text="`Range: ${spell.range}`"></span>
+                                                    <span class="badge custom-bg-dark" data-text="`Casting time: ${spell.castingTime}`"></span>
+                                                    <span class="badge custom-bg-dark" data-text="`Duration: ${spell.duration}`"></span>
                                                     <template data-if="spell.concentration">
-                                                        <span class="badge text-bg-dark">Requires concentration</span>
+                                                        <span class="badge custom-bg-dark">Requires concentration</span>
                                                     </template>
                                                 </div>
                                                 <template data-if="character.classSpellChoices.includes(spell.id)">
