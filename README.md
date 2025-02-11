@@ -111,6 +111,11 @@ The screenshots are included below.
 ![user-profile-html-screenshot](https://github.com/user-attachments/assets/7914ad55-f006-4cdf-b575-23d30af57563)
 ![characters-list-html-screenshot](https://github.com/user-attachments/assets/c1ca4859-f1b9-4b09-903c-ee0177b7cbec)
 ![css-screenshot](https://github.com/user-attachments/assets/1e4ea5f7-6598-4462-bb27-2c37bc8410c8)
+![userprofile-lighthouse](https://github.com/user-attachments/assets/72beebb4-2fb0-471f-8e39-b03e2bc63da2)
+![character-list-lighthouse](https://github.com/user-attachments/assets/697e8ed3-418e-4616-8dcc-58b9b3d983b0)
+![character-editor-lighthouse](https://github.com/user-attachments/assets/741d6dd1-a0e6-49eb-8675-1e5f31fb3dc7)
+![character-detail-lighthouse](https://github.com/user-attachments/assets/4eaee4eb-5020-4c09-9518-d50f59aae7e7)
+![about-lighthouse](https://github.com/user-attachments/assets/f0208d85-9d3f-4c3a-b500-d98cedbda068)
 
 
 ## Deployment
@@ -136,10 +141,29 @@ One feature I didn't get time to implement was generating PDF character sheets f
 
 
 ## Technologies Used
-
+- HTML
+- CSS
+- JavaScript
+- Python
+- FontAwesome
+- Bootstrap
+- AlpineJS
+- CropperJS
+- Django
+- Django AllAuth
+- PostgreSQL
+- Gunicorn
+- Cloudinary for image hosting, along with the `cloudinary` Python library.
+- OpenAI API for programmatic image generation, along with the `openai` Python library. 
 
 ## Credits
-
+- Unsplash used to source a few images, whilst Dall-E made the rest.
+- AI (both ChatGPT and Copilot) was used as a learning aid and to increase velocity throughout. It was also used to generate text content for the site, including Dungeons and Dragons -related flavour text, and to generate characters according to the schema I gave it, which I then populated the database with.  
+- I made use of the documentation for the various libraries and frameworks used in the project.
+- Google Fonts were used throughout the site.
+- [Coolors](https://coolors.co/) was used to help generate the colour palette for the site.
+- FontAwesome was used for icons throughout the site, including the icon used in the logo.
+- I occasionally used the Code Institute 'I think therefore I blog' walkthrough project as a reference point for certain aspects of Django. 
 
 
 
