@@ -64,7 +64,7 @@ I ensured that colour contrasts were sufficient throughout the site, and that fo
 - **Character image generation:** The users can choose to generate an image based on their character. This is achieved by taking the characters appearance data from the character editor and using the OpenAI API to feed the data into Dall-E, which then creates the image.
 
 
-## Deploymant
+## Deployment
 
 TBD
 
@@ -82,34 +82,43 @@ TBD
 
 ## Testing and Validation
 
-### Testing Results
-Summarize the results of testing across different devices and screen sizes.  
-Mention any issues found and how they were resolved.  
-**Guidance:** Summarize the results of your testing across various devices using tools like Chrome DevTools, as outlined in Phase 2. Mention any issues found and how they were resolved.
+All features were manually tested, both for the Python backend code and the JavaScript frontend code. Bugs were discovered at several points during development, but were quickly dealt with.  
+All JavaScript code was ran through JSHint, all Python code was validated with a PEP 8 validator. All HTML and CSS was ran through validators. All issues identified during this process were dealt with, and then the files we revalidated. 
 
-### Validation
-Discuss the validation process for HTML and CSS using W3C and Jigsaw validators.  
-Include the results of the validation process.  
-**Guidance:** Document your use of W3C and Jigsaw validators to ensure your HTML and CSS meet web standards. Include any errors or warnings encountered and how they were resolved.
+The screenshots are included below.
+![main_views-screenshot](https://github.com/user-attachments/assets/1bbe70a1-fd6e-4062-8ff4-d4401452d296)
+![main_urls-screenshot](https://github.com/user-attachments/assets/a576da72-2114-463d-8f38-f25cc00247f3)
+![userprofile_views-screenshot](https://github.com/user-attachments/assets/438703d0-9b71-454a-bb18-39d535e2a895)
+![userprofile_urls-screenshot](https://github.com/user-attachments/assets/3a65f96a-353f-4094-911c-6b57dd4ea671)
+![userprofile_signals-screenshot](https://github.com/user-attachments/assets/66c529b9-c492-4b8c-96b8-d2cb0196dd31)
+![userprofile_models-screenshot](https://github.com/user-attachments/assets/c9f2f357-c661-41b5-a085-4efe6a0fd498)
+![userprofile_forms-screenshot](https://github.com/user-attachments/assets/e789b7f2-80ae-4307-9d48-91d1b55261f6)
+![userprofile_apps-screenshot](https://github.com/user-attachments/assets/f64c5ca5-3579-43cc-9960-646d847b8a71)
+![userprofile_admin-screenshot](https://github.com/user-attachments/assets/bb221675-5160-46d7-a6f4-d5dcfa877218)
+![characters_views-screenshot](https://github.com/user-attachments/assets/c6300971-7bb5-43eb-a9b9-f3b52c372e54)
+![characters_urls-screenshot](https://github.com/user-attachments/assets/2090e7b0-10a0-400c-8c2e-02e4b0f45cf3)
+![characters_models-screenshot](https://github.com/user-attachments/assets/bc084b33-be9d-43fa-abb5-09f18897f5eb)
+![characters_forms-screenshot](https://github.com/user-attachments/assets/38c8bc25-bf56-4283-ad5b-7c8906261fd5)
+![characters_data_utils-screenshot](https://github.com/user-attachments/assets/81ca28a3-f722-4edf-a9d9-b79ba1c05cd0)
+![characters_create_characters-screenshot](https://github.com/user-attachments/assets/93e9f1ec-535b-44ba-b0dd-b073b84b2f82)
+![characters_admin-screenshot](https://github.com/user-attachments/assets/7c479b26-d338-4874-a1ce-5259da35e3b7)
+![character-editor-js-screenshot](https://github.com/user-attachments/assets/4a297e97-650e-4d9d-b9ae-ee52b27f49e9)
+![character-detail-js-screenshot](https://github.com/user-attachments/assets/2c726737-d346-4108-bd62-337bd8d283e0)
+![utils-js-screenshot](https://github.com/user-attachments/assets/d2604731-ec94-4fc8-9d8a-41323e823862)
+![user-profile-js-screenshot](https://github.com/user-attachments/assets/43966d67-c10d-4956-8fb6-7f4b6361b0eb)
+![toast-js-screenshot](https://github.com/user-attachments/assets/4b263dfe-07ef-418d-8794-932f51e4fcaf)
+![character-editor-html-screenshot](https://github.com/user-attachments/assets/7d882c0e-3ad2-4c50-9f99-eea9b83cdc75)
+![character-detail-html-screenshot](https://github.com/user-attachments/assets/7a077180-e3e8-48b2-8966-8898ae8f7443)
+![about-html-screenshot](https://github.com/user-attachments/assets/19f98e1c-9c5d-4dc3-8a0d-77a22bb91b27)
+![user-profile-html-screenshot](https://github.com/user-attachments/assets/7914ad55-f006-4cdf-b575-23d30af57563)
+![characters-list-html-screenshot](https://github.com/user-attachments/assets/c1ca4859-f1b9-4b09-903c-ee0177b7cbec)
+![css-screenshot](https://github.com/user-attachments/assets/1e4ea5f7-6598-4462-bb27-2c37bc8410c8)
 
-## AI Tools Usage
 
-### GitHub Copilot
-Brief reflection on the effectiveness of using AI tools for debugging and validation.  
-**Guidance:** Reflect on how GitHub Copilot assisted with debugging and validation, particularly any issues it helped resolve.
 
-## Deployment
 
-### Deployment Process
-Briefly describe the deployment process to GitHub Pages or another cloud platform.  
-Mention any specific challenges encountered during deployment.  
-**Guidance:** Describe the steps you took to deploy your website during Phase 4: Final Testing, Debugging & Deployment, including any challenges encountered.
 
-## AI Tools Usage
 
-### Reflection
-Describe the role AI tools played in the deployment process, including any benefits or challenges.  
-**Guidance:** Reflect on how AI tools assisted with the deployment process, particularly how they streamlined any tasks or presented challenges.
 
 ## Reflection on Development Process
 
