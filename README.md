@@ -64,9 +64,6 @@ I ensured that colour contrasts were sufficient throughout the site, and that fo
 - **Character image generation:** The users can choose to generate an image based on their character. This is achieved by taking the characters appearance data from the character editor and using the OpenAI API to feed the data into Dall-E, which then creates the image.
 
 
-## Deployment
-
-TBD
 
 
 ## AI Implementation and Orchestration
@@ -115,7 +112,21 @@ The screenshots are included below.
 ![css-screenshot](https://github.com/user-attachments/assets/1e4ea5f7-6598-4462-bb27-2c37bc8410c8)
 
 
-
+## Deployment
+- **Platform:** The website was deployed to Heroku.
+- **High level deployment steps:**
+  1. Clone the Github repository.
+  2. If running locally, install requirements with `pip install -r requirements.txt`.
+  3. Set up a PostgreSQL database for the Heroku environment.
+  4. Configure the following environment variables:
+      - **DEBUG**, which must be set to FALSE when deploying.
+      - **DATABASE_URL**, which should be the URL for connecting to the database instance you have set up.
+      - **SECRET_KEY**, which is the SECRET_KEY that Django will use.
+      - **CLOUDINARY_CLOUD_NAME**, **CLOUDINARY_API_KEY**, and **CLOUDINARY_API_SECRET**, which must be be obtained via your account on the Cloudinary platform.
+      - **OPENAI_API_KEY**, which should be a key for OpenAI's API, obtained through their API platform. If you don't have this, see the environment variable below.
+      - **ENABLE_IMAGE_GENERATION**, set this to either TRUE or FALSE. If FALSE, then it will disable all image generation functionality; the backend routes will return an error and the related UI will not be rendered in the frontend.
+- **Verification and validation:** I manually tested the deployed site to ensure that it functioned the same as it did in the development environment.
+- **Security measures:** All sensitive information was stored in environemnt variables and not committed to the repository. Django debug mode is set according to the DEBUG environment variable (and defaults to FALSE if DEBUG is not set), so as long as the environment variables are correctly configured, debug mode will be disabled when deploying.
 
 
 
